@@ -1,0 +1,11 @@
+jhipster-prod-postgresql:
+  container_name: DevTalk-prod-postgresql
+  image: postgres
+  # volumes:
+  # - ~/volumes/jhipster/DevTalk/prod-postgresql/:/var/lib/postgresql/
+  environment:
+  - POSTGRES_USER=DevTalk
+  - POSTGRES_PASSWORD=
+  ports:
+  - "5432:5432"
+
