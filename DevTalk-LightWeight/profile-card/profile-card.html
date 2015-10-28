@@ -1,0 +1,33 @@
+<link rel="import" href="../bower_components/polymer/polymer.html" />
+
+<dom-module id="profile-card">
+<template>
+	<link rel="stylesheet" href="profile-card.css"/>
+	<article class="card shadow card-content">
+		<img src="{{img}}" class="user-image"/>
+		<h1 class="title">Visitenkarte</h1>
+		<content></content>
+		<em>{{twitter}}</em>
+	</article>
+</template>
+<script>
+	Polymer({is: "profile-card"});
+	properties: {
+  		img: { type: String }
+  		twitter: { type: String }
+	}
+</script>
+</dom-module>
+
+// old and busted!
+<polymer-element name="profile-card" attributes="img, twitter" noscript>
+<template>
+	<link rel="stylesheet" href="profile-card.css"/>
+	<article class="card shadow card-content">
+		<img src="{{img}}" class="user-image"/>
+		<h1 class="title">Visitenkarte</h1>
+		<content></content>
+		<em>{{twitter}}</em>
+	</article>
+</template>
+</polymer-element>

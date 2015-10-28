@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<title>Visitenkarte</title>
+	<script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
+	<link rel="import" href="profile-card.html"/>
+	<link rel="import" href="../bower_components/google-map/google-map.html"/>
+	<style>
+	/* Kein Konflikt mit der card-Regel in profile-card.css: */
+	.card {
+		background-color: red;
+	}
+
+	/* Shadow DOM von außen stylen: */
+	profile-card::shadow .title {
+		color: yellow;
+	}
+
+	google-map {
+    	height: 600px;
+  	}
+	</style>
+</head>
+<body>
+	<google-map latitude="37.77493" longitude="-122.41942"></google-map>
+
+	<profile-card img="profile.jpg" twitter="@gedfth">
+		<h3>Dr. Fatih Gedikli</h2>
+		<h3>FH Dortmund</h3>
+		<h5>Externer Lehrbeauftragter</h5>
+	</profile-card>
+
+	<br/>
+	<profile-card img="http://www.fh-dortmund.de/de/addresses/fb4/Stark_Michael.php.media/32682/Stark_Michael.jpg">
+		<h3>Prof. Dr. Michael Stark</h2>
+		<h3>FH Dortmund</h3>
+		<h4>Dekan</h4>
+	</profile-card>
+</body>
+</html>
