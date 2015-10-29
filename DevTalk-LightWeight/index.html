@@ -1,13 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8"/>
-	<title>Visitenkarte</title>
+	<title>DevTalk</title>
+	<link rel="stylesheet" href="styles/style.css" />
 	<script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
 	<link rel="import" href="webcomponents/login-component.html"/>
-	
 </head>
 <body>
-	<login-component></login-component>
+	<div id="wrapper">
+		<header id="header">
+			<!-- Geile Komponenten hier -->
+			<img src="images/logo.png" alt="Logo DevTalk" />
+		</header>
+		
+		<div id="content">
+			<aside id="aside">
+				<login-component></login-component>
+			</aside>
+			
+			<content id="main-content">
+				<h1>Hallo Welt!</h1>
+				<article>
+					<h3>Hier könnte Ihre Werbung stehen!</h3>
+					<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+				</article>
+			</content>
+			
+			<div style="clear: both;" />
+		</div>
+	</div>
+	<footer id="footer">
+		&copy; BeerBuddy - DevTalk Team
+	</footer>	
 </body>
 </html>

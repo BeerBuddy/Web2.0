@@ -1,0 +1,35 @@
+* {
+	font-family: "Arial", sans-serif;
+}
+
+#wrapper {
+	
+}
+
+#header {
+	border-bottom: 2px solid #B8880A;
+	margin: 10px 0;
+}
+
+fieldset {
+	border-color: #B8880A;
+	border-style: solid;
+}
+
+#aside {
+	width: 30%;
+	float: left;
+}
+
+#main-content {
+	width: 65%;
+	float: right;
+}
+
+#footer {
+	border-top: 2px solid #B8880A;
+	text-align: center;
+	padding: 5px;
+	position: absolute;
+	bottom: 0;
+}
