@@ -1,7 +1,7 @@
 # Web2.0
 
 ##About
-This is a AngularJS + Spring Boot Project with  [J-Hipster](https://jhipster.github.io/)
+This is a AngularJS + Spring Boot Project with  [JHipster](https://jhipster.github.io/)
 
 ## Getting started
 1. Install NodeJS from: [https://nodejs.org](https://nodejs.org)
