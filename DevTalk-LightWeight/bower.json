@@ -1,0 +1,22 @@
+{
+  "name": "DevTalk-LightWeight",
+  "version": "0.0.0",
+  "homepage": "https://github.com/BeerBuddy/Web2.0",
+  "authors": [
+    "DevTalk-Team"
+  ],
+  "main": "server.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "google-map": "Polymer/google-map#~1.1.6",
+    "polymer": "Polymer/polymer#~1.2.0",
+    "webcomponentsjs": "~0.7.15"
+  }
+}
