@@ -17,6 +17,7 @@
   "dependencies": {
     "google-map": "Polymer/google-map#~1.1.6",
     "polymer": "Polymer/polymer#~1.2.0",
-    "webcomponentsjs": "~0.7.15"
+    "webcomponentsjs": "~0.7.15",
+    "google-chart": "~1.0.3"
   }
 }

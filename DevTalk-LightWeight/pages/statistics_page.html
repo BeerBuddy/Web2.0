@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<title>DevTalk - Statistiken</title>
+	<link rel="stylesheet" href="../styles/style.css" />
+	<link rel="stylesheet" href="../styles/style_statistics.css" />
+	<script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
+	<link rel="import" href="../bower_components/google-chart/google-chart.html"/>
+</head>
+<body>
+	<div id="wrapper">
+		<header id="header">
+			<!-- Geile Komponenten hier -->
+			<img src="../images/logo.png" alt="Logo DevTalk" />
+		</header>
+		
+		<div id="content">
+		
+			<content id="main-content">
+				<h1>Statistik</h1>
+				<article>
+					<div class="chartDiv">
+						<google-chart
+						  type="line"
+						  id="zugriffsZahlen"
+						  options='{"title": "Zugriffszahlen"}'
+						  cols='[{"label": "Monat", "type": "string"},{"label": "Hits", "type": "number"}]'
+						  rows='[["Jan", 310],["Feb", 238],["Mar", 110],["Apr", 330],["May", 500],["Jun",  600],
+								 ["Jul", 610],["Aug", 590],["Sep", 500],["Aug", 610],["Nov", 10],["Dez",  0]]'>
+						</google-chart>
+					</div>
+					<div class="description">
+						<h4>Zugriffszahlen 2015</h4>
+						In dem Diagramm wird dargelegt, wie die Zugriffszahlen auf unsere Website im Jahresverlauf waren
+					</div>
+				</article>
+				<div style="clear: both;" ></div>
+				<article>
+					<div class="description">
+						<h4>Anmeldungen / Teilnahmen 2015 </h4>
+						In der folgenden Abbildung sind die Anmeldungen und Teilnahmen an unseren Veranstaltungen innerhalb des letzten Jahres sichtbar. 
+						
+					</div>
+					<div>
+						<!-- siehe https://googlewebcomponents.github.io/google-chart/components/google-chart/ -->
+						<google-chart
+						  type="column"
+						  id="teilnehmerChart"
+						  options='{"title": "Teilnehmer an Vorträge 2015"}'
+						  cols='[{"label": "Monat", "type": "string"},{"label": "Anmeldungen", "type": "number"}, {"label": "Teilnehmer", "type": "number"}]'
+						  rows='[["Jan", 310,300],["Feb", 238, 240],["Mar", 110, 100],["Apr", 330, 310],["May", 551, 500],["Jun", 600, 600],
+								 ["Jul", 610, 610],["Aug", 600, 590],["Sep", 560, 500],["Aug", 610, 610],["Nov", 10, 10],["Dez", 0, 0]]'>
+						</google-chart>
+					</div>
+				</article>
+				<div style="clear: both;" ></div>
+				<article>
+					<div class="chartDiv">
+						<google-chart
+						  type="pie"
+						  id="verteilungChart"
+						  options='{"title": "Teilnehmerverteilung"}'
+						  cols='[{"label": "Geschlecht", "type": "string"}, {"label": "Anteil", "type": "number"}]'
+						  rows='[["Männer", 40],["Frauen", 50]]'>
+						</google-chart>
+					</div>
+					<div class="description">
+						<h4>Verteilung </h4>
+						In dem Diagramm wird dargelegt, wie die Verteilung unserer Kunden ist
+					</div>
+				</article>
+			</content>
+			
+			<div style="clear: both;"></div>
+		</div>
+	</div>
+	<footer id="footer">
+		&copy; BeerBuddy - DevTalk Team
+	</footer>	
+</body>
+</html>
