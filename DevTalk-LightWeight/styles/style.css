@@ -32,11 +32,11 @@ body, #wrapper {
     transition: padding 1s;
 }
 
-.main-header-default {
+.main-header-default, .main-header-default ~ .header-buffer {
 	height: 275px;
 }
 
-.main-header-collapsed {
+.main-header-collapsed, .main-header-collapsed ~ .header-buffer{
 	height: 125px;
 }
 
@@ -99,8 +99,8 @@ fieldset {
 
 #content {
 	background-color: white;
-	margin-top: 300px;
 	padding: 5px;
+	min-height: 500px;
 }
 
 #aside {
@@ -116,6 +116,10 @@ fieldset {
 #footer {
 	border-top: 2px solid #E95D3C;
 	text-align: center;
-	padding: 5px;
+	padding: 5px 0;
 	color: gray;
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	height: 25px;
 }

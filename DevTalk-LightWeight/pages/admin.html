@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<title>DevTalk - Adminfunktionen</title>
+	<link rel="stylesheet" href="/styles/style.css" />
+	<script src="/bower_components/webcomponentsjs/webcomponents.js"></script>
+	<link rel="import" href="/webcomponents/devtalk-header.html"/>
+</head>
+<body>
+	<div id="wrapper">
+		<devtalk-header initialstate="main-header-collapsed" user='{"role": "ADMIN"}'></devtalk-header>
+		
+		<div id="content" class="content-wrapper">
+			<aside id="aside">
+				
+			</aside>
+			
+			<content id="main-content">
+				<h1>Administration</h1>
+				<section>
+					<h3>Auf einen Vortrag klicken, um zu bearbeiten:</h3>
+					<p>Hier kommen die Talks hin.</p>
+				</section>
+			</content>
+			
+			<div style="clear: both;"></div>
+		</div>
+	</div>
+	<footer id="footer">
+		&copy; BeerBuddy - DevTalk Team
+	</footer>
+	<script src="../node_modules/waypoints/lib/noframework.waypoints.min.js"></script>
+	<script src="scripts/app.js"></script>
+</body>
+</html>

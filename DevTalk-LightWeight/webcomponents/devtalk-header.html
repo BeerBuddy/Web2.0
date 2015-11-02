@@ -3,7 +3,7 @@
 
 <dom-module id="devtalk-header">
 <template>
-	<header id="main-header" class="main-header-default">
+	<header id="main-header" class$="{{initialstate}}">
 		<div class="content-wrapper header-menu">
 			<div class="header-background">
 				<img src="/images/logo.png" alt="Logo DevTalk" id="header-logo" />
@@ -11,21 +11,29 @@
 				<nav class="header-nav">
 					<a href="/index.html"><iron-icon icon="apps"></iron-icon>Übersicht</a>
 					<a href="/pages/profile.html"><iron-icon icon="account-box"></iron-icon>Mein Profil</a>
+					
 					<template is="dom-if" if="{{isAdmin(user)}}">
 						<a href="/pages/todo.html"><iron-icon icon="add-box"></iron-icon>Veranstaltung</a>
 						<a href="/pages/statistics_page.html"><iron-icon icon="assessment"></iron-icon>Statistiken</a>
 					</template>
+					
+					<a href="/pages/todo.html"><iron-icon icon="power-settings-new"></iron-icon>Logout</a>
 				</nav>
 			</div>
 		</div>
 	</header>
+	<div class="header-buffer"></div>
 </template>
 
 <script>
 	Polymer({
 		is: "devtalk-header",
 		properties: {
-			user: Object
+			user: Object,
+			initialstate: {
+				type: String,
+				value: "main-header-default"
+			}
 		},
 		isAdmin: function(user) {
 			return user.role === 'ADMIN';
@@ -34,7 +42,7 @@
 			setHeaderClass("main-header-collapsed");
 		},
 		expand: function() {
-			setHeaderClass("main-header-default");
+			setHeaderClass(this.__data__.initialstate);
 		}
 	});
 	

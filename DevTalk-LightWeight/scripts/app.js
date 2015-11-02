@@ -1,5 +1,5 @@
 var waypoint = new Waypoint({
-  element: document.getElementById('content'),
+  element: document.getElementById('main-content'),
   handler: function(direction) {
 	var devTalkHeader = document.querySelector("devtalk-header");
 	if(direction == "down") {
@@ -7,6 +7,5 @@ var waypoint = new Waypoint({
 	} else {
 		devTalkHeader.expand();
 	}
-  },
-  offset: 275
+  }
 });
