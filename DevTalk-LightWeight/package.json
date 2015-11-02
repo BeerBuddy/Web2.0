@@ -1,0 +1,21 @@
+{
+  "name": "devtalk-lightweight",
+  "version": "1.0.0",
+  "description": "Projekt für Web2",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BeerBuddy/Web2.0/tree/master/DevTalk-LightWeight"
+  },
+  "author": "DevTalk-Team",
+  "license": "MIT",
+  "dependencies": {
+    "bower": "^1.6.5",
+    "connect": "^3.4.0",
+    "serve-static": "^1.10.0"
+  }
+}

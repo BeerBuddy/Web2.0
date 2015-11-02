@@ -1,11 +1,12 @@
 0. Install node: https://nodejs.org
 
-1. Install connect and serve-static with NPM (Node Package Manager):
-> npm install connect serve-static bower
+1. Dependencies für Node in package.json zusammengeführt daher braucht man nur noch ein npm update. Neue Dependencies mit --save in der package.json speichern
+	npm update
 
-bower update
+2. Frontend Dependencies mit bower update holen. Neue Dependencies mit --save in der bower.json speichern
+	bower update
 
-2. Run server with Node.js
-> node server.js
+3. Run server. server.js ist in package.json angegeben
+	npm start
 
-3. You can now go to http://localhost:8080/yourfile.html
+4. You can now go to http://localhost:8080/index.html
