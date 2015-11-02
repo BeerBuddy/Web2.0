@@ -2,18 +2,84 @@
 	font-family: "Arial", sans-serif;
 }
 
-#wrapper {
-	
+h1, h2, h3 {
+	color: #E95D3C;
 }
 
-#header {
-	border-bottom: 2px solid #B8880A;
-	margin: 10px 0;
+hr {
+	border-color: #E95D3C;
+	border-style: solid;
+}
+
+body, #wrapper {
+	margin: 0;
+	padding: 0;
+}
+
+#main-header {
+	background: transparent url("../images/banner.png") no-repeat scroll center top;
+	border-bottom: 2px solid #E95D3C;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	-webkit-transition: height 1s;
+    transition: height 1s;
+}
+
+.header-menu {
+	-webkit-transition: padding 1s;
+    transition: padding 1s;
+}
+
+.main-header-default {
+	height: 275px;
+}
+
+.main-header-collapsed {
+	height: 125px;
+}
+
+.main-header-default .header-menu {
+	padding-top: 165px;
+}
+
+.main-header-collapsed .header-menu {
+	padding-top: 15px;
+}
+
+.header-background {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+#header-logo {
+	padding: 5px 5px 5px 25px;
+}
+
+.header-nav {
+	display: inline;
+	float: right;
+	padding: 70px 25px 0 5px;
+}
+
+
+.content-wrapper {
+	width: 80%;
+	margin: 0 auto;
 }
 
 fieldset {
-	border-color: #B8880A;
+	border-color: #E95D3C;
 	border-style: solid;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#content {
+	background-color: white;
+	margin-top: 300px;
+	padding: 5px;
 }
 
 #aside {
@@ -27,9 +93,8 @@ fieldset {
 }
 
 #footer {
-	border-top: 2px solid #B8880A;
+	border-top: 2px solid #E95D3C;
 	text-align: center;
 	padding: 5px;
-	position: absolute;
-	bottom: 0;
+	color: gray;
 }

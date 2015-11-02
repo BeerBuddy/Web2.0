@@ -1,0 +1,36 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="devtalk-header">
+<template>
+	<header id="main-header" class="main-header-default">
+		<div class="content-wrapper header-menu">
+			<div class="header-background">
+				<img src="/images/logo.png" alt="Logo DevTalk" id="header-logo" />
+				
+				<nav class="header-nav">
+					<a href="/html/">HTML</a> |
+					<a href="/css/">CSS</a> |
+					<a href="/js/">JavaScript</a> |
+					<a href="/jquery/">jQuery</a>
+				</nav>
+			</div>
+		</div>
+	</header>
+</template>
+
+<script>
+	Polymer({
+		is: "devtalk-header",
+		collapse: function() {
+			setHeaderClass("main-header-collapsed");
+		},
+		expand: function() {
+			setHeaderClass("main-header-default");
+		}
+	});
+	
+	function setHeaderClass(newClassName) {
+		document.getElementById("main-header").className = newClassName;
+	}
+</script>
+

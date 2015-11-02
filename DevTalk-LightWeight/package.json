@@ -16,6 +16,7 @@
   "dependencies": {
     "bower": "^1.6.5",
     "connect": "^3.4.0",
-    "serve-static": "^1.10.0"
+    "serve-static": "^1.10.0",
+    "waypoints": "^4.0.0"
   }
 }
