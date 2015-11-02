@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 
 <dom-module id="devtalk-header">
 <template>
@@ -8,10 +9,12 @@
 				<img src="/images/logo.png" alt="Logo DevTalk" id="header-logo" />
 				
 				<nav class="header-nav">
-					<a href="/html/">HTML</a> |
-					<a href="/css/">CSS</a> |
-					<a href="/js/">JavaScript</a> |
-					<a href="/jquery/">jQuery</a>
+					<a href="/index.html"><iron-icon icon="apps"></iron-icon>Übersicht</a>
+					<a href="/pages/profile.html"><iron-icon icon="account-box"></iron-icon>Mein Profil</a>
+					<template is="dom-if" if="{{isAdmin(user)}}">
+						<a href="/pages/todo.html"><iron-icon icon="add-box"></iron-icon>Veranstaltung</a>
+						<a href="/pages/statistics_page.html"><iron-icon icon="assessment"></iron-icon>Statistiken</a>
+					</template>
 				</nav>
 			</div>
 		</div>
@@ -21,6 +24,12 @@
 <script>
 	Polymer({
 		is: "devtalk-header",
+		properties: {
+			user: Object
+		},
+		isAdmin: function(user) {
+			return user.role === 'ADMIN';
+		},
 		collapse: function() {
 			setHeaderClass("main-header-collapsed");
 		},

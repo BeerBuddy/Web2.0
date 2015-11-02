@@ -50,6 +50,7 @@ body, #wrapper {
 
 .header-background {
 	background-color: rgba(255, 255, 255, 0.5);
+	height: 110px;
 }
 
 #header-logo {
@@ -62,6 +63,26 @@ body, #wrapper {
 	padding: 70px 25px 0 5px;
 }
 
+.header-nav a {
+	padding: 15px;
+	color: black;
+	text-decoration: none;
+}
+
+.header-nav a {
+	padding: 15px;
+	color: black;
+	background-color: white;
+}
+
+.header-nav a iron-icon {
+	margin-top: -3px;
+}
+
+.header-nav a:hover {
+	color: white;
+	background-color: #E95D3C;
+}
 
 .content-wrapper {
 	width: 80%;
