@@ -99,7 +99,7 @@
 			</section>
 			<!-- LOGIN -->
 			<section class='signin'>
-				<form>
+				<form action="/login" method="post">
 					<h2>Login</h2>
 					<p>
 						<input type='email' id="user_email" placeholder="E-mail">
@@ -126,5 +126,10 @@
 			this.$.card.classList.toggle('flipped');
 		}
 	});
+
+	function login(form){
+		console.log("login!");
+		console.log(form);
+	}
 </script>
 </dom-module>

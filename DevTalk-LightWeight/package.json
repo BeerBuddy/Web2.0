@@ -14,8 +14,11 @@
   "author": "DevTalk-Team",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.14.1",
     "bower": "^1.6.5",
     "connect": "^3.4.0",
+    "express": "^4.13.3",
+    "nodemon": "^1.8.1",
     "serve-static": "^1.10.0",
     "waypoints": "^4.0.0"
   }
