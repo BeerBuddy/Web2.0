@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.gatling:gatling-metrics:2.1.6">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.gatling/gatling-metrics/2.1.6/e394d7d083c33b3190ba0652b6c02233a3e52dda/gatling-metrics-2.1.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.gatling/gatling-metrics/2.1.6/7bdda90106618a091f16151c257a6e3c601e9446/gatling-metrics-2.1.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

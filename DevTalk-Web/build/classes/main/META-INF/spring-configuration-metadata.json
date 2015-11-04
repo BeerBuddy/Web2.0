@@ -1,0 +1,320 @@
+{
+  "groups": [
+    {
+      "name": "jhipster",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties",
+      "type": "de.fh.dortmund.config.JHipsterProperties"
+    },
+    {
+      "name": "jhipster.async",
+      "sourceMethod": "getAsync()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Async"
+    },
+    {
+      "name": "jhipster.cache",
+      "sourceMethod": "getCache()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Cache"
+    },
+    {
+      "name": "jhipster.cache.ehcache",
+      "sourceMethod": "getEhcache()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Cache",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Cache$Ehcache"
+    },
+    {
+      "name": "jhipster.datasource",
+      "sourceMethod": "getDatasource()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Datasource"
+    },
+    {
+      "name": "jhipster.http",
+      "sourceMethod": "getHttp()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Http"
+    },
+    {
+      "name": "jhipster.http.cache",
+      "sourceMethod": "getCache()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Http",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Http$Cache"
+    },
+    {
+      "name": "jhipster.mail",
+      "sourceMethod": "getMail()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Mail"
+    },
+    {
+      "name": "jhipster.metrics",
+      "sourceMethod": "getMetrics()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Metrics"
+    },
+    {
+      "name": "jhipster.metrics.graphite",
+      "sourceMethod": "getGraphite()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Metrics",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Metrics$Graphite"
+    },
+    {
+      "name": "jhipster.metrics.jmx",
+      "sourceMethod": "getJmx()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Metrics",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Metrics$Jmx"
+    },
+    {
+      "name": "jhipster.metrics.spark",
+      "sourceMethod": "getSpark()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Metrics",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Metrics$Spark"
+    },
+    {
+      "name": "jhipster.security",
+      "sourceMethod": "getSecurity()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Security"
+    },
+    {
+      "name": "jhipster.security.authentication",
+      "sourceMethod": "getAuthentication()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Security",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Security$Authentication"
+    },
+    {
+      "name": "jhipster.security.authentication.xauth",
+      "sourceMethod": "getXauth()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Security$Authentication",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Security$Authentication$Xauth"
+    },
+    {
+      "name": "jhipster.security.rememberme",
+      "sourceMethod": "getRememberme()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Security",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Security$Rememberme"
+    },
+    {
+      "name": "jhipster.swagger",
+      "sourceMethod": "getSwagger()",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties",
+      "type": "de.fh.dortmund.config.JHipsterProperties$Swagger"
+    }
+  ],
+  "properties": [
+    {
+      "defaultValue": 2,
+      "name": "jhipster.async.core-pool-size",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Async",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": 50,
+      "name": "jhipster.async.max-pool-size",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Async",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": 10000,
+      "name": "jhipster.async.queue-capacity",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Async",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": "16M",
+      "name": "jhipster.cache.ehcache.max-bytes-local-heap",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Cache$Ehcache",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": 3600,
+      "name": "jhipster.cache.time-to-live-seconds",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Cache",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": true,
+      "name": "jhipster.datasource.cache-prep-stmts",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Datasource",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "defaultValue": 250,
+      "name": "jhipster.datasource.prep-stmt-cache-size",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Datasource",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": 2048,
+      "name": "jhipster.datasource.prep-stmt-cache-sql-limit",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Datasource",
+      "type": "java.lang.Integer"
+    },
+    {
+      "name": "jhipster.datasource.server-name",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Datasource",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": true,
+      "name": "jhipster.datasource.use-server-prep-stmts",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Datasource",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "defaultValue": 31,
+      "name": "jhipster.http.cache.time-to-live-in-days",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Http$Cache",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": false,
+      "name": "jhipster.mail.auth",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Mail",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "defaultValue": "DevTalk@localhost",
+      "name": "jhipster.mail.from",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Mail",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": "localhost",
+      "name": "jhipster.mail.host",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Mail",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "jhipster.mail.password",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Mail",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": 25,
+      "name": "jhipster.mail.port",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Mail",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": "smtp",
+      "name": "jhipster.mail.protocol",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Mail",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": false,
+      "name": "jhipster.mail.tls",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Mail",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "name": "jhipster.mail.username",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Mail",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": false,
+      "name": "jhipster.metrics.graphite.enabled",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Metrics$Graphite",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "defaultValue": "localhost",
+      "name": "jhipster.metrics.graphite.host",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Metrics$Graphite",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": 2003,
+      "name": "jhipster.metrics.graphite.port",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Metrics$Graphite",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": "DevTalk",
+      "name": "jhipster.metrics.graphite.prefix",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Metrics$Graphite",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": true,
+      "name": "jhipster.metrics.jmx.enabled",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Metrics$Jmx",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "defaultValue": false,
+      "name": "jhipster.metrics.spark.enabled",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Metrics$Spark",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "defaultValue": "localhost",
+      "name": "jhipster.metrics.spark.host",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Metrics$Spark",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": 9999,
+      "name": "jhipster.metrics.spark.port",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Metrics$Spark",
+      "type": "java.lang.Integer"
+    },
+    {
+      "name": "jhipster.security.authentication.xauth.secret",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Security$Authentication$Xauth",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": 1800,
+      "name": "jhipster.security.authentication.xauth.token-validity-in-seconds",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Security$Authentication$Xauth",
+      "type": "java.lang.Integer"
+    },
+    {
+      "name": "jhipster.security.rememberme.key",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Security$Rememberme",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "jhipster.swagger.contact",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Swagger",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": "DevTalk API documentation",
+      "name": "jhipster.swagger.description",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Swagger",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "jhipster.swagger.license",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Swagger",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "jhipster.swagger.license-url",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Swagger",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "jhipster.swagger.terms-of-service-url",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Swagger",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": "DevTalk API",
+      "name": "jhipster.swagger.title",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Swagger",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": "0.0.1",
+      "name": "jhipster.swagger.version",
+      "sourceType": "de.fh.dortmund.config.JHipsterProperties$Swagger",
+      "type": "java.lang.String"
+    }
+  ]
+}

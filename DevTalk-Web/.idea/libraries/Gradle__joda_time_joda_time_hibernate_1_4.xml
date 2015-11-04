@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: joda-time:joda-time-hibernate:1.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time-hibernate/1.4/179cecf3473df1be04e1a7f3222c7bdde6792327/joda-time-hibernate-1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/joda-time/joda-time-hibernate/1.4/1e8fb24d14954b59264346bd4e0ac2b73b33e7f7/joda-time-hibernate-1.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
