@@ -5,23 +5,28 @@
         <profil>
             <avatar>
                 <img src="{{user.image}}"/>
-                <br/>
+                <p>
                 <template is="dom-if" if="{{editable}}">
                      <button ><span></span>Change Picture</button>
                 </template>
+                </p>
             </avatar>
-            <br/>
-            <br/>
+
+
             <hr/>
             <template is="dom-if" if="{{editable}}">
-                <input placeholder="Username" value="{{user.name}}"/>
-                <br/>
+                <p>
+                    <input placeholder="Username" value="{{user.name}}"/>
+                </p>
+                <p>
                 <input placeholder="Email" value="{{user.email}}"/>
-                <br/>
+                </p>
+                <p>
                 <input placeholder="Password" type="password" value="{{user.passoword}}"/>
-                <br/>
+                </p>
+                <p>
                 <input placeholder="Reenter Password" type="password"  value="{{user.repassword}}"/>
-                <br/>
+                </p>
                 <button ><span></span>Save</button>
             </template>
 
