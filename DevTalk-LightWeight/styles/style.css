@@ -25,6 +25,7 @@ body, #wrapper {
 	width: 100%;
 	-webkit-transition: height 1s;
     transition: height 1s;
+	z-index: 999999999999999;
 }
 
 .header-menu {
@@ -123,3 +124,18 @@ fieldset {
 	width: 100%;
 	height: 25px;
 }
+
+.statistics #main-content{
+	width: 100%;
+}
+
+.statistics #main-content  article .description{
+	float: left;
+	width: 40%;
+}
+
+.statistics #main-content  article .chartDiv{
+	float: left;
+	display: block;
+}
+
