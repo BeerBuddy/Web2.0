@@ -1,34 +1,24 @@
-<link rel="import" href="../bower_components/polymer/polymer.html"/>
+<link rel="import" href="../bower_components/polymer/polymer.html">
 
 <dom-module id="event-table-component">
 <template>
-
-
-		<template  repeat="{{ item in column }}">
-			<div>{{item.name}}</div>
-		</template>
-
-
-
-
 	<table class="event-table">
 		<tr>
-			<template is="dom-repeat" id="column" items="{{columns}}"  >
-				<th>{{!(column.title) ? column.name : column.title}}</th>
+			<template is="dom-repeat" items="{{columns}}"  >
+				<th>{{item.title}}</th>
 			</template>
 		</tr>
-		<template is="dom-repeat" id="row" items="{{highlightedData}}"  >
-
+		<template is="dom-repeat" as="row" items="{{highlightedData}}"  >
 			<tr class="highlighted">
-				<template is="dom-repeat" id="column" items="{{columns}}">
-					<td>{{row[column.name]}}</td>
+				<template is="dom-repeat" as="column" items="{{columns}}">
+					<td>{{row}}</td>
 				</template>
 			</tr>
 		</template>
-		<template is="dom-repeat" id="row" items="{{data}}"  >
+		<template is="dom-repeat" as="row" items="{{data}}"  >
 			<tr>
-				<template repeat="{{column in columns}}">
-					<td>{{row[column.name]}}</td>
+				<template is="dom-repeat" as="column" items="{{columns}}">
+					<td>{{row}}</td>
 				</template>
 			</tr>
 		</template>
