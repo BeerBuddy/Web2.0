@@ -1,0 +1,92 @@
+
+
+.user-image {
+    border-radius: 50%;
+    border: 5px solid #099C69;
+
+}
+
+* {
+    box-sizing: border-box;
+}
+
+container {
+    font-family: verdana;
+    height: 390px;
+    perspective: 500px;
+    position: relative;
+    width: 100%;
+}
+
+card {
+    border-radius: 5px;
+    border: 1px solid #CCC;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: 1s;
+    width: 100%;
+    box-shadow: 0px 0 10px #ccc;
+}
+
+card > section {
+    backface-visibility: hidden;
+    border-radius: 5px;
+    position: absolute;
+}
+
+form {
+    font-size: 0.8em;
+    padding: 10px;
+}
+
+input {
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+    padding: 2px 5px;
+    width: auto;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.edit {
+    /* Hintergrund */
+    transform: rotateY(180deg);
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+    -moz-backface-visibility: hidden;
+}
+
+.view, .edit {
+    width: 100%;
+    height: 100%;
+}
+
+.wrong
+{
+    border:1px solid red;
+}
+
+.correct
+{
+    border:1px solid green;
+}
+
+.toggle {
+    width: auto;
+    background-color: #099C69;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.hide {
+    visibility: hidden;
+    display: none;
+}
