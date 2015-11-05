@@ -4,18 +4,14 @@
 	<meta charset="UTF-8"/>
 	<title>DevTalk - Statistiken</title>
 	<link rel="stylesheet" href="../styles/style.css" />
-	<link rel="stylesheet" href="../styles/style_statistics.css" />
 	<script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
 	<link rel="import" href="../bower_components/google-chart/google-chart.html"/>
+	<link rel="import" href="/webcomponents/devtalk-header.html"/>
 </head>
 <body>
 	<div id="wrapper">
-		<header id="header">
-			<!-- Geile Komponenten hier -->
-			<img src="../images/logo.png" alt="Logo DevTalk" />
-		</header>
-		
-		<div id="content">
+		<devtalk-header initialstate="main-header-collapsed" user='{"role": "ADMIN"}'></devtalk-header>	
+		<div id="content"  class="content-wrapper statistics">
 		
 			<content id="main-content">
 				<h1>Statistik</h1>
@@ -78,5 +74,7 @@
 	<footer id="footer">
 		&copy; BeerBuddy - DevTalk Team
 	</footer>	
+	<script src="../node_modules/waypoints/lib/noframework.waypoints.min.js"></script>
+	<script src="../scripts/app.js"></script>
 </body>
 </html>

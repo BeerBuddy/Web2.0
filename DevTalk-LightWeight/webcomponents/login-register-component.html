@@ -1,0 +1,135 @@
+<!--
+	Diese Komponente sieht unter Firefox nicht gut aus, funktioniert aber ... kack firefox!
+	Getestet: Chrome (+Android), Edge, Firefox
+-->
+<link rel="import" href="../bower_components/polymer/polymer.html" />
+
+<dom-module id="login-register-component">
+<template>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+		.container {
+			font-family:verdana;
+			height: 390px;
+			perspective: 500px;
+			position: relative;
+			width: 100%;
+		}
+		.card {
+			border-radius: 5px;
+			border: 1px solid #CCC;
+			height: 100%;
+			position: absolute;
+			transform-style: preserve-3d;
+			transition: 1s;
+			width: 100%;
+			box-shadow: 0px 0 10px #ccc;
+		}
+		.card section {
+			backface-visibility:hidden;
+			border-radius: 5px;
+			position: absolute;
+		}
+		form {
+			font-size: 0.8em;
+			padding: 10px;
+		}
+		input {
+			border: 1px solid #ccc;
+			font-size: 0.9em;
+			padding: 2px 5px;
+			width: 100%;
+			border-radius: 5px;
+			height: 35px;
+		}
+		input[type='checkbox']{
+			width: auto;
+			height: auto;
+		}
+		.signup { /* Hintergrund */
+			transform: rotateY(180deg);
+		}
+		.card.flipped {
+			transform: rotateY(180deg);
+			-moz-backface-visibility:hidden;
+		}
+		.signin, .signup {
+			width: 100%;
+			height: 100%;
+		}
+		.toggle {
+			display: block;
+			background-color: rgb(148, 201, 243);
+			padding: 10px;
+			text-align: center;
+			border-radius: 5px;
+			color: #fff;
+			text-decoration: none;
+			border: none;
+			width: 100%;
+			cursor: pointer;
+		}
+	</style>
+	<div class="container">
+		<div id="card" class="card">
+			<!-- REGISTER -->
+			<section class='signup'>
+				<form action="/register" method="post">
+					<h2>Register now!</h2>
+					<p>
+						<input type='text' id="account_username" placeholder="Username">
+					</p>
+					<p>
+						<input type='email' id="account_email" placeholder="E-mail">
+					</p>
+					<p>
+						<input type='password' id="account_password" placeholder="Password">
+					</p>
+					<p>
+						<input type='password' id="account_password_confirmation" placeholder="Confirm password">
+					</p>
+					<p>
+						<input type='checkbox' id="agb">AGBs</input>
+					</p>
+					<p><button>Register</button></p>
+					<button class='toggle' on-click="flip">Damit! I am already registered!</button>
+				</form>
+			</section>
+			<!-- LOGIN -->
+			<section class='signin'>
+				<form action="/login" method="post">
+					<h2>Login</h2>
+					<p>
+						<input type='email' id="user_email" placeholder="E-mail">
+					</p>
+					<p>
+						<input type='password' id="user_password" placeholder="Password">
+					</p> 
+					<p>
+						<button>Submit</button>
+					</p>
+					<button class='toggle' on-click="flip">I want an account NOW!</button>
+				</form>
+			</section>
+		</div>
+	</div>
+
+</template>
+<script>
+	Polymer({
+		is: "login-register-component",
+		flip: function(event) {
+			event.preventDefault();
+			document.querySelector('.card');
+			this.$.card.classList.toggle('flipped');
+		}
+	});
+
+	function login(form){
+		console.log("login!");
+		console.log(form);
+	}
+</script>
+</dom-module>

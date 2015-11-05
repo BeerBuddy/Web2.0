@@ -1,23 +1,31 @@
 # Web2.0
 
-##About
-This is a AngularJS + Spring Boot Project with  [JHipster](https://jhipster.github.io/)
-
 ## Getting started
-1. Install NodeJS from: [https://nodejs.org](https://nodejs.org)
-2. Install [IDEA Ultimate](https://www.jetbrains.com/idea/download/) [Lizens](https://www.jetbrains.com/student/)
-3. Checkout Project
-4. Open Project with Webstorm
-6. **File** > **Settings** > **Plugins**
-	* NodeJs, AngularJS, Jade, Karama und LiveEdit
-7. Restart IDE
-8. **File** > **Settings** > **Node.JS and NPM**
- 	* NodeJS Interprtor ausw‰hlen
-	* Module Yo, grunt-cli, bower und generator-jhipster hinzuf¸gen
-	** F¸r JHipster musste ich im Terminal ein 'npm install -g generator-jhipster' absetzen.
-9. **File** > **Settings** > **Bower**
-	* bower.json im Projekt ausw‰hlen
-	* NodeJs Interpreter ausw‰hlen
-	* Bower ausw‰hlen Bei mir wars unter C:\Users\David\AppData\Roaming\npm\node_modules\bower\bin\bower
-10. Restart IDE
-11. 'build.gradle' mit Parameter 'bootRun' starten
+1. Install node: https://nodejs.org
+
+2. Go into the DevTalk-LightWeight folder
+
+3. Dependencies f√ºr Node in package.json zusammengef√ºhrt daher braucht man nur noch ein npm update. Neue Dependencies mit --save in der package.json speichern
+	
+	npm update
+
+4. Frontend Dependencies mit bower update holen. Neue Dependencies mit --save in der bower.json speichern
+	
+	// sollte Bower nicht global installiert sein:
+	
+	node_modules\.bin\bower update
+
+	// sollte Bower global installiert sein:
+	
+	bower update
+
+5. Run server. server.js ist in package.json angegeben
+
+	npm start
+
+6. You can now go to http://localhost:8080/index.html
+
+## Troubleshooting
+1. Es k√∂nnte sein das Bower Probleme macht, dann muss man GIT installieren und bei der Installation dem PATH hinzuf√ºgen lassen
+
+	https://git-for-windows.github.io/ 
