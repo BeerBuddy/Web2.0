@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>DevTalk - Übersicht</title>
+    <link rel="stylesheet" href="../styles/style.css" />
+    <script src="/bower_components/webcomponentsjs/webcomponents.js"></script>
+    <link rel="import" href="/bower_components/paper-button/paper-button.html"></link>
+    <link rel="import" href="/webcomponents/devtalk-header.html"/>
+    <link rel="import" href="/webcomponents/event-table-component.html"/>
+
+</head>
+<body>
+<div id="wrapper">
+    <devtalk-header initialstate="main-header-collapsed" user='{"role": "USER"}'></devtalk-header>
+    <div id="content" class="content-wrapper">
+				
+		<content >
+			<h1>Talks</h1>
+			<section>
+				<event-table-component
+										data='[
+											{"name":"JavaLand 2016", "ort":"Phantasialand, Brühl", "datum": "08.03.2016  -  10.03.2016", "kategorie":"Java"},
+											{"name":"DOAG Konferenz und Austellung", "ort":"Nürnberg", "datum":"17.11.2015  -  20.11.2015", "kategorie":"Java"},
+											{"name":" BASTA!", "ort":"Darmstadt", "datum":"01.03.2016 – 03.03.2016", "kategorie":".Net"}
+											]'
+										highlightedData='
+											[
+											{"name" : "EclipseCon Europe", "ort":"Ludwigsburg", "datum": "03.11.2015  -  05.11.2015", "kategorie":"Java"},
+											{"name" : "W-JAX", "ort":"München", "datum": "02.11.2015  -  06.11.2015", "kategorie":"Java"}
+											]'
+										columns='
+										 [
+											{"name":"name", "title":"Name"},
+											{"name":"ort", "title":"Ort"},
+											{"name":"datum", "title":"Datum"},
+											{"name":"kategorie", "title":"Kategorie"}
+										 ]'
+				/>
+			</section>
+			<paper-button raised class="float-right colorful">Assign to Talk</paper-button>
+		</content>
+		<div style="clear:both;"></div>
+</div>
+<footer id="footer">
+    &copy; BeerBuddy - DevTalk Team
+</footer>
+</body>
+</html>

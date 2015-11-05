@@ -1,28 +1,31 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="stylesheet" href="../styles/style_table.css" />
 
 <dom-module id="event-table-component">
 <template>
-	<table class="event-table">
-		<tr>
-			<template is="dom-repeat" items="{{columns}}"  >
-				<th>{{item.title}}</th>
-			</template>
-		</tr>
-		<template is="dom-repeat" as="row" items="{{highlightedata}}"  >
-			<tr class="highlighted">
-				<template is="dom-repeat" as="column" items="{{columns}}">
-					<td>{{_getTableData(row, column)}}</td>
-				</template>
-			</tr>
-		</template>
-		<template is="dom-repeat" as="row" items="{{data}}"  >
+	<div class="styleTable">
+		<table class="event-table">
 			<tr>
-				<template is="dom-repeat" as="column" items="{{columns}}">
-					<td>{{_getTableData(row, column)}}</td>
+				<template is="dom-repeat" items="{{columns}}"  >
+					<th>{{item.title}}</th>
 				</template>
 			</tr>
-		</template>
-	</table>
+			<template is="dom-repeat" as="row" items="{{highlightedata}}"  >
+				<tr class="highlighted">
+					<template is="dom-repeat" as="column" items="{{columns}}">
+						<td>{{_getTableData(row, column)}}</td>
+					</template>
+				</tr>
+			</template>
+			<template is="dom-repeat" as="row" items="{{data}}"  >
+				<tr>
+					<template is="dom-repeat" as="column" items="{{columns}}">
+						<td>{{_getTableData(row, column)}}</td>
+					</template>
+				</tr>
+			</template>
+		</table>
+	</div>
 
 </template>
 

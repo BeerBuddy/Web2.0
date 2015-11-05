@@ -90,6 +90,15 @@ body, #wrapper {
 	margin: 0 auto;
 }
 
+.float-right {
+	float: right;
+}
+
+paper-button.colorful[raised]:not([style-scope]):not(.style-scope) {
+    background: #E95D3C none repeat scroll 0 0;
+    color: #fff;
+}
+
 fieldset {
 	border-color: #E95D3C;
 	border-style: solid;
