@@ -13,17 +13,15 @@
 <body>
 <div id="wrapper">
     <devtalk-header initialstate="main-header-collapsed" user='{"role": "USER"}'></devtalk-header>
-    <div id="content" class="content-wrapper">
-
-        <column-margin>
-            <margin>
+   <div id="content" class="content-wrapper">
+			<aside id="aside">
                 <h2>Mein Profil</h2>
                 <profil-component user='{"name":"David", "email":"nospam@asd.de", "password":"****", "image": "\\profile-card\\profile.jpg"}' editable/>
-            </margin>
+           </aside>
 
-            <divide></divide>
-
-            <margin >
+			
+			<content id="main-content">
+       
                 <h2>Besuchte Veranstaltungen</h2>
                 <event-table-component
                         data='[
@@ -44,8 +42,7 @@
                             {"name":"kategorie", "title":"Kategorie"}
                          ]'
                         />
-            </margin>
-        </column-margin>
+            </content>
 </div>
 <footer id="footer">
     &copy; BeerBuddy - DevTalk Team
