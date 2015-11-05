@@ -3,52 +3,53 @@
 <head>
     <meta charset="UTF-8"/>
     <title>DevTalk - Übersicht</title>
-    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="../styles/style.css"/>
     <script src="/bower_components/webcomponentsjs/webcomponents.js"></script>
     <link rel="import" href="/webcomponents/devtalk-header.html"/>
     <link rel="import" href="/webcomponents/event-table-component.html"/>
-    <link rel="import" href="/webcomponents/profil-component.html"/>
+    <link rel="import" href="/webcomponents/profil-component/profil-component.html"/>
 
 </head>
 <body>
 <div id="wrapper">
     <devtalk-header initialstate="main-header-collapsed" user='{"role": "USER"}'></devtalk-header>
     <div id="content" class="content-wrapper">
+        <aside id="aside">
+            <h2>Mein Profil</h2>
+              <profil-component
+                    user='{"name":"David", "email":"nospam@asd.de", "password":"****", "image": "/profile-card/profile.jpg"}'
+                    editable/>
+        </aside>
 
-        <column-margin>
-            <margin>
-                <h2>Mein Profil</h2>
-                <profil-component user='{"name":"David", "email":"nospam@asd.de", "password":"****", "image": "/profile-card/profile.jpg"}' editable/>
-            </margin>
 
-            <divide></divide>
+        <content id="main-content">
 
-            <margin >
-                <h2>Besuchte Veranstaltungen</h2>
-                <event-table-component
-                        data='[
+            <h2>Besuchte Veranstaltungen</h2>
+            <event-table-component
+                    data='[
                             {"name":"JavaLand 2016", "ort":"Phantasialand, Brühl", "datum": "08.03.2016  -  10.03.2016", "kategorie":"Java"},
                             {"name":"DOAG Konferenz und Austellung", "ort":"Nürnberg", "datum":"17.11.2015  -  20.11.2015", "kategorie":"Java"},
                             {"name":" BASTA!", "ort":"Darmstadt", "datum":"01.03.2016 – 03.03.2016", "kategorie":".Net"}
                             ]'
-                        highlightedata='
+                    highlightedata='
                             [
                             {"name" : "EclipseCon Europe", "ort":"Ludwigsburg", "datum": "03.11.2015  -  05.11.2015", "kategorie":"Java"},
                             {"name" : "W-JAX", "ort":"München", "datum": "02.11.2015  -  06.11.2015", "kategorie":"Java"}
                             ]'
-                        columns='
+                    columns='
                          [
                             {"name":"name", "title":"Name"},
                             {"name":"ort", "title":"Ort"},
                             {"name":"datum", "title":"Datum"},
                             {"name":"kategorie", "title":"Kategorie"}
                          ]'
-                        />
-            </margin>
-        </column-margin>
-</div>
-<footer id="footer">
-    &copy; BeerBuddy - DevTalk Team
-</footer>
+                    />
+        </content>
+    </div>
+
+
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/waypoints/lib/noframework.waypoints.min.js"></script>
+    <script src="../scripts/app.js"></script>
 </body>
 </html>

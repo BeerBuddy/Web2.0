@@ -148,17 +148,3 @@ fieldset {
 	display: block;
 }
 
-
-
-#content > column-margin > margin{
-	float: left;
-}
-
-#content > column-margin > divide{
-	float: left;
-	border-left: thin solid #0f0f0f;
-	min-height: 300px;
-	margin-left: 70px;
-	margin-right: 70px;
-}
-
