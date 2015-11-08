@@ -5,6 +5,7 @@ before_script:
   - cd DevTalk-LightWeight
   - npm install -g bower
   - bower install
+script: true
 #deploy:
 #  skip_cleanup: true
 #  provider: script
