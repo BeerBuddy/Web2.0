@@ -2,11 +2,12 @@ language: node_js
 node_js:
   - "0.10"
 before_script:
+  - cd DevTalk-LightWeight
   - npm install -g bower
   - bower install
-deploy:
-  skip_cleanup: true
-  provider: script
-  script: scripts/deploy.sh
-  on:
-    branch: master
+#deploy:
+#  skip_cleanup: true
+#  provider: script
+#  script: scripts/deploy.sh
+#  on:
+#    branch: master
