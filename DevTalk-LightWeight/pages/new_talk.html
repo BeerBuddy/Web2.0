@@ -8,14 +8,20 @@
     <link rel="import" href="/bower_components/paper-button/paper-button.html"></link>
     <link rel="import" href="/webcomponents/devtalk-header.html"/>
     <link rel="import" href="/webcomponents/event-table-component.html"/>
+    <link rel="import" href="/webcomponents/create-talk-component.html"/>
 
 </head>
 <body>
 <div id="wrapper">
-    <devtalk-header initialstate="main-header-collapsed" user='{"role": "USER"}'></devtalk-header>
+    <devtalk-header initialstate="main-header-collapsed" user='{"role": "ADMIN"}'></devtalk-header>
     <div id="content" class="content-wrapper">
-				
-		<content >
+		
+        <aside id="aside">
+            <h1>Create/Edit Talk</h1>
+			 <create-talk-component></create-talk-component>
+        </aside>
+			
+		<content  id="main-content">
 			<h1>Talks</h1>
 			<section>
 				<event-table-component
@@ -38,7 +44,8 @@
 										 ]'
 				/>
 			</section>
-			<paper-button raised class="float-right colorful">Add new Talk</paper-button>
+			<paper-button raised class="talk-button colorful">Add new Talk</paper-button>
+			<paper-button raised class="colorful">Cancel Talk</paper-button>
 		</content>
 		<div style="clear:both;"></div>
 </div>

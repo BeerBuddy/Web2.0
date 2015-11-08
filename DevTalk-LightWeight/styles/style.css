@@ -94,6 +94,10 @@ body, #wrapper {
 	float: right;
 }
 
+.talk-button{
+	margin-right: 50px;
+}
+
 paper-button.colorful[raised]:not([style-scope]):not(.style-scope) {
     background: #E95D3C none repeat scroll 0 0;
     color: #fff;
