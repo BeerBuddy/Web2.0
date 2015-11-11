@@ -94,3 +94,13 @@
 .styleTable tr:first-child td:last-child{
 	border-width:0px 0px 1px 1px;
 }
+
+.btn-invisible {
+	background-color: transparent;
+	border: none;
+}
+
+.btn-invisible:hover {
+	cursor: pointer;
+	color: #099C69;
+}
