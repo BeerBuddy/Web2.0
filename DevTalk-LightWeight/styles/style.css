@@ -117,7 +117,7 @@ em {
 }
 
 paper-button.colorful[raised]:not([style-scope]):not(.style-scope) {
-    background: #E95D3C none repeat scroll 0 0;
+    background: #099C69 none repeat scroll 0 0;
     color: #fff;
 }
 
