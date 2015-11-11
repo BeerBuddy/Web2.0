@@ -88,6 +88,7 @@ body, #wrapper {
 .content-wrapper {
 	width: 80%;
 	margin: 0 auto;
+	min-width: 600px;
 }
 
 .float-right {
@@ -113,17 +114,19 @@ fieldset {
 
 #content {
 	background-color: white;
-	padding: 5px;
 	min-height: 500px;
+	padding-top: 5px;
 }
 
 #aside {
 	width: 30%;
+	min-width: 180px;
 	float: left;
 }
 
 #main-content {
 	width: 65%;
+	min-width: 400px;
 	float: right;
 }
 

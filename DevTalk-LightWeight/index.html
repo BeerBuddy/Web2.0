@@ -4,6 +4,7 @@
 	<meta charset="UTF-8"/>
 	<title>DevTalk</title>
 	<link rel="stylesheet" href="styles/style.css" />
+	<link rel="stylesheet" href="styles/mobile.css" />
 	<script src="bower_components/webcomponentsjs/webcomponents.js"></script>
 	<link rel="import" href="webcomponents/login-register-component.html"/>
 	<link rel="import" href="webcomponents/devtalk-header.html"/>
@@ -12,11 +13,7 @@
 	<div id="wrapper">
 		<devtalk-header user='{"role": "USER"}'></devtalk-header>
 		
-		<div id="content" class="content-wrapper">
-			<aside id="aside">
-				<login-register-component></login-register-component>
-			</aside>
-			
+		<div id="content" class="content-wrapper">			
 			<content id="main-content">
 				<h1>Hallo Welt!</h1>
 				<article>
@@ -24,6 +21,10 @@
 					<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 				</article>
 			</content>
+
+			<aside id="aside">
+				<login-register-component></login-register-component>
+			</aside>
 			
 			<div style="clear: both;"></div>
 		</div>
