@@ -21,8 +21,16 @@ em {
 	font-weight: bold;
 }
 
-button {
-	background-color: #099C69 !important;
+.rounded-button {
+	background-color: #099C69;
+	display: block;
+	padding: 10px;
+	text-align: center;
+	border-radius: 5px;
+	color: #fff;
+	text-decoration: none;
+	border: none;
+	width: 100%;
 }
 
 #main-header {
