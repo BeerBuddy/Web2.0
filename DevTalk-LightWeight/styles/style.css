@@ -16,6 +16,15 @@ body, #wrapper {
 	padding: 0;
 }
 
+em {
+	color: #099C69;
+	font-weight: bold;
+}
+
+button {
+	background-color: #099C69 !important;
+}
+
 #main-header {
 	background: transparent url("../images/banner.png") no-repeat scroll center top;
 	border-bottom: 2px solid #E95D3C;
@@ -128,6 +137,7 @@ fieldset {
 	width: 65%;
 	min-width: 400px;
 	float: right;
+	text-align: justify;
 }
 
 #footer {
@@ -139,6 +149,25 @@ fieldset {
 	bottom: 0;
 	width: 100%;
 	height: 25px;
+}
+
+.img-left, .img-right {
+	max-width: 350px;
+	-webkit-box-shadow: 5px 5px 5px 0px #099C69;
+	-moz-box-shadow: 5px 5px 5px 0px #099C69;
+	box-shadow: 5px 5px 5px 0px #099C69;
+}
+
+.img-left {
+	float: left;
+	margin-right: 15px;
+	margin-bottom: 15px;
+}
+
+.img-right {
+	float: right;
+	margin-left: 15px;
+	margin-bottom: 15px;
 }
 
 .statistics #main-content{
