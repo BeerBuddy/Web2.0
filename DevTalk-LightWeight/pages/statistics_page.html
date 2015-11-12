@@ -4,6 +4,7 @@
 	<meta charset="UTF-8"/>
 	<title>DevTalk - Statistiken</title>
 	<link rel="stylesheet" href="../styles/style.css" />
+	<link rel="stylesheet" href="/styles/mobile.css" />
 	<script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
 	<link rel="import" href="../bower_components/google-chart/google-chart.html"/>
 	<link rel="import" href="/webcomponents/devtalk-header.html"/>
@@ -16,7 +17,9 @@
 			<content id="main-content">
 				<h1>Statistik</h1>
 				<article>
-					<div class="chartDiv">
+					<h4>Zugriffszahlen 2015</h4>
+						In dem Diagramm wird dargelegt, wie die Zugriffszahlen auf unsere Website im Jahresverlauf waren
+					<div class="img-left">
 						<google-chart
 						  type="line"
 						  id="zugriffsZahlen"
@@ -26,19 +29,12 @@
 								 ["Jul", 610],["Aug", 590],["Sep", 500],["Aug", 610],["Nov", 10],["Dez",  0]]'>
 						</google-chart>
 					</div>
-					<div class="description">
-						<h4>Zugriffszahlen 2015</h4>
-						In dem Diagramm wird dargelegt, wie die Zugriffszahlen auf unsere Website im Jahresverlauf waren
-					</div>
 				</article>
 				<div style="clear: both;" ></div>
-				<article>
-					<div class="description">
-						<h4>Anmeldungen / Teilnahmen 2015 </h4>
+				<article>	
+					<h4>Anmeldungen / Teilnahmen 2015 </h4>
 						In der folgenden Abbildung sind die Anmeldungen und Teilnahmen an unseren Veranstaltungen innerhalb des letzten Jahres sichtbar. 
-						
-					</div>
-					<div>
+					<div class="img-right">
 						<!-- siehe https://googlewebcomponents.github.io/google-chart/components/google-chart/ -->
 						<google-chart
 						  type="column"
@@ -52,7 +48,9 @@
 				</article>
 				<div style="clear: both;" ></div>
 				<article>
-					<div class="chartDiv">
+					<h4>Verteilung </h4>
+					In dem Diagramm wird dargelegt, wie die Verteilung unserer Kunden ist
+					<div class="chartDiv img-left">
 						<google-chart
 						  type="pie"
 						  id="verteilungChart"
@@ -60,10 +58,6 @@
 						  cols='[{"label": "Geschlecht", "type": "string"}, {"label": "Anteil", "type": "number"}]'
 						  rows='[["Männer", 40],["Frauen", 50]]'>
 						</google-chart>
-					</div>
-					<div class="description">
-						<h4>Verteilung </h4>
-						In dem Diagramm wird dargelegt, wie die Verteilung unserer Kunden ist
 					</div>
 				</article>
 			</content>
