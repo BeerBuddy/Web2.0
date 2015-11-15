@@ -13,16 +13,18 @@ Alle Stylesheets müssen in der korrekten Reihenfolge eingebunden.
 Der Header erwartet als Eingabe ein `user` Objekt, anhand erkannt wird, auf welche Seiten der Nutzer Zugriff hat.
 
 **Beispiel:**
-```sh
+```html
 <devtalk-header user='{"role": "USER"}'></devtalk-header>
 ```
+
+Alternative Rolle wäre `ADMIN`, worudch Zugriff auf administrative Seiten gewährt wird.
 
 ##### Scrolling
 Standardmäßig ist der Header relativ hoch, das Bild im Hintergrund ist gut erkennbar. Um den Header komprimiert darzustellen, wird der `initialstate="main-header-collapsed"` gesetzt. Außerdem stehen die Methoden `collapse()` und `expand()` bereit, um den Header aus- bzw. einzuklappen.
 
 Mittels der [Waypoint API](http://imakewebthings.com/waypoints/) kann zudem der Header beim Scrollen eingefahren werden. Dazu wird folgendes benötigt:
 
-```sh
+```html
 <script src="noframework.waypoints.min.js"></script>
 <script>
 	var waypoint = new Waypoint({
