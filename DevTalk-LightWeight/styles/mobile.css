@@ -8,6 +8,10 @@
 	.nav-text {
 		display: none;
 	}
+	
+	.footer-item-left .nav-text{
+		display: inherit;
+	}
 
 	.img-left, .img-right {
 		float: none;

@@ -8,6 +8,7 @@
 	<script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
 	<link rel="import" href="../bower_components/google-chart/google-chart.html"/>
 	<link rel="import" href="/webcomponents/devtalk-header.html"/>
+	<link rel="import" href="/webcomponents/devtalk-footer.html"/>
 </head>
 <body>
 	<div id="wrapper">
@@ -18,7 +19,7 @@
 				<h1>Statistik</h1>
 				<article>
 					<h4>Zugriffszahlen 2015</h4>
-						In dem Diagramm wird dargelegt, wie die Zugriffszahlen auf unsere Website im Jahresverlauf waren
+					In dem Diagramm wird dargelegt, wie die Zugriffszahlen auf unsere Website im Jahresverlauf waren
 					<div class="img-left">
 						<google-chart
 						  type="line"
@@ -33,7 +34,7 @@
 				<div style="clear: both;" ></div>
 				<article>	
 					<h4>Anmeldungen / Teilnahmen 2015 </h4>
-						In der folgenden Abbildung sind die Anmeldungen und Teilnahmen an unseren Veranstaltungen innerhalb des letzten Jahres sichtbar. 
+					In der folgenden Abbildung sind die Anmeldungen und Teilnahmen an unseren Veranstaltungen innerhalb des letzten Jahres sichtbar. 
 					<div class="img-right">
 						<!-- siehe https://googlewebcomponents.github.io/google-chart/components/google-chart/ -->
 						<google-chart
@@ -65,9 +66,7 @@
 			<div style="clear: both;"></div>
 		</div>
 	</div>
-	<footer id="footer">
-		&copy; BeerBuddy - DevTalk Team
-	</footer>	
+	<devtalk-footer user='{"role": "ADMIN"}'></devtalk-footer>	
 	<script src="../node_modules/waypoints/lib/noframework.waypoints.min.js"></script>
 	<script src="../scripts/app.js"></script>
 </body>
