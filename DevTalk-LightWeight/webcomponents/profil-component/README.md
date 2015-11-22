@@ -14,23 +14,23 @@ Diese Komponente kann genutzt werden um das Profil eines Nutzer anzuzeigen und z
 <body>
 <!--Nur einen Nutzer ansehen -->
  <profil-component user='{"name":"David", "email":"nospam@asd.de", "image": "/profile-card/profile.jpg"}' />
- 
+
  <!--Einen Nutzer editiren-->
-  <profil-component user='{"name":"David", "email":"nospam@asd.de", "image": "/profile-card/profile.jpg"}' 
-  editable 
+  <profil-component user='{"name":"David", "email":"nospam@asd.de", "image": "/profile-card/profile.jpg"}'
+  editable
   onsave=' function (user)
   {
     console.info(user);
   }'/>
-  
+
 </body>
 ```
 ### Parameter
 Im Folgenden sind die Parameter der Komponente definiert.
 #### user
-##### Type: 
+##### Type:
 JSON
-##### Beschreibung: 
+##### Beschreibung:
 Der User im Json Format muss mit Folgenden Attributen übergeben werden:
 ```json
 {
@@ -41,17 +41,17 @@ Der User im Json Format muss mit Folgenden Attributen übergeben werden:
 ```
 
 #### editable (optional):
-##### Type: 
+##### Type:
 boolean
 ##### Beschreibung:
 Das Attribut muss gesetzt werden, wenn der Nutzer editierbar sein soll.
-   
+
 #### onsave (optional):
-##### Type: 
+##### Type:
 function
 
 ##### Beschreibung:
-Diese Funktion wird aufgerufen, wenn der Nutzer gespeichert wurde. Als Parameter wird der utzer übergeben mit den Attributen: 
+Diese Funktion wird aufgerufen, wenn der Nutzer gespeichert wurde. Als Parameter wird der Nutzer übergeben mit den Attributen:
 ```json
 {
         name: Nutzername
@@ -60,6 +60,6 @@ Diese Funktion wird aufgerufen, wenn der Nutzer gespeichert wurde. Als Parameter
         password: Password des Nutzers
 }
 ```
-        
-    
+
+
 

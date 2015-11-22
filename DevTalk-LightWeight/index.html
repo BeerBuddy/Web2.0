@@ -6,15 +6,14 @@
 	<link rel="stylesheet" href="styles/style.css" />
 	<link rel="stylesheet" href="styles/mobile.css" />
 	<script src="bower_components/webcomponentsjs/webcomponents.js"></script>
-	<link rel="import" href="webcomponents/login-register-component.html"/>
+	<link rel="import" href="webcomponents/login-register-component/login-register-component.html"/>
 	<link rel="import" href="webcomponents/devtalk-header.html"/>
 	<link rel="import" href="webcomponents/devtalk-footer.html"/>
 </head>
 <body>
 	<div id="wrapper">
 		<devtalk-header user='{"role": "USER"}'></devtalk-header>
-		
-		<div id="content" class="content-wrapper">			
+		<div id="content" class="content-wrapper">
 			<content id="main-content">
 				<h1>Think together, work together!</h1>
 				<article>
@@ -36,9 +35,9 @@
 			</content>
 
 			<aside id="aside">
-				<login-register-component></login-register-component>
+				<login-register-component login_action='/loginz' register_action='/registerz'></login-register-component>
 			</aside>
-			
+
 			<div style="clear: both;"></div>
 		</div>
 	</div>
