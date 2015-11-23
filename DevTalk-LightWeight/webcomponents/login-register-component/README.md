@@ -42,7 +42,7 @@ String
 ##### Beschreibung:
 Pfad zur Register Action übergeben
 ```html
-<login-register-component login_action='/loginz'></login-register-component>
+<login-register-component register_action='/registerz'></login-register-component>
 ```
 
 
