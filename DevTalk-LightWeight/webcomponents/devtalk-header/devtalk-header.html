@@ -1,5 +1,5 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
 
 <dom-module id="devtalk-header">
 <template>
@@ -17,7 +17,13 @@
 						<a href="/pages/statistics_page.html"><iron-icon icon="assessment"></iron-icon><span class="nav-text">Statistiken</span></a>
 					</template>
 					
-					<a href="/pages/todo.html"><iron-icon icon="power-settings-new"></iron-icon><span class="nav-text">Logout</span></a>
+					<template is="dom-if" if="{{user}}">
+						<a href="/pages/todo.html" title="{{user.name}} abmelden"><iron-icon icon="power-settings-new"></iron-icon><span class="nav-text">Logout</span></a>
+					</template>
+					
+					<template is="dom-if" if="{{!user}}">
+						<a href="/pages/todo.html"><iron-icon icon="power-settings-new"></iron-icon><span class="nav-text">Login</span></a>
+					</template>
 				</nav>
 			</div>
 		</div>
