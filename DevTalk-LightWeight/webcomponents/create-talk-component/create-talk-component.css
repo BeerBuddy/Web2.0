@@ -1,0 +1,4 @@
+paper-button.colorful[raised]:not([style-scope]):not(.style-scope) {
+    background: #099C69 none repeat scroll 0 0;
+    color: #fff;
+}
