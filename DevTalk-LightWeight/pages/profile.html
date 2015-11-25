@@ -15,13 +15,6 @@
 <div id="wrapper">
     <devtalk-header initialstate="main-header-collapsed" user='{"role": "USER"}'></devtalk-header>
     <div id="content" class="content-wrapper">
-        <aside id="aside">
-            <h2>Mein Profil</h2>
-              <profil-component
-                    user='{"name":"David", "email":"nospam@asd.de", "password":"****", "image": "/profile-card/profile.jpg"}'
-                    editable/>
-        </aside>
-
 
         <content id="main-content">
 
@@ -46,11 +39,18 @@
                          ]'
                     />
         </content>
+
+        <aside id="aside">
+            <h2>Mein Profil</h2>
+              <profil-component
+                    user='{"name":"David", "email":"nospam@asd.de", "password":"****", "image": "/profile-card/profile.jpg"}'
+                    editable/>
+        </aside>
+
+        <div style="clear: both;"></div>
     </div>
+</div>
 	<devtalk-footer user='{"role": "USER"}'></devtalk-footer>	
 
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../node_modules/waypoints/lib/noframework.waypoints.min.js"></script>
-    <script src="../scripts/app.js"></script>
 </body>
 </html>

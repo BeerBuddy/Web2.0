@@ -60,7 +60,7 @@ Polymer({
         var inputs = document.querySelectorAll(".edit input");
         for (var i = 0; i < inputs.length; i++) {
             inputs[i].addEventListener('change', function () {
-                var user = that.getUser();
+                var0, user = that.getUser();
                 if(that.checkUser(user))
                 {
                     that.$.save.classList.remove('hide');
