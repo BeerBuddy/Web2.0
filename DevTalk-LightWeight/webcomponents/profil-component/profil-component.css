@@ -1,24 +1,41 @@
 
+@media only screen and (max-width: 480px) {
+    .user-image{
+        max-width: 100%;
+        width: 50%;
+    }
+}
+
+profil-component{
+    min-width: 220px;
+    height: 520px;
+
+}
+
 .user-image {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
     border-radius: 50%;
     border: 5px solid #099C69;
-
 }
 
 * {
     box-sizing: border-box;
 }
 
-container {
+.container {
+    text-align: center
     font-family: verdana;
-    height: 390px;
-    perspective: 500px;
+    height: 520px;
+    perspective: 520px;
+    position: relative;
     width: 100%;
-	border-radius: 5px;
-	display:inline-block
+    border-radius: 5px;
+    display:block
 }
 
-card {
+.card {
     border-radius: 5px;
     border: 1px solid #CCC;
     height: 100%;
@@ -38,6 +55,7 @@ card > section {
 form {
     font-size: 0.8em;
     padding: 10px;
+    padding-top: 0px;
 }
 
 input {
@@ -75,7 +93,7 @@ input {
 }
 
 .toggle {
-    width: auto;
+    display: block;
     background-color: #099C69;
     padding: 10px;
     text-align: center;
@@ -83,6 +101,7 @@ input {
     color: #fff;
     text-decoration: none;
     border: none;
+    width: 100%;
     cursor: pointer;
 }
 
