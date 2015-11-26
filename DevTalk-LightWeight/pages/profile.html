@@ -51,6 +51,10 @@
     </div>
 </div>
 	<devtalk-footer user='{"role": "USER"}'></devtalk-footer>	
-
+	<script>
+    	document.querySelector('event-table-component').addEventListener('eventTableItemClick', function (e) {
+        	window.location.href = "/pages/view_talk.html";
+    	});
+	</script>
 </body>
 </html>
