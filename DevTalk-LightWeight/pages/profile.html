@@ -23,7 +23,7 @@
                     data='[
                             {"name":"JavaLand 2016", "ort":"Phantasialand, Brühl", "datum": "08.03.2016  -  10.03.2016", "kategorie":"Java"},
                             {"name":"DOAG Konferenz und Austellung", "ort":"Nürnberg", "datum":"17.11.2015  -  20.11.2015", "kategorie":"Java"},
-                            {"name":" BASTA!", "ort":"Darmstadt", "datum":"01.03.2016 – 03.03.2016", "kategorie":".Net"}
+                            {"name":"BASTA!", "ort":"Darmstadt", "datum":"01.03.2016 – 03.03.2016", "kategorie":".Net"}
                             ]'
                     highlightedata='
                             [
@@ -53,7 +53,7 @@
 	<devtalk-footer user='{"role": "USER"}'></devtalk-footer>	
 	<script>
     	document.querySelector('event-table-component').addEventListener('eventTableItemClick', function (e) {
-        	window.location.href = "/pages/view_talk.html";
+        	window.location.href = "/pages/view_talk.html?name="+e.detail.item.name;
     	});
 	</script>
 </body>
