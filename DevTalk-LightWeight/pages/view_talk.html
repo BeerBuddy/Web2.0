@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>DevTalk - Veranstaltung </title>
+    <link rel="stylesheet" href="../styles/style.css" />
+    <script src="/bower_components/webcomponentsjs/webcomponents.js"></script>
+    <link rel="import" href="/webcomponents/devtalk-header/devtalk-header.html"/>
+    <link rel="import" href="/webcomponents/event-table-component.html"/>
+	<link rel="import" href="/webcomponents/devtalk-footer/devtalk-footer.html"/>
+
+</head>
+<body>
+<div id="wrapper">
+    <devtalk-header initialstate="main-header-collapsed" user=''></devtalk-header>
+    <div id="content" class="content-wrapper">
+				<h1>Veranstaltung <span class="name"> </span></h1>
+				<P>
+				<h3>Beschreibung :</h3>
+				</p>
+				<p>
+				<desc>
+					Dies ist die Beschreibung der Veranstltung <span class="name"> </span>. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+				</desc>
+				</p>
+		<content >
+			<h1>Talks</h1>
+			<section>
+				<event-table-component
+										data='[
+											{"name":"Talk 1", "raum":"Raum 1","beschreibung":"Beschreibung des Talk 1", "datum": "08.03.2016  10 Uhr", "track":"Java"},
+										{"name":"Talk 2", "raum":"Raum 1","beschreibung":"Beschreibung des Talk 2", "datum": "08.03.2016  12 Uhr", "track":"HTML"},
+										{"name":"Talk 3", "raum":"Raum 1","beschreibung":"Beschreibung des Talk 3", "datum": "08.03.2016  13 Uhr", "track":"JS"}
+										]'
+										
+										columns='
+										 [
+											{"name":"name", "title":"Name"},
+											{"name":"beschreibung", "title":"Beschreibung"},
+											{"name":"raum", "title":"Raum"},
+											{"name":"datum", "title":"Datum"},
+											{"name":"track", "title":"Track"}
+										 ]'
+										 
+										 icontype=""
+				/>
+			</section>
+		</content>
+		<div style="clear:both;"></div>
+</div>
+<devtalk-footer user='{"role": "USER"}'></devtalk-footer>	
+	<script>
+    	   var name = location.search.split('name=')[1];
+		var testElements = document.getElementsByClassName('name');
+		var testDivs = Array.prototype.filter.call(testElements, function(testElement){
+			return testElement.innerHTML = name;
+		});
+	</script>
+</body>
+</html>

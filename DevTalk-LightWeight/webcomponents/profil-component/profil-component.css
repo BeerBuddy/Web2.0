@@ -7,8 +7,8 @@
 }
 
 profil-component{
-    min-width: 220px;
-    height: 520px;
+    min-width: 250px;
+    height: 600px;
 
 }
 
@@ -27,8 +27,8 @@ profil-component{
 .container {
     text-align: center
     font-family: verdana;
-    height: 520px;
-    perspective: 520px;
+    height: 600px;
+    perspective: 600px;
     position: relative;
     width: 100%;
     border-radius: 5px;
