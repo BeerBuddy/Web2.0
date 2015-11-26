@@ -1,5 +1,12 @@
 # Web2.0
 
+## Services
+- User Service: samizel
+- Event Service: davidgri
+- Recommendation Service: feress
+- E-Mail Service: MaHoel
+- Statistics Service: ehhc
+
 ## Getting started
 1. Install node: https://nodejs.org
 
