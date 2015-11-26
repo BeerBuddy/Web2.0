@@ -9,11 +9,13 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname));
 
 app.post('/login', function(req, res) {
-  res.send(exportProperties(req));
+  console.log(exportProperties(req));
+  res.redirect("/pages/profile.html");
 });
 
 app.post('/register', function(req, res) {
-  res.send(exportProperties(req));
+  console.log(exportProperties(req));
+  res.redirect("/pages/profile.html");
 });
 
 app.listen(8080, function() {
