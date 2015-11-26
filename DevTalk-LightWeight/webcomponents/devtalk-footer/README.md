@@ -2,12 +2,6 @@
 
 Der DevTalk-Footer dient der Navigation auf der DevTalk-Website.
 
-### Allgemein
-Alle Stylesheets müssen in der korrekten Reihenfolge eingebunden.
-```html
-<link rel="stylesheet" href="/styles/style.css" />
-<link rel="stylesheet" href="/styles/mobile.css" />
-```
 
 ### Footer
 Der Footer erwartet als Eingabe ein `user` Objekt, dieses wird genutzt um zu entscheiden, welche Navigations-Elemente angezeigt werden.
