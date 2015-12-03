@@ -1,0 +1,72 @@
+<link rel="import" href="/app/bower_components/polymer/polymer.html">
+<link rel="stylesheet" href="event-table-component.css" />
+<link rel="import" href="/app/bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="event-table-component">
+<template>
+	<div class="styleTable">
+		<table class="event-table">
+			<tr>
+				<template is="dom-repeat" items="{{columns}}"  >
+					<th>{{item.title}}</th>
+				</template>
+				<th style="width: 20px">&nbsp;</th>
+			</tr>
+			<template is="dom-repeat" as="row" items="{{highlightedata}}"  >
+				<tr class="highlighted">
+					<template is="dom-repeat" as="column" items="{{columns}}">
+						<td>{{_getTableData(row, column)}}</td>
+					</template>
+					<td><button on-click="_onItemClick" class="btn-invisible"><iron-icon icon="{{icontype}}"></iron-icon></button></td>
+				</tr>
+			</template>
+			<template is="dom-repeat" as="row" items="{{data}}"  >
+				<tr>
+					<template is="dom-repeat" as="column" items="{{columns}}">
+						<td>{{_getTableData(row, column)}}</td>
+					</template>
+					<td><button on-click="_onItemClick" class="btn-invisible"><iron-icon icon="{{icontype}}"></iron-icon></button></td>
+				</tr>
+			</template>
+		</table>
+	</div>
+
+</template>
+
+
+<script>
+
+	Polymer({is: "event-table-component",
+		ready: function(){
+			
+	},
+	 _getTableData: function(row, column) {
+    return row[column.name];
+  	},
+  	_onItemClick: function(e) {
+  		this.fire('eventTableItemClick', {item: e.model.row});
+  	},
+	properties: {
+				data: {
+					type: Array,
+					value: function() {return [];}
+				},
+				columns: {
+					type: Array,
+					value: function() {return [];}
+				},
+				highlightedata: {
+					type: Array,
+					value: function() {return [];}
+				},
+				icontype : {
+					type: String,
+					value: "zoom-in"
+				}
+
+	}});
+</script>
+	<style>
+
+		</style>
+</dom-module>

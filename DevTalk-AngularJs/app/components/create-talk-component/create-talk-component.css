@@ -1,0 +1,44 @@
+paper-button.colorful[raised]:not([style-scope]):not(.style-scope) {
+    background: #099C69 none repeat scroll 0 0;
+    color: #fff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+container {
+    font-family: verdana;
+    height: 390px;
+    perspective: 500px;
+    width: 100%;
+	border-radius: 5px;
+	display:inline-block
+}
+
+input {
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+    padding: 2px 5px;
+    width: 100%;
+    border-radius: 5px;
+    height: 35px;
+}
+
+select {
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+    padding: 2px 5px;
+    width: auto;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.date {
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+    padding: 2px 0px;
+    width: 47%;
+    border-radius: 5px;
+    height: 35px;
+}

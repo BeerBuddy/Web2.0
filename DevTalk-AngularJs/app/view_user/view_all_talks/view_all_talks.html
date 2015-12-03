@@ -1,0 +1,26 @@
+<content id="main-content">
+    <suche>
+        <input type="text" placeholder="Search">
+        <button type="button" class="btn btn-default"><span clas="glyphicon glyphicon-search"></span>Search</button>
+    </suche>
+
+    <event-table-component
+            data='[
+                    {"name":"JavaLand 2016", "ort":"Phantasialand, Brühl", "datum": "08.03.2016  -  10.03.2016", "kategorie":"Java"},
+                    {"name":"DOAG Konferenz und Austellung", "ort":"Nürnberg", "datum":"17.11.2015  -  20.11.2015", "kategorie":"Java"},
+                    {"name":" BASTA!", "ort":"Darmstadt", "datum":"01.03.2016 – 03.03.2016", "kategorie":".Net"}
+                    ]'
+            highlightedata='
+                    [
+                    {"name" : "EclipseCon Europe", "ort":"Ludwigsburg", "datum": "03.11.2015  -  05.11.2015", "kategorie":"Java"},
+                    {"name" : "W-JAX", "ort":"München", "datum": "02.11.2015  -  06.11.2015", "kategorie":"Java"}
+                    ]'
+            columns='
+                 [
+                    {"name":"name", "title":"Name"},
+                    {"name":"ort", "title":"Ort"},
+                    {"name":"datum", "title":"Datum"},
+                    {"name":"kategorie", "title":"Kategorie"}
+                 ]'
+            />
+</content>

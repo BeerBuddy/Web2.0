@@ -1,0 +1,31 @@
+<content id="main-content">
+    <h1>Talks</h1>
+    <section>
+        <event-table-component
+                data='[
+											{"name":"Talk 1", "raum":"Raum 1","beschreibung":"Beschreibung des Talk 1", "datum": "08.03.2016  10 Uhr", "track":"Java"},
+										{"name":"Talk 2", "raum":"Raum 1","beschreibung":"Beschreibung des Talk 2", "datum": "08.03.2016  12 Uhr", "track":"HTML"},
+										{"name":"Talk 3", "raum":"Raum 1","beschreibung":"Beschreibung des Talk 3", "datum": "08.03.2016  13 Uhr", "track":"JS"}
+										]'
+
+                columns='
+										 [
+											{"name":"name", "title":"Name"},
+											{"name":"beschreibung", "title":"Beschreibung"},
+											{"name":"raum", "title":"Raum"},
+											{"name":"datum", "title":"Datum"},
+											{"name":"track", "title":"Track"}
+										 ]'
+
+                icontype=""
+                />
+    </section>
+</content>
+
+<script>
+    var name = location.search.split('name=')[1];
+    var testElements = document.getElementsByClassName('name');
+    var testDivs = Array.prototype.filter.call(testElements, function (testElement) {
+        return testElement.innerHTML = name;
+    });
+</script>

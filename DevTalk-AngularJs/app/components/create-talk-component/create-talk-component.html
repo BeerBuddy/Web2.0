@@ -1,0 +1,43 @@
+<link rel="import" href="/app/bower_components/polymer/polymer.html"/>
+<link rel="import" href="/app/bower_components/paper-button/paper-button.html"></link>
+
+<dom-module id="create-talk-component">
+    <link rel="stylesheet" href="create-talk-component.css"/>
+	<template>
+		<container class="container">
+			 <h2>Create / Edit Talk</h2>
+			<section>
+				<p>
+					<input type='text' id="name" placeholder="Name" value="{{talk.name}}">
+				</p>
+				<p>
+					<input type='text' id="place" placeholder="Place" value="{{talk.place}}">
+				</p>
+				<p>
+					<input type='date' id="start" class="date" placeholder="Start Date" value="{{talk.start}}">
+					- <input type='date' id="end"  class="date" placeholder="End Date"  value="{{talk.end}}">
+				</p>
+				<p>
+						Categorie: 
+						<select name="farbe" id="categorie" size="1" value="{{talk.categorie}}">
+							<option value="1">.NET</option>
+							<option value="2">Java</option>
+							<option value="3">SAP</option>
+						</select>
+				</p>
+				<paper-button raised class="colorful">Save Talk</paper-button>
+			</section>
+		</container>
+	</template>
+	
+	<script>
+		Polymer({
+			is: "create-talk-component",
+			properties: {
+			talk: {
+				type: Object
+			}
+		}
+		});
+	</script>
+</dom-module>

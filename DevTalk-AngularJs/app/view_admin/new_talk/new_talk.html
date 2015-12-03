@@ -1,0 +1,31 @@
+<aside id="aside">
+    <create-talk-component
+            talk='{"name":"ABAP für Fortgeschrittene", "place":"Walldorf", "start":"2016-04-01", "end":"2016-01-08", "categorie":"2"}'/>
+</aside>
+
+<content id="main-content">
+    <h2>Talks</h2>
+    <section>
+        <event-table-component
+                data='[
+							{"name":"JavaLand 2016", "ort":"Phantasialand, Brühl", "datum": "08.03.2016  -  10.03.2016", "kategorie":"Java"},
+							{"name":"DOAG Konferenz und Austellung", "ort":"Nürnberg", "datum":"17.11.2015  -  20.11.2015", "kategorie":"Java"},
+							{"name":" BASTA!", "ort":"Darmstadt", "datum":"01.03.2016 – 03.03.2016", "kategorie":".Net"}
+							]'
+                highlightedData='
+							[
+							{"name" : "EclipseCon Europe", "ort":"Ludwigsburg", "datum": "03.11.2015  -  05.11.2015", "kategorie":"Java"},
+							{"name" : "W-JAX", "ort":"München", "datum": "02.11.2015  -  06.11.2015", "kategorie":"Java"}
+							]'
+                columns='
+						 [
+							{"name":"name", "title":"Name"},
+							{"name":"ort", "title":"Ort"},
+							{"name":"datum", "title":"Datum"},
+							{"name":"kategorie", "title":"Kategorie"}
+						 ]'
+                />
+    </section>
+    <paper-button raised class="talk-button colorful">Add new Talk</paper-button>
+    <paper-button raised class="colorful">Cancel Talk</paper-button>
+</content>

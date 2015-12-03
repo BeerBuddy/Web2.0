@@ -1,0 +1,76 @@
+<!--
+	Diese Komponente sieht unter Firefox nicht gut aus, funktioniert aber ... kack firefox!
+	Getestet: Chrome (+Android), Edge, Firefox
+-->
+<link rel="import" href="/app/bower_components/polymer/polymer.html" />
+
+<dom-module id="login-register-component">
+<template>
+	<link rel="stylesheet" href="login-register-component.css"/>
+	<div class="container">
+		<div id="card" class="card">
+			<!-- REGISTER -->
+			<section class='signup'>
+				<!-- using one way databinding! -->
+				<form action="[[register_action]]" method="post">
+					<h2>Register now!</h2>
+					<p>
+						<input type='text' id="account_username" name="account_username" placeholder="Username">
+					</p>
+					<p>
+						<input type='email' id="account_email" name="account_email" placeholder="E-mail">
+					</p>
+					<p>
+						<input type='password' id="account_password" name="account_password" placeholder="Password">
+					</p>
+					<p>
+						<input type='password' id="account_password_confirmation" name="account_password_confirmation" placeholder="Confirm password">
+					</p>
+					<p>
+						<input type='checkbox' id="agb" name="agb">AGBs</input>
+					</p>
+					<p><button class='toggle'>Register</button></p>
+					<button class='toggle' on-click="flip">Damit! I am already registered!</button>
+				</form>
+			</section>
+			<!-- LOGIN -->
+			<section class='signin'>
+				<!-- using one way databinding! -->
+				<form action="[[login_action]]" enctype="application/x-www-form-urlencoded" method="post">
+					<h2>Login</h2>
+					<p>
+						<input type='email' id="user_email" name="user_email" placeholder="E-mail">
+					</p>
+					<p>
+						<input type='password' id="user_password" name="user_password" placeholder="Password">
+					</p>
+					<p>
+						<button class='toggle'>Submit</button>
+					</p>
+					<button class='toggle' on-click="flip">I want an account NOW!</button>
+				</form>
+			</section>
+		</div>
+	</div>
+</template>
+<script>
+	Polymer({
+		is: "login-register-component",
+		properties: {
+	        login_action: {
+	            type: String,
+	            value: "/login"
+	        },
+	        register_action: {
+	            type: String,
+	            value: "/register"
+	        }
+    	},
+    	flip: function(event) {
+			event.preventDefault();
+			document.querySelector('.card');
+			this.$.card.classList.toggle('flipped');
+		}
+	});
+</script>
+</dom-module>
