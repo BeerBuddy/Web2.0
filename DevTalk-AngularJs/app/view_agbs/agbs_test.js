@@ -1,12 +1,12 @@
 'use strict';
 
-describe('DevTalk.agbs module', function() {
+describe('DevTalk.agb module', function() {
 
-  beforeEach(module('DevTalk.agbs'));
+  beforeEach(module('DevTalk.agb'));
 
   describe('agbs controller', function(){
 
-    it('should ....', inject(function($controller) {
+    it('should be instantiateable', inject(function($controller) {
       //spec body
       var aGBsCtrl = $controller('AGBsCtrl');
       expect(aGBsCtrl).toBeDefined();

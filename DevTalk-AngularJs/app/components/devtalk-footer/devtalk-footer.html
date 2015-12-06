@@ -1,52 +1,27 @@
-<link rel="import" href="/app/bower_components/polymer/polymer.html">
-<link rel="import" href="/app/bower_components/iron-icons/iron-icons.html">
-<link rel="stylesheet" href="devtalk-footer.css" />
+<link rel="stylesheet" href="components/devtalk-footer/devtalk-footer.css" />
 
-<dom-module id="devtalk-footer">
-<template>
-	<footer id="footer">
-		<div id="footer-content">
-			<span class="footer-item-left">
-			&copy; BeerBuddy Inc.
-			</span>
-			<span class="footer-item-left">
-				<a href="#agbs"><span class="nav-text">AGBs</span></a>
-			</span>
-			<span class="footer-item-left">
-				<a href="#impressum"><span class="nav-text">Impressum</span></a>
-			</span>
-			<template is="dom-if" if="{{isLoggedIn(user)}}">
-				<a href="#login" class="footer-item-right">
-					<iron-icon icon="power-settings-new"></iron-icon><span class="nav-text">Logout</span>
-				</a>
-				<a href="#profile" class="footer-item-right">
-					<iron-icon icon="account-box"></iron-icon><span class="nav-text">Mein Profil</span>
-				</a>
-			</template>
-			<template is="dom-if" if="{{isAdmin(user)}}">
-				<a href="#newTalk" class="footer-item-right">
-					<iron-icon icon="add-box"></iron-icon><span class="nav-text">Veranstaltung</span>
-				</a>
-				<a href="#statistics" class="footer-item-right">
-					<iron-icon icon="assessment"></iron-icon><span class="nav-text">Statistiken</span>
-				</a>
-			</template>
-		</div>
-	</footer>	
-</template>
-
-<script>
-	Polymer({
-		is: "devtalk-footer",
-		properties: {
-			user: Object
-		},
-		isAdmin: function(user) {
-			return user.role === 'ADMIN';
-		},
-		isLoggedIn: function(user){
-			return user.role === 'ADMIN' || user.role === 'USER';
-		}
-	});
-</script>
-
+<footer id="footer">
+	<div id="footer-content">
+		<span class="footer-item-left">
+		&copy; BeerBuddy Inc.
+		</span>
+		<span class="footer-item-left">
+			<a href="#agbs" id="agb"><span class="nav-text">AGBs</span></a>
+		</span>
+		<span class="footer-item-left">
+			<a href="#impressum" id="impressum"><span class="nav-text">Impressum</span></a>
+		</span>
+		<a href="#login" class="footer-item-right" ng-show="isUser" id="logout">
+			<iron-icon icon="power-settings-new"></iron-icon><span class="nav-text">Logout</span>
+		</a>
+		<a href="#profile" class="footer-item-right" ng-show="isUser" id="myProfil">
+			<iron-icon icon="account-box"></iron-icon><span class="nav-text">Mein Profil</span>
+		</a>
+		<a href="#newTalk" class="footer-item-right" ng-show="isAdmin" id="eventLink">
+			<iron-icon icon="add-box"></iron-icon><span class="nav-text">Veranstaltung</span>
+		</a>
+		<a href="#statistics" class="footer-item-right" ng-show="isAdmin" id="statisticLink">
+			<iron-icon icon="assessment"></iron-icon><span class="nav-text">Statistiken</span>
+		</a>
+	</div>
+</footer>

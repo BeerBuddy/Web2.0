@@ -18,7 +18,6 @@
   <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
   <link rel="import" href="components/login-register-component/login-register-component.html"/>
   <link rel="import" href="components/devtalk-header/devtalk-header.html"/>
-  <link rel="import" href="components/devtalk-footer/devtalk-footer.html"/>
   <link rel="import" href="components/profil-component/profil-component.html"/>
   <link rel="import" href="components/event-table-component/event-table-component.html"/>
   <link rel="import" href="components/create-talk-component/create-talk-component.html"/>
@@ -39,7 +38,7 @@
       <div style="clear: both;"></div>
     </div>
   </div>
-  <devtalk-footer user='{"role": "USER"}'></devtalk-footer>
+  <dev-talk-footer></dev-talk-footer>
   <div>Angular seed app: v<span app-version></span></div>
 
   <!-- In production use:
@@ -64,5 +63,7 @@
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
+  <script src="components/services/UserService.js"></script>
+  <script src="components/devtalk-footer/devtalk-footer.js"></script>
 </body>
 </html>
