@@ -25,7 +25,7 @@
 							<option value="3">SAP</option>
 						</select>
 				</p>
-				<paper-button raised class="colorful">Save Talk</paper-button>
+				<paper-button raised class="colorful" on-click="save">Save Talk</paper-button>
 			</section>
 		</container>
 	</template>
@@ -36,8 +36,14 @@
 			properties: {
 			talk: {
 				type: Object
-			}
-		}
+			}},
+			save: function(){
+				var start = document.querySelector("#start").value;
+				var end = document.querySelector("#end").value;
+				if (start > end) {
+					alert("Startdatum " + start + " liegt nach Endedatum " + end);
+				}
+			}			
 		});
 	</script>
 </dom-module>
