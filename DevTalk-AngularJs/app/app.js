@@ -13,7 +13,8 @@ angular.module('DevTalk', [
   'DevTalk.statistic',
   'DevTalk.newTalk',
   'DevTalk.editTalk',
-  'DevTalk.common'
+  'DevTalk.common',
+  'DevTalk.common1'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/login'});
