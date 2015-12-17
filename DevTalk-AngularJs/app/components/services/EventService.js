@@ -31,7 +31,7 @@ app.factory('EventService', [function () {
                 "title": title,
                 "description": title + " (1) Sixteen-year-old Emme Belrose has it all: four best friends, her own horse, a hidden teepee hangout, and a blossoming romance with tall and handsome Charlie. These friends also have a secret. They can move their spirits into animal bodies: an Osprey, a Mustang, a Grizzly, a Mountain Lion and a Coyote. (2) But when Charlie, who has a gift for seeing the future, has a vision of Emme drowning in the icy Yellostone River, (3) the Spirit Warriors must train their animal bodies to kill an enemy they know is coming… but know nothing about. (4) Suspenseful, romantic and awash in Native American magic, Spirit Warriors captures the enchantment of the American West and the power of friendship.",
                 "time": "1" + i + ":00 - 1" + (i + 1) + ":00",
-                "speakers":speakers
+                "speakers": speakers
 
             };
             talks.push(talk);
@@ -78,14 +78,15 @@ app.factory('EventService', [function () {
         var date1 = getRandomDate(new Date());
         var date2 = getRandomDate(date1);
         var id = generateRandomId(events);
-        var talks =getRandomTalks(pre, id);
+        var talks = getRandomTalks(pre, id);
         var event = {
             "id": id,
             "name": pre + " " + getRandomFromArray(eventpostfixs) + " " + location,
             "ort": location,
             "datum": date1.getDate() + "." + date1.getMonth() + "." + date1.getFullYear() + " - " + date2.getDate() + "." + date2.getMonth() + "." + date2.getFullYear(),
             "kategorie": pre,
-            "talks": talks
+            "talks": talks,
+            "teilnehmer": []
         }
         events.push(event);
     }
@@ -114,7 +115,31 @@ app.factory('EventService', [function () {
                 }
             }
             throw new Error("Event could not be updated. Already inserted?");
+        },
+        getEventsByUserId: function (userid) {
+            var eventList = [];
+            for (var i = 0; i < events.length; i++) {
+                for (var j = 0; j < events[i].teilnehmer.length; j++) {
+                    if (events[i].teilnehmer[j] === userid) {
+                        eventList.push(event[i]);
+                    }
+                }
+            }
+            return eventList;
+        },
+        joinEvent: function (userid, eventid) {
+            for (var i = 0; i < events.length; i++) {
+                if (events[i].id === eventid) {
+                    if(!events[i].teilnehmer)
+                    {
+                        events[i].teilnehmer = [];
+                    }
+                    events[i].teilnehmer.push(userid);
+                    return;
+                }
+            }
+            throw new Error("Could not find event " + eventid + ". Already inserted?");
         }
-    }
-}])
-;
+    };
+}
+]);

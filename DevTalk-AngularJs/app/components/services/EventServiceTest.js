@@ -198,7 +198,7 @@
                     eventService.getById("unknown id")
                 }).toThrow();
             });
-         });
+        });
 
         describe('EventService.update unknown event', function () {
             var event = {
@@ -207,6 +207,31 @@
             it('should throw a exception', function () {
                 expect(function(){
                     eventService.update(event)
+                }).toThrow();
+            });
+        });
+
+        describe('EventService.join an event', function () {
+            var event = {
+                "id": "EventService.join Test",
+                "name": "Test",
+                "ort": "hier",
+                "datum": "jetzt - später",
+                "kategorie": "kategorie",
+                "talks": [
+                ]
+            };
+            it('getEventsByUserId should return previouse joined Event ', function () {
+                eventService.insert(event);
+                eventService.joinEvent(10, "EventService.join Test");
+                expect(eventService.getEventsByUserId(10)).toEqual([event]);
+            });
+        });
+
+        describe('EventService.join unknown event', function () {
+            it('should throw a exception', function () {
+                expect(function(){
+                    eventService.join(10, "unknown id");
                 }).toThrow();
             });
         });
