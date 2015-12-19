@@ -1,63 +1,55 @@
-﻿?
-<link rel="import" href="/app/bower_components/polymer/polymer.html"/>
-
-<dom-module id="profil-component">
-    <link rel="stylesheet" href="profil-component.css"/>
-    <template>
-        <container class="container">
+﻿    <link rel="stylesheet" href="components/profil-component/profil-component.css"/>
             <card id="card" class="card">
                 <!-- Edit -->
-                <section class='edit'>
-                    <img src="{{user.image}}" class="user-image"/>
-
+                <section class='edit' ng-class="{'flipped' : flipped }">
+                    <img src="{{user.image}}" class="user-image" />
                     <p>
-                        <input id="account_image" class='toggle' type="file"/>
+
+                        <input ng-model="user.image" class='toggle'
+                           onchange="angular.element(this).scope().file_changed(this)"
+                           type="file" accept="image/*" />
+
                     </p>
 
                     <p>
-                        <input type='text' id="account_username" placeholder="Username" value="{{user.name}}">
+                        <input type='text' id="account_username" placeholder="Username"  ng-model="user.name">
                     </p>
 
                     <p>
-                        <input type='email' id="account_email" placeholder="E-mail" value="{{user.email}}">
+                        <input type='email' id="account_email" placeholder="E-mail"  ng-model="user.email">
                     </p>
 
                     <p>
                         <input type='password' id="account_password" placeholder="Password"
-                               value="{{user.password}}">
+                               ng-model="user.password">
                     </p>
 
                     <p>
                         <input type='password' id="account_password_confirmation" placeholder="Confirm password"
-                               value="{{user.repassword}}">
+                               ng-model="user.repassword">
                     </p>
 
                     <p>
-                        <button id="save" class='toggle hide' on-click="onsave">Save</button>
+                        <button class='toggle' id="save" ng-click="onsave(user)">Save</button>
                     </p>
                     <p>
-                        <button class='toggle' on-click="flip">Zurück</button>
+                        <button class='toggle' ng-click="flip(flipped)">Zurück</button>
                     </p>
 
 
                 </section>
 
                 <!-- View -->
-                <section class='view'>
-                    <img src="[[user.image]]" class="user-image"/>
+                <section class='view' ng-class="{'flipped' : !flipped }">
+                    <img src="{{user.image}}" class="user-image" />
 
                     <p>
 
-                    <h3>[[user.name]]</h3>
+                    <h3>{{user.name}}</h3>
                     </p>
-                    <template is="dom-if" if="{{editable}}">
-                        <button class='toggle' on-click="flip">Edit</button>
-                    </template>
+                    <p ng-if="editable">
+                        <button class='toggle' ng-click="flip(flipped)">Edit</button>
+                    </p>
 
                 </section>
             </card>
-        </container>
-    </template>
-    <script src="profil-component.js"></script>
-
-</dom-module>
