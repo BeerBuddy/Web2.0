@@ -40,14 +40,14 @@
                 "id": "id",
                 "name": "Test",
                 "ort": "hier",
-                "datum": "jetzt - sp‰ter",
+                "datum": "jetzt - sp√§ter",
                 "kategorie": "kategorie",
                 "talks": [
                 {
                     "id": "talk1",
                     "title": "talk1",
                     "description": "talk1 beschreibung",
-                    "time": "jetzt - sp‰ter",
+                    "time": "jetzt - sp√§ter",
                     "speakers": [
                         {
                             "id": "1",
@@ -63,7 +63,7 @@
                     "id": "talk2",
                     "title": "talk2",
                     "description": "talk2 beschreibung",
-                    "time": "jetzt - sp‰ter",
+                    "time": "jetzt - sp√§ter",
                     "speakers": [
                         {
                             "id": "3",
@@ -74,7 +74,7 @@
             ]
             };
             it('should inster a event', function () {
-                console.info("EventService -----------: "+eventService);
+                //console.info("EventService -----------: "+eventService);
                 eventService.insert(eventToinsert);
                 //get from service
                 var event2 = eventService.getById(eventToinsert.id);
@@ -137,14 +137,14 @@
                 "id": "insert update getByid Test",
                 "name": "Test",
                 "ort": "hier",
-                "datum": "jetzt - sp‰ter",
+                "datum": "jetzt - sp√§ter",
                 "kategorie": "kategorie",
                 "talks": [
                     {
                         "id": "talk1",
                         "title": "talk1",
                         "description": "talk1 beschreibung",
-                        "time": "jetzt - sp‰ter",
+                        "time": "jetzt - sp√§ter",
                         "speakers": [
                             {
                                 "id": "1",
@@ -160,7 +160,7 @@
                         "id": "talk2",
                         "title": "talk2",
                         "description": "talk2 beschreibung",
-                        "time": "jetzt - sp‰ter",
+                        "time": "jetzt - sp√§ter",
                         "speakers": [
                             {
                                 "id": "3",
@@ -195,7 +195,7 @@
         describe('EventService.getByid unknown id', function () {
             it('should throw a exception', function () {
                 expect(function(){
-                    eventService.getById("unknown id")
+                    eventService.getById("unknown id");
                 }).toThrow();
             });
         });
@@ -206,7 +206,7 @@
             };
             it('should throw a exception', function () {
                 expect(function(){
-                    eventService.update(event)
+                    eventService.update(event);
                 }).toThrow();
             });
         });
@@ -216,7 +216,7 @@
                 "id": "EventService.join Test",
                 "name": "Test",
                 "ort": "hier",
-                "datum": "jetzt - sp‰ter",
+                "datum": "jetzt - sp√§ter",
                 "kategorie": "kategorie",
                 "talks": [
                 ]

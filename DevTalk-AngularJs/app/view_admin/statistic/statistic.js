@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('DevTalk.statistic', ['ngRoute', 'googlechart'])
+angular.module('DevTalk.statistic', ['ngRoute', 'chart.js', 'DevTalk.admin'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/admin/statistic', {
@@ -9,40 +9,14 @@ angular.module('DevTalk.statistic', ['ngRoute', 'googlechart'])
   });
 }])
 
-.controller('StatisticCtrl', ['$scope', function($scope) {
-	$scope.chartObject = {};
-    
-    $scope.chartObject.type = "BarChart";
-    
-    $scope.onions = [
-        {v: "Onions"},
-        {v: 3},
-    ];
+.controller('StatisticCtrl', ['$scope', 'StatisticService',  function($scope, StatisticService) {
+	$scope.accessData = StatisticService.getAccessStatistics();
+  $scope.reloadAccessData = function(){
+    $scope.accessData = StatisticService.getAccessStatistics();
+  };
+  $scope.registrationData = StatisticService.getRegistrationData();
+  $scope.reloadRegistrationData = function(){
+    $scope.registrationData = StatisticService.getRegistrationData();
+  };
 
-    $scope.chartObject.data = {"cols": [
-        {id: "t", label: "Topping", type: "string"},
-        {id: "s", label: "Slices", type: "number"}
-    ], "rows": [
-        {c: [
-            {v: "Mushrooms"},
-            {v: 3},
-        ]},
-        {c: $scope.onions},
-        {c: [
-            {v: "Olives"},
-            {v: 31}
-        ]},
-        {c: [
-            {v: "Zucchini"},
-            {v: 1},
-        ]},
-        {c: [
-            {v: "Pepperoni"},
-            {v: 2},
-        ]}
-    ]};
-
-    $scope.chartObject.options = {
-        'title': 'How Much Pizza I Ate Last Night'
-    };
 }]);

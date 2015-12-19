@@ -29,7 +29,7 @@ app.factory('EventService', [function () {
             var talk = {
                 "id": id,
                 "title": title,
-                "description": title + " (1) Sixteen-year-old Emme Belrose has it all: four best friends, her own horse, a hidden teepee hangout, and a blossoming romance with tall and handsome Charlie. These friends also have a secret. They can move their spirits into animal bodies: an Osprey, a Mustang, a Grizzly, a Mountain Lion and a Coyote. (2) But when Charlie, who has a gift for seeing the future, has a vision of Emme drowning in the icy Yellostone River, (3) the Spirit Warriors must train their animal bodies to kill an enemy they know is coming… but know nothing about. (4) Suspenseful, romantic and awash in Native American magic, Spirit Warriors captures the enchantment of the American West and the power of friendship.",
+                "description": title + " (1) Sixteen-year-old Emme Belrose has it all: four best friends, her own horse, a hidden teepee hangout, and a blossoming romance with tall and handsome Charlie. These friends also have a secret. They can move their spirits into animal bodies: an Osprey, a Mustang, a Grizzly, a Mountain Lion and a Coyote. (2) But when Charlie, who has a gift for seeing the future, has a vision of Emme drowning in the icy Yellostone River, (3) the Spirit Warriors must train their animal bodies to kill an enemy they know is comingï¿½ but know nothing about. (4) Suspenseful, romantic and awash in Native American magic, Spirit Warriors captures the enchantment of the American West and the power of friendship.",
                 "time": "1" + i + ":00 - 1" + (i + 1) + ":00",
                 "speakers": speakers
 
@@ -41,7 +41,7 @@ app.factory('EventService', [function () {
 
     function getRandomSpeaker(talkid) {
         var name = ["John", "Mike", "Nick", "David", "Felix", "Aria", "Sansa", "Marco", "Jill", "Anna", "Lisa", "Sandra"];
-        var lastname = ["Müller", "Meier", "Stark", "Bäcker", "Bauer", "Spinn", "Cruz"];
+        var lastname = ["Mï¿½ller", "Meier", "Stark", "Bï¿½cker", "Bauer", "Spinn", "Cruz"];
 
         var speakers = [];
         for (var i = 0; i < (Math.random() * 3) + 1; i++) {
@@ -121,7 +121,7 @@ app.factory('EventService', [function () {
             for (var i = 0; i < events.length; i++) {
                 for (var j = 0; j < events[i].teilnehmer.length; j++) {
                     if (events[i].teilnehmer[j] === userid) {
-                        eventList.push(event[i]);
+                        eventList.push(events[i]);
                     }
                 }
             }

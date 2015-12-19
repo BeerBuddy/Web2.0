@@ -27,7 +27,7 @@
     "iron-icon": "PolymerElements/iron-icon#~1.0.7",
     "iron-icons": "PolymerElements/iron-icons#~1.0.4",
     "paper-button": "PolymerElements/paper-button#~1.0.8",
-    "angular-google-chart": "~0.1.0"
+    "angular-chart.js": "~0.8.8"
   },
   "description": "",
   "moduleType": [
