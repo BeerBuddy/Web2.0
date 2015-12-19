@@ -1,4 +1,5 @@
-﻿?<link rel="import" href="/app/bower_components/polymer/polymer.html"/>
+﻿?
+<link rel="import" href="/app/bower_components/polymer/polymer.html"/>
 
 <dom-module id="profil-component">
     <link rel="stylesheet" href="profil-component.css"/>
@@ -7,37 +8,36 @@
             <card id="card" class="card">
                 <!-- Edit -->
                 <section class='edit'>
+                    <img src="{{user.image}}" class="user-image"/>
 
-                        <img src="{{user.image}}" class="user-image"/>
+                    <p>
+                        <input id="account_image" class='toggle' type="file"/>
+                    </p>
 
-                        <p>
-                            <input id="account_image" class='toggle' type="file"/>
-                        </p>
+                    <p>
+                        <input type='text' id="account_username" placeholder="Username" value="{{user.name}}">
+                    </p>
 
-                        <p>
-                            <input type='text' id="account_username" placeholder="Username" value="{{user.name}}">
-                        </p>
+                    <p>
+                        <input type='email' id="account_email" placeholder="E-mail" value="{{user.email}}">
+                    </p>
 
-                        <p>
-                            <input type='email' id="account_email" placeholder="E-mail" value="{{user.email}}">
-                        </p>
+                    <p>
+                        <input type='password' id="account_password" placeholder="Password"
+                               value="{{user.password}}">
+                    </p>
 
-                        <p>
-                            <input type='password' id="account_password" placeholder="Password"
-                                   value="{{user.password}}">
-                        </p>
+                    <p>
+                        <input type='password' id="account_password_confirmation" placeholder="Confirm password"
+                               value="{{user.repassword}}">
+                    </p>
 
-                        <p>
-                            <input type='password' id="account_password_confirmation" placeholder="Confirm password"
-                                   value="{{user.repassword}}">
-                        </p>
-
-                        <p>
-                            <button id="save" class='toggle hide' on-click="save">Save</button>
-                        </p>
-                        <p>
-                            <button class='toggle' on-click="flip">Zurück</button>
-                        </p>
+                    <p>
+                        <button id="save" class='toggle hide' on-click="onsave">Save</button>
+                    </p>
+                    <p>
+                        <button class='toggle' on-click="flip">Zurück</button>
+                    </p>
 
 
                 </section>

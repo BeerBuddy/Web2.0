@@ -1,71 +1,80 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="DevTalk" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="DevTalk" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="DevTalk" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="DevTalk" class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7]>
+<html lang="en" ng-app="DevTalk" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="DevTalk" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="DevTalk" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="DevTalk" class="no-js"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="styles/style.css" />
-  <link rel="stylesheet" href="styles/mobile.css" />
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="styles/app.css">
-  <!-- Webcomponents -->
-  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
-  <link rel="import" href="components/login-register-component/login-register-component.html"/>
-  <link rel="import" href="components/devtalk-header/devtalk-header.html"/>
-  <link rel="import" href="components/profil-component/profil-component.html"/>
-  <link rel="import" href="components/event-table-component/event-table-component.html"/>
-  <link rel="import" href="components/create-talk-component/create-talk-component.html"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My AngularJS App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/style.css"/>
+    <link rel="stylesheet" href="styles/mobile.css"/>
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="styles/app.css">
+    <!-- Webcomponents -->
+    <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+    <link rel="import" href="components/login-register-component/login-register-component.html"/>
+    <link rel="import" href="components/devtalk-header/devtalk-header.html"/>
+    <link rel="import" href="components/profil-component/profil-component.html"/>
+    <link rel="stylesheet" href="components/event-table-component/event-table-component.css" />
+    <link rel="import" href="components/create-talk-component/create-talk-component.html"/>
+    <link rel="import" href="/app/bower_components/iron-icons/iron-icons.html">
 
-  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
 
-  <div id="wrapper">
-    <devtalk-header initialstate="main-header-collapsed" user='{"name": "Susi Sonnenschein", "role": "USER"}'></devtalk-header>
+<div id="wrapper">
+    <devtalk-header initialstate="main-header-collapsed"
+                    user='{"name": "Susi Sonnenschein", "role": "USER"}'></devtalk-header>
     <div id="content" class="content-wrapper">
 
-  <div ng-view></div>
+        <div ng-view></div>
 
-      <div style="clear: both;"></div>
+        <div style="clear: both;"></div>
     </div>
-  </div>
-  <dev-talk-footer></dev-talk-footer>
-  <div>Angular seed app: v<span app-version></span></div>
+</div>
+<dev-talk-footer></dev-talk-footer>
+<div>Angular seed app: v<span app-version></span></div>
 
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/angular-google-chart/ng-google-chart.js"></script>
-  <script src="app.js"></script>
-  <!-- public area -->
-  <script src="view_agbs/agbs.js"></script>
-  <script src="view_impressum/impressum.js"></script>
-  <script src="view_login/login.js"></script>
-  <!-- admin area -->
-  <script src="view_admin/new_talk/new_talk.js"></script>
-  <script src="view_admin/edit_talk/edit_talk.js"></script>
-  <script src="view_admin/statistic/statistic.js"></script>
-  <!-- user area -->
-  <script src="view_user/profile/profile.js"></script>
-  <script src="view_user/view_all_talks/view_all_talks.js"></script>
-  <script src="view_user/view_talk_details/view_talk_details.js"></script>
-  <!-- components -->
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
-  <script src="components/services/UserService.js"></script>
-  <script src="components/services/EventService.js"></script>
-  <script src="components/devtalk-footer/devtalk-footer.js"></script>
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-google-chart/ng-google-chart.js"></script>
+<script src="app.js"></script>
+<!-- public area -->
+<script src="view_agbs/agbs.js"></script>
+<script src="view_impressum/impressum.js"></script>
+<script src="view_login/login.js"></script>
+<!-- admin area -->
+<script src="view_admin/new_talk/new_talk.js"></script>
+<script src="view_admin/edit_talk/edit_talk.js"></script>
+<script src="view_admin/statistic/statistic.js"></script>
+<!-- user area -->
+<script src="view_user/profile/profile.js"></script>
+<script src="view_user/view_all_talks/view_all_talks.js"></script>
+<script src="view_user/view_talk_details/view_talk_details.js"></script>
+<!-- components -->
+<script src="components/version/version.js"></script>
+<script src="components/version/version-directive.js"></script>
+<script src="components/version/interpolate-filter.js"></script>
+<script src="components/services/UserService.js"></script>
+<script src="components/services/EventService.js"></script>
+<script src="components/devtalk-footer/devtalk-footer.js"></script>
+<script src="components/event-table-component/event-table-component.js"></script>
+
 </body>
 </html>
