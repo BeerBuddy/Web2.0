@@ -9,6 +9,17 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
   });
 }])
 
-.controller('NewTalkCtrl', [function() {
-
-}]);
+.controller('NewTalkCtrl', ['$scope', '$routeParams', '$location', 'EventService', function ($scope, $routeParams, $location, EventService) {
+        $scope.onItemClick = function (e) {
+            $location.path('/talkDetails/' + e.id)
+        };
+		$scope.data = EventService.getAll();
+		$scope.talk = $scope.data[0];
+        $scope.columns =
+            [
+                {"name": "name", "title": "Name"},
+                {"name": "ort", "title": "Ort"},
+                {"name": "datum", "title": "Datum"},
+                {"name": "kategorie", "title": "Kategorie"}
+            ];
+    }]);

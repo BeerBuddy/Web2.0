@@ -13,8 +13,8 @@
 					<a href="#profile"><iron-icon icon="account-box"></iron-icon><span class="nav-text">Mein Profil</span></a>
 
 					<template is="dom-if" if="{{isAdmin(user)}}">
-						<a href="#newTalk"><iron-icon icon="add-box"></iron-icon><span class="nav-text">Veranstaltung</span></a>
-						<a href="#statistic"><iron-icon icon="assessment"></iron-icon><span class="nav-text">Statistiken</span></a>
+						<a href="#admin/newTalk"><iron-icon icon="add-box"></iron-icon><span class="nav-text">Veranstaltung</span></a>
+						<a href="#admin/statistic"><iron-icon icon="assessment"></iron-icon><span class="nav-text">Statistiken</span></a>
 					</template>
 
 					<template is="dom-if" if="{{user}}">
