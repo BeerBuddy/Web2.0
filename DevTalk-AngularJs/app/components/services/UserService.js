@@ -5,54 +5,75 @@
     var app = angular.module('DevTalk.common', []);
 
     app.factory('UserService', [function () {
-        var user = {};
+        // all available users
+        var users = [];
+
+        // add a normal user
+        users.push({
+            "id": 1337,
+            "name": "Andizzle",
+            "email": "user@user.de",
+            "password": "user",
+            "image": "images/avatar.jpg",
+            "role": "user"
+        });
+
+        // add an admin
+        users.push({
+            "id": 2448,
+            "name": "Adminizzle",
+            "email": "admin@admin.de",
+            "password": "admin",
+            "image": "images/avatar.jpg",
+            "role": "admin"
+        });
+
+        // the current user
+        var currentUser = {};
 
         return {
-            // The user will be logged in, if the username != password
-            // if the password ends with '?' the user is an admin
-            login: function (username, password) {
-                if (username !== password) {
-                    user.name = username;
-                    user.role = 'user';
+            login: function (email, password) {
+                // Iterate over all users and look if the got a hit!
+                for (var user in users) {
+                    if (users[user].email === email && users[user].password === password) {
+                        currentUser = users[user];
+                        //quickest way to deep-clone a object, see https://jsperf.com/cloning-an-object/2
+                        return JSON.parse(JSON.stringify(users[user]));
+                    }
                 }
-                if (password.match(/.*\?/)) {
-                    user.role = 'admin';
-                }
-                //quickes way to deep-clone a object, see https://jsperf.com/cloning-an-object/2
-                return JSON.parse(JSON.stringify(user));
+                console.log("No user found for email: " + email + " password:" + password);
+                return null;
             },
-            getUserByid: function (id) {
-                return {
-                    "id": id,
-                    "name": "David",
-                    "email": "nospam@asd.de",
-                    "password": "****",
-                    "image": "images/avatar.jpg"
-                };
+            register: function (username, email, password) {
+                var user = {};
+                user.username = username;
+                user.email = email;
+                user.password = password;
+                // admin accounts will be created in the db
+                user.role = "user";
+                users.push(user);
+            },
+            getUserById: function (id) {
+                for (var user in users) {
+                    if (users[user].id === id) {
+                        return users[user];
+                    }
+                }
             },
             getCurrentUser: function () {
-                return {
-                    "id": "1",
-                    "name": user.name,
-                    "email": "nospam@asd.de",
-                    "password": "****",
-                    "image": "images/avatar.jpg",
-                    "role": user.role
-                };
+                return currentUser;
             },
             update: function (user) {
-
+                currentUser = user;
             },
             logout: function () {
-                user = {};
-                //quickes way to deep-clone a object, see https://jsperf.com/cloning-an-object/2
-                return JSON.parse(JSON.stringify(user));
+                currentUser = {};
             },
             isAdmin: function () {
-                return user.role === 'admin';
+                return currentUser.role === 'admin';
             },
             isUser: function () {
-                return user.role === 'user';
+                return currentUser.role === 'user';
             }
         };
     }]);

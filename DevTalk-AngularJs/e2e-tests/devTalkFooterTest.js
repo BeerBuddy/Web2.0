@@ -22,7 +22,7 @@ describe('Test for the footer', function() {
 	
 	it('should also show the logout and myProfil link if the user is loggedIn', function() {
 		element(by.id('user_email')).sendKeys('user@user.de');
-		element(by.id('user_password')).sendKeys('password');
+		element(by.id('user_password')).sendKeys('user');
 		element(by.id('user_password')).sendKeys(protractor.Key.ENTER);
 		
 		expect(element(by.css('footer a#agb')).isDisplayed()).toBeTruthy();
@@ -35,8 +35,8 @@ describe('Test for the footer', function() {
 	
 	it('should show all links if the user is an admin', function() {
 		//login as admin
-		element(by.id('user_email')).sendKeys('user@user.de');
-		element(by.id('user_password')).sendKeys('password???');
+		element(by.id('user_email')).sendKeys('admin@admin.de');
+		element(by.id('user_password')).sendKeys('admin');
 		element(by.id('user_password')).sendKeys(protractor.Key.ENTER);
 		
 		expect(element(by.css('footer a#agb')).isDisplayed()).toBeTruthy();
@@ -49,8 +49,8 @@ describe('Test for the footer', function() {
 	
 	it('should show the default links, if the user is logged out', function() {
 		//login as admin
-		element(by.id('user_email')).sendKeys('user@user.de');
-		element(by.id('user_password')).sendKeys('password???');
+		element(by.id('user_email')).sendKeys('admin@admin.de');
+		element(by.id('user_password')).sendKeys('admin');
 		element(by.id('user_password')).sendKeys(protractor.Key.ENTER);
 		
 		expect(element(by.css('footer a#agb')).isDisplayed()).toBeTruthy();

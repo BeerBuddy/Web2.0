@@ -103,7 +103,7 @@ app/                    --> all of the source files for the application
 karma.conf.js         --> config file for running unit tests with Karma
 e2e-tests/            --> end-to-end tests
   protractor-conf.js    --> Protractor config file
-  scenarios.js          --> end-to-end scenarios to be run by Protractor
+  loginRegisterScenario.js          --> end-to-end scenarios to be run by Protractor
 ```
 
 ## Testing
@@ -146,7 +146,7 @@ are run with the [Protractor][protractor] End-to-End test runner.  It uses nativ
 special features for Angular applications.
 
 * the configuration is found at `e2e-tests/protractor-conf.js`
-* the end-to-end tests are found in `e2e-tests/scenarios.js`
+* the end-to-end tests are found in `e2e-tests/loginRegisterScenario.js`
 
 Protractor simulates interaction with our web app and verifies that the application responds
 correctly. Therefore, our web server needs to be serving up the application, so that Protractor
