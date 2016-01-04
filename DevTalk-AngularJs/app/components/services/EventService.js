@@ -72,6 +72,10 @@ app.factory('EventService', [function () {
         }
         return id;
     }
+	
+	function pad(s){
+		return (s < 10) ? '0' + s : s;
+	}
 
 	//some event names
     var eventsprefixes = ["Oracle", "Play", "Microsoft", "DEV", "Java", "Groovy & Grails", "c#", "Scala", "Web", "Cloud", "Microservice", "Spring", "Docker", "Liferay", "FirstSpirit"];
@@ -94,7 +98,7 @@ app.factory('EventService', [function () {
             "id": id,
             "name": pre + " " + getRandomFromArray(eventpostfixs) + " " + location,
             "ort": location,
-            "datum": date1.getDate() + "." + date1.getMonth() + "." + date1.getFullYear() + " - " + date2.getDate() + "." + date2.getMonth() + "." + date2.getFullYear(),
+             "datum": pad(date1.getDate()) + "." + pad(date1.getMonth() + 1) + "." + date1.getFullYear() + " - " + pad(date2.getDate()) + "." + pad(date2.getMonth() + 1) + "." + date2.getFullYear(),
             "kategorie": pre,
             "talks": talks,
             "teilnehmer": []
@@ -117,6 +121,9 @@ app.factory('EventService', [function () {
 			//return the list of all events
             return events;
         },
+		getPrefixes: function(){
+			return eventsprefixes;
+		},
         insert: function (event) {
 			//add an event to the list
             events.push(event);
@@ -165,7 +172,21 @@ app.factory('EventService', [function () {
             }
 			//throw an Error if the event couldnt be found
             throw new Error("Could not find event " + eventid + ". Already inserted?");
-        }
+        },
+		createEvent: function (name, location, date1, date2, pre){
+			var id = generateRandomId(events);
+			var talks = getRandomTalks(pre, id);
+			var newEvent = {
+            "id": id,
+            "name": name,
+            "ort": location,
+            "datum": pad(date1.getDate()) + "." + pad(date1.getMonth() + 1) + "." + date1.getFullYear() + " - " + pad(date2.getDate()) + "." + pad(date2.getMonth() + 1) + "." + date2.getFullYear(),
+            "kategorie": pre,
+            "talks": talks,
+            "teilnehmer": []
+			}
+			return newEvent;
+		}
     };
 }
 ]);

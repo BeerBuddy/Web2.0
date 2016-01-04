@@ -13,8 +13,8 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
         $scope.onItemClick = function (e) {
             $location.path('/talkDetails/' + e.id)
         };
+		$scope.prefixes = EventService.getPrefixes();
 		$scope.data = EventService.getAll();
-		$scope.talk = $scope.data[0];
         $scope.columns =
             [
                 {"name": "name", "title": "Name"},
@@ -22,4 +22,11 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
                 {"name": "datum", "title": "Datum"},
                 {"name": "kategorie", "title": "Kategorie"}
             ];
-    }]);
+			
+        $scope.onSave = function () {
+			$scope.newEvent = EventService.createEvent($scope.talk.name, $scope.talk.location, $scope.talk.start, $scope.talk.end, $scope.talk.categorie);
+			EventService.insert($scope.newEvent);
+			alert("Event " + $scope.newEvent.name + " wurde erstellt."); 
+			$scope.talk.name = $scope.talk.location = $scope.talk.start = $scope.talk.end = $scope.talk.categorie = "";
+            }
+        }]);

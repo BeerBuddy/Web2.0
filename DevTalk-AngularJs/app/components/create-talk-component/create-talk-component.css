@@ -42,3 +42,16 @@ select {
     border-radius: 5px;
     height: 35px;
 }
+
+.toggle {
+    display: block;
+    background-color: #099C69;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    width: 50%;
+    cursor: pointer;
+}
