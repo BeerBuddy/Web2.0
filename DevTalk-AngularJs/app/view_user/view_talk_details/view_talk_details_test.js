@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 describe('DevTalk.talkDetails module', function() {
 

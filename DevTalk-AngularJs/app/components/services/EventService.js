@@ -1,7 +1,9 @@
+'use strict';
 var app = angular.module('DevTalk.common1', []);
 
 app.factory('EventService', [function () {
     function getRandomDate(from, to) {
+		//generates an random date in the given time
         if (!from) {
             from = new Date(1900, 0, 1).getTime();
         } else {
@@ -16,11 +18,13 @@ app.factory('EventService', [function () {
     }
 
     function getRandomFromArray(array) {
+		//returns an random item from given array
         return array[Math.floor(Math.random() * array.length)];
     }
 
     function getRandomTalks(prefix, eventid) {
-        var name = ["Removingf the Boilerplate", "on Rails", "Best Practice", "Performance", "the awaking", "gets better", "in Action", "revival"]
+		//generates random talks for an event
+        var name = ["Removing the Boilerplate", "on Rails", "Best Practice", "Performance", "the awaking", "gets better", "in Action", "revival"]
         var talks = [];
         for (var i = 0; i < (Math.random() * 20) + 1; i++) {
             var id = generateRandomId(talks, eventid);
@@ -40,6 +44,7 @@ app.factory('EventService', [function () {
     }
 
     function getRandomSpeaker(talkid) {
+		//generates a random speaker
         var name = ["John", "Mike", "Nick", "David", "Felix", "Aria", "Sansa", "Marco", "Jill", "Anna", "Lisa", "Sandra"];
         var lastname = ["M�ller", "Meier", "Stark", "B�cker", "Bauer", "Spinn", "Cruz"];
 
@@ -55,6 +60,7 @@ app.factory('EventService', [function () {
     }
 
     function generateRandomId(array, prefix) {
+		//generates Random id
         var id = Math.random().toString(36).substring(7);
         if (prefix) {
             id = prefix + "-" + id;
@@ -67,11 +73,16 @@ app.factory('EventService', [function () {
         return id;
     }
 
+	//some event names
     var eventsprefixes = ["Oracle", "Play", "Microsoft", "DEV", "Java", "Groovy & Grails", "c#", "Scala", "Web", "Cloud", "Microservice", "Spring", "Docker", "Liferay", "FirstSpirit"];
     var eventpostfixs = ["eXchange", "UserGroup", "2016", "Days", "Congress", "Europe"];
-    var locations = ["London", "Berlin", "Dortmund", "Boston", "New York", "San Francsiko", "Bankok", "Sydney"];
-    var events = [];
+	//some location for events
+	var locations = ["London", "Berlin", "Dortmund", "Boston", "New York", "San Francsiko", "Bangkok", "Sydney"];
+   
+	//the list of all events
+   var events = [];
 
+	//Initial generate random events
     for (var i = 0; i < (Math.random() * 20) + 1; i++) {
         var location = getRandomFromArray(locations);
         var pre = getRandomFromArray(eventsprefixes);
@@ -93,30 +104,39 @@ app.factory('EventService', [function () {
 
     return {
         getById: function (id) {
+			//search the list of events for given id and return
             for (var i = 0; i < events.length; i++) {
                 if (events[i].id === id) {
                     return events[i];
                 }
             }
+			//throw Error if id could not be found
             throw new Error("Could not find event " + id + ". Already inserted?");
         },
         getAll: function () {
+			//return the list of all events
             return events;
         },
         insert: function (event) {
+			//add an event to the list
             events.push(event);
             return;
         },
         update: function (event) {
+			//update an existing event
+			//therefore find the event 
             for (var i = 0; i < events.length; i++) {
                 if (events[i].id === event.id) {
+					//replce it
                     events[i] = event;
                     return;
                 }
             }
+			//throw an Error if the Event could not be found
             throw new Error("Event could not be updated. Already inserted?");
         },
         getEventsByUserId: function (userid) {
+			//find all events where the given userid has taken part
             var eventList = [];
             for (var i = 0; i < events.length; i++) {
                 for (var j = 0; j < events[i].teilnehmer.length; j++) {
@@ -128,16 +148,22 @@ app.factory('EventService', [function () {
             return eventList;
         },
         joinEvent: function (userid, eventid) {
+			//add a userid to the members of an event
+			//therefore find the event
             for (var i = 0; i < events.length; i++) {
                 if (events[i].id === eventid) {
+					//check if there is a members attribute
                     if(!events[i].teilnehmer)
                     {
+						//add the members attribute
                         events[i].teilnehmer = [];
                     }
+					//and add the userid to the members
                     events[i].teilnehmer.push(userid);
                     return;
                 }
             }
+			//throw an Error if the event couldnt be found
             throw new Error("Could not find event " + eventid + ". Already inserted?");
         }
     };

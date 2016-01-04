@@ -2,41 +2,47 @@
             <card id="card" class="card">
                 <!-- Edit -->
                 <section class='edit' ng-class="{'flipped' : flipped }">
+				 <form name="form" id="form" ng-submit="save(user);" role="form">
                     <img src="{{user.image}}" class="user-image" />
                     <p>
-
                         <input ng-model="user.image" class='toggle'
-                           onchange="angular.element(this).scope().file_changed(this)"
+                          custom-on-change="filechanged"
                            type="file" accept="image/*" />
 
                     </p>
 
-                    <p>
-                        <input type='text' id="account_username" placeholder="Username"  ng-model="user.name">
+                    <p ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+                        <input type='text' name="username" id="username" placeholder="Username"  ng-model="user.name" required>
+					</p>
+					<span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+                    
+					<p  ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+                        <input type='email'  name="email" id="email" placeholder="E-mail"  ng-model="user.email" required>
                     </p>
+					<span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
+
+                    <p ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required}"> 
+                        <input type='password'  name="password"  id="password" placeholder="Password"
+                               ng-model="user.password" required>
+                    </p>
+					<span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+    
+                    <p ng-class="{ 'has-error': form.password2.$dirty && form.password2.$error.required }">
+                        <input type='password'  name="password2"  id="password2" placeholder="Confirm password"
+                               ng-model="user.repassword" required>
+					 </p>
+					 <span ng-show="form.password2.$dirty && form.password2.$error.required " class="help-block">Confirm password is required</span>
+    
+                  
 
                     <p>
-                        <input type='email' id="account_email" placeholder="E-mail"  ng-model="user.email">
+                        <button class='toggle' id="save" type="submit">Save</button>
                     </p>
-
-                    <p>
-                        <input type='password' id="account_password" placeholder="Password"
-                               ng-model="user.password">
+                    
+				</form> 
+					<p>
+                        <button class='toggle' id="back" ng-click="flip();">Zurück</button>
                     </p>
-
-                    <p>
-                        <input type='password' id="account_password_confirmation" placeholder="Confirm password"
-                               ng-model="user.repassword">
-                    </p>
-
-                    <p>
-                        <button class='toggle' id="save" ng-click="onSave(user)">Save</button>
-                    </p>
-                    <p>
-                        <button class='toggle' ng-click="flip(flipped)">Zurück</button>
-                    </p>
-
-
                 </section>
 
                 <!-- View -->
@@ -48,7 +54,7 @@
                     <h3>{{user.name}}</h3>
                     </p>
                     <p ng-if="editable">
-                        <button class='toggle' ng-click="flip(flipped)">Edit</button>
+                        <button class='toggle' id="edit" ng-click="flip();">Edit</button>
                     </p>
 
                 </section>
