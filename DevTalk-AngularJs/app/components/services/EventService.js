@@ -73,8 +73,10 @@ app.factory('EventService', [function () {
         return id;
     }
 	
-	function pad(s){
-		return (s < 10) ? '0' + s : s;
+	function padDate(input){
+		//padding input if lower 10
+		//used for converting date to dd.mm.yyyy
+		return (input < 10) ? '0' + input : input;
 	}
 
 	//some event names
@@ -97,11 +99,11 @@ app.factory('EventService', [function () {
         var event = {
             "id": id,
             "name": pre + " " + getRandomFromArray(eventpostfixs) + " " + location,
-            "ort": location,
-             "datum": pad(date1.getDate()) + "." + pad(date1.getMonth() + 1) + "." + date1.getFullYear() + " - " + pad(date2.getDate()) + "." + pad(date2.getMonth() + 1) + "." + date2.getFullYear(),
-            "kategorie": pre,
+            "location": location,
+            "date": padDate(date1.getDate()) + "." + padDate(date1.getMonth() + 1) + "." + date1.getFullYear() + " - " + padDate(date2.getDate()) + "." + padDate(date2.getMonth() + 1) + "." + date2.getFullYear(),
+            "categorie": pre,
             "talks": talks,
-            "teilnehmer": []
+            "attendees": []
         }
         events.push(event);
     }
@@ -174,16 +176,19 @@ app.factory('EventService', [function () {
             throw new Error("Could not find event " + eventid + ". Already inserted?");
         },
 		createEvent: function (name, location, date1, date2, pre){
+			//create a new event
+			//name, location, time and categorie are delivered by calling function
+			//id and random talks are generated
 			var id = generateRandomId(events);
 			var talks = getRandomTalks(pre, id);
 			var newEvent = {
             "id": id,
             "name": name,
-            "ort": location,
-            "datum": pad(date1.getDate()) + "." + pad(date1.getMonth() + 1) + "." + date1.getFullYear() + " - " + pad(date2.getDate()) + "." + pad(date2.getMonth() + 1) + "." + date2.getFullYear(),
-            "kategorie": pre,
+            "location": location,
+            "date": padDate(date1.getDate()) + "." + padDate(date1.getMonth() + 1) + "." + date1.getFullYear() + "-" + padDate(date2.getDate()) + "." + padDate(date2.getMonth() + 1) + "." + date2.getFullYear(),
+            "categorie": pre,
             "talks": talks,
-            "teilnehmer": []
+            "attendees": []
 			}
 			return newEvent;
 		}

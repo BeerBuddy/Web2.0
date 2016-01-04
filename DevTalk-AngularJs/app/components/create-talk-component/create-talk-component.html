@@ -1,5 +1,4 @@
 <link rel="import" href="/app/bower_components/polymer/polymer.html"/>
-<link rel="import" href="/app/bower_components/paper-button/paper-button.html"/>
 
 <dom-module id="create-talk-component">
     <link rel="stylesheet" href="create-talk-component.css"/>
@@ -20,7 +19,8 @@
 					</p>
 					<p>
 						Categorie: 
-						<select id="talk_categorie" size="1" ng-model="talk.categorie" ng-options="p as p for p in prefixes"/></select>
+						<select name="categorie_selection" id="talk_categorie" size="1" 
+							ng-model="talk.categorie" ng-options="p as p for p in prefixes"/></select>
 					</p>
 					<button raised class="toggle" ng-click="onSave()">Save Talk</button>
 				</form>

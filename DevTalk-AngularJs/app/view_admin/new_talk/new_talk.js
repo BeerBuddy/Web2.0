@@ -10,17 +10,22 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
 }])
 
 .controller('NewTalkCtrl', ['$scope', '$routeParams', '$location', 'EventService', function ($scope, $routeParams, $location, EventService) {
-        $scope.onItemClick = function (e) {
-            $location.path('/talkDetails/' + e.id)
+		$scope.onItemClick = function (e) {
+            //$location.path('/talkDetails/' + e.id);
+			$scope.anEvent = EventService.getById(e.id);
+			$scope.talk.name = $scope.anEvent.name;
+			$scope.talk.location = $scope.anEvent.location;
+			$scope.talk.categorie = $scope.anEvent.categorie;
+			//TODO: $scope.talk.start / end
         };
 		$scope.prefixes = EventService.getPrefixes();
 		$scope.data = EventService.getAll();
         $scope.columns =
             [
                 {"name": "name", "title": "Name"},
-                {"name": "ort", "title": "Ort"},
-                {"name": "datum", "title": "Datum"},
-                {"name": "kategorie", "title": "Kategorie"}
+                {"name": "location", "title": "Location"},
+                {"name": "date", "title": "Date"},
+                {"name": "categorie", "title": "Categorie"}
             ];
 			
         $scope.onSave = function () {
