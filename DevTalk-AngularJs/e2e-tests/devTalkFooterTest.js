@@ -14,7 +14,7 @@ describe('Test for the footer', function() {
     it('should show the follogwing links if the user is not logged in: only the links for AGBs and Impressum', function() {
 		expect(element(by.css('footer a#agb')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#impressum')).isDisplayed()).toBeTruthy();
-		expect(element(by.css('footer a#logout')).isDisplayed()).toBeFalsy();
+		expect(element(by.id('footer-logout')).isDisplayed()).toBeFalsy();
 		expect(element(by.css('footer a#myProfil')).isDisplayed()).toBeFalsy();
 		expect(element(by.css('footer a#eventLink')).isDisplayed()).toBeFalsy();
 		expect(element(by.css('footer a#statisticLink')).isDisplayed()).toBeFalsy();
@@ -27,7 +27,7 @@ describe('Test for the footer', function() {
 		
 		expect(element(by.css('footer a#agb')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#impressum')).isDisplayed()).toBeTruthy();
-		expect(element(by.css('footer a#logout')).isDisplayed()).toBeTruthy();
+		expect(element(by.css('footer a#footer-logout')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#myProfil')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#eventLink')).isDisplayed()).toBeFalsy();
 		expect(element(by.css('footer a#statisticLink')).isDisplayed()).toBeFalsy();
@@ -41,7 +41,7 @@ describe('Test for the footer', function() {
 		
 		expect(element(by.css('footer a#agb')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#impressum')).isDisplayed()).toBeTruthy();
-		expect(element(by.css('footer a#logout')).isDisplayed()).toBeTruthy();
+		expect(element(by.css('footer a#footer-logout')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#myProfil')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#eventLink')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#statisticLink')).isDisplayed()).toBeTruthy();
@@ -55,17 +55,17 @@ describe('Test for the footer', function() {
 		
 		expect(element(by.css('footer a#agb')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#impressum')).isDisplayed()).toBeTruthy();
-		expect(element(by.css('footer a#logout')).isDisplayed()).toBeTruthy();
+		expect(element(by.css('footer a#footer-logout')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#myProfil')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#eventLink')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#statisticLink')).isDisplayed()).toBeTruthy();
 		
 		//logout
-		element(by.css('a[href*="#login"]')).click();
+		element(by.id('footer-logout')).click();
 		
 		expect(element(by.css('footer a#agb')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#impressum')).isDisplayed()).toBeTruthy();
-		expect(element(by.css('footer a#logout')).isDisplayed()).toBeFalsy();
+		expect(element(by.css('footer a#footer-logout')).isDisplayed()).toBeFalsy();
 		expect(element(by.css('footer a#myProfil')).isDisplayed()).toBeFalsy();
 		expect(element(by.css('footer a#eventLink')).isDisplayed()).toBeFalsy();
 		expect(element(by.css('footer a#statisticLink')).isDisplayed()).toBeFalsy();

@@ -28,7 +28,7 @@ describe('Test for the login and register component', function () {
       expect(element(by.css('#account_email')).isDisplayed()).toBeTruthy();
       expect(element(by.css('#account_password')).isDisplayed()).toBeTruthy();
       expect(element(by.css('#account_password_confirmation')).isDisplayed()).toBeTruthy();
-      expect(element(by.css('#agb')).isDisplayed()).toBeTruthy();
+      expect(element(by.css('login-register-component #agb')).isDisplayed()).toBeTruthy();
       expect(element(by.css('#register_submit')).isDisplayed()).toBeTruthy();
       expect(element(by.css('#register_login')).isDisplayed()).toBeTruthy();
     });
