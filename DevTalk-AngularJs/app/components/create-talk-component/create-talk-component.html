@@ -6,7 +6,8 @@
 		<container class="container">
 			<section>
 				<form>
-					<h2>Create / Edit Talk</h2>
+					<h2 ng-if="!edit">Create Talk</h2>
+					<h2 ng-if="edit">Edit/Delete Talk</h2>
 					<p>
 						<input type='text' id="talk_name" placeholder="Name" ng-model="talk.name">
 					</p>
@@ -22,7 +23,10 @@
 						<select name="categorie_selection" id="talk_categorie" size="1" 
 							ng-model="talk.categorie" ng-options="p as p for p in prefixes"/></select>
 					</p>
-					<button raised class="toggle" ng-click="onSave()">Save Talk</button>
+					<button raised class="toggle" ng-click="onCreate()" ng-if="!edit">Create</button>
+					<button raised class="toggle" ng-click="onEdit()" ng-if="edit">Edit</button>
+					<button raised class="toggle" ng-click="onDecline()" ng-if="edit">Decline</button>
+					<button raised class="toggle" ng-click="onCancel()">Cancel</button>
 				</form>
 			</section>
 		</container>

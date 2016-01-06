@@ -99,11 +99,11 @@ app.factory('EventService', [function () {
         var event = {
             "id": id,
             "name": pre + " " + getRandomFromArray(eventpostfixs) + " " + location,
-            "location": location,
-            "date": padDate(date1.getDate()) + "." + padDate(date1.getMonth() + 1) + "." + date1.getFullYear() + " - " + padDate(date2.getDate()) + "." + padDate(date2.getMonth() + 1) + "." + date2.getFullYear(),
-            "categorie": pre,
+            "ort": location,
+            "datum": padDate(date1.getDate()) + "." + padDate(date1.getMonth() + 1) + "." + date1.getFullYear() + " - " + padDate(date2.getDate()) + "." + padDate(date2.getMonth() + 1) + "." + date2.getFullYear(),
+            "kategorie": pre,
             "talks": talks,
-            "attendees": []
+            "teilnehmer": []
         }
         events.push(event);
     }
@@ -145,6 +145,19 @@ app.factory('EventService', [function () {
 			//throw an Error if the Event could not be found
             throw new Error("Event could not be updated. Already inserted?");
         },
+		decline: function (id) {
+			//delete an existing event
+			//therefore find the event 
+            for (var i = 0; i < events.length; i++) {
+                if (events[i].id === id) {
+					//delete it
+                    events.splice(i,1);
+                    return;
+                }
+            }
+			//throw an Error if the Event could not be found
+            throw new Error("Event could not be updated. Already inserted?");
+        },
         getEventsByUserId: function (userid) {
 			//find all events where the given userid has taken part
             var eventList = [];
@@ -176,20 +189,23 @@ app.factory('EventService', [function () {
 			//throw an Error if the event couldnt be found
             throw new Error("Could not find event " + eventid + ". Already inserted?");
         },
-		createEvent: function (name, location, date1, date2, pre){
+		createEvent: function (id, name, location, date1, date2, pre){
 			//create a new event
-			//name, location, time and categorie are delivered by calling function
-			//id and random talks are generated
-			var id = generateRandomId(events);
+			//id, name, location, time and categorie are delivered by calling function
+			//random talks are generated
+			var newid = id;
+			if(newid === ""){
+				newid = generateRandomId(events);
+			}
 			var talks = getRandomTalks(pre, id);
 			var newEvent = {
-            "id": id,
+            "id": newid,
             "name": name,
-            "location": location,
-            "date": padDate(date1.getDate()) + "." + padDate(date1.getMonth() + 1) + "." + date1.getFullYear() + "-" + padDate(date2.getDate()) + "." + padDate(date2.getMonth() + 1) + "." + date2.getFullYear(),
-            "categorie": pre,
+            "ort": location,
+            "datum": padDate(date1.getDate()) + "." + padDate(date1.getMonth() + 1) + "." + date1.getFullYear() + " - " + padDate(date2.getDate()) + "." + padDate(date2.getMonth() + 1) + "." + date2.getFullYear(),
+            "kategorie": pre,
             "talks": talks,
-            "attendees": []
+            "teilnehmer": []
 			}
 			return newEvent;
 		}
