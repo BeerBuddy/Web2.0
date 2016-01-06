@@ -123,6 +123,7 @@ app.factory('EventService', [function () {
 			//return the list of all events
             return events;
         },
+		//FIXME Eigentlich ist das so nicht gedacht. Das ist nur zur Generierung der Events und ist kein Teil der Schnittstelle.
 		getPrefixes: function(){
 			return eventsprefixes;
 		},
