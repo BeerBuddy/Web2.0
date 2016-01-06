@@ -9,9 +9,10 @@ angular.module('DevTalk.allTalks', ['ngRoute'])
         });
     }])
 
-    .controller('AllTalksCtrl', ['$scope', '$routeParams', '$location', 'EventService', function ($scope, $routeParams, $location, EventService) {
+    .controller('AllTalksCtrl', ['$scope', '$routeParams', '$location', 'EventService', 'UserService', function ($scope, $routeParams, $location, EventService,UserService) {
         $scope.onItemClick = function (e) {
-            $location.path('/talkDetails/' + e.id)
+			EventService.joinEvent(UserService.getCurrentUser().id,e.id);
+           // $location.path('/talkDetails/' + e.id);
         };
         console.info(EventService.getAll());
 		$scope.data = EventService.getAll();

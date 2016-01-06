@@ -159,15 +159,22 @@ app.factory('EventService', [function () {
             throw new Error("Event could not be updated. Already inserted?");
         },
         getEventsByUserId: function (userid) {
+			console.info("Searching events for " +userid);
 			//find all events where the given userid has taken part
             var eventList = [];
             for (var i = 0; i < events.length; i++) {
-                for (var j = 0; j < events[i].teilnehmer.length; j++) {
+				if(events[i].teilnehmer)
+				{
+				 for (var j = 0; j < events[i].teilnehmer.length; j++) {
                     if (events[i].teilnehmer[j] === userid) {
                         eventList.push(events[i]);
                     }
-                }
+                }	
+				}
+               
             }
+			console.info("Result: ");
+			console.log(eventList);
             return eventList;
         },
         joinEvent: function (userid, eventid) {
@@ -183,6 +190,8 @@ app.factory('EventService', [function () {
                     }
 					//and add the userid to the members
                     events[i].teilnehmer.push(userid);
+					console.info(userid + " joined event " +events[i].name);
+					console.log(events[i]);
                     return;
                 }
             }
