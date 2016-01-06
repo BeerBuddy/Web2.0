@@ -34,8 +34,7 @@
 <![endif]-->
 
 <div id="wrapper">
-    <devtalk-header initialstate="main-header-collapsed"
-                    user='{"name": "Susi Sonnenschein", "role": "USER"}'></devtalk-header>
+    <devtalk-header></devtalk-header>
     <div id="content" class="content-wrapper">
 
         <div ng-view></div>
@@ -44,7 +43,7 @@
     </div>
 </div>
 <dev-talk-footer></dev-talk-footer>
-<div>Angular seed app: v<span app-version></span></div>
+
 
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
@@ -74,6 +73,7 @@
 <script src="components/services/EventService.js"></script>
 <script src="components/services/StatisticService.js"></script>
 <script src="components/devtalk-footer/devtalk-footer.js"></script>
+<script src="components/devtalk-header/devtalk-header.js"></script>
 <script src="components/event-table-component/event-table-component.js"></script>
 <script src="components/profil-component/profil-component.js"></script>
 

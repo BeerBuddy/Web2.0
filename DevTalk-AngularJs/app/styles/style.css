@@ -21,6 +21,10 @@ em {
 	font-weight: bold;
 }
 
+#wrapper {
+	margin-top: 125px;
+}
+
 .rounded-button {
 	background-color: #099C69;
 	display: block;
@@ -31,75 +35,6 @@ em {
 	text-decoration: none;
 	border: none;
 	width: 100%;
-}
-
-#main-header {
-	background: transparent url("../images/banner.png") no-repeat scroll center top;
-	border-bottom: 2px solid #E95D3C;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	-webkit-transition: height 1s;
-    transition: height 1s;
-	z-index: 999999999999999;
-}
-
-.header-menu {
-	-webkit-transition: padding 1s;
-    transition: padding 1s;
-}
-
-.main-header-default, .main-header-default ~ .header-buffer {
-	height: 275px;
-}
-
-.main-header-collapsed, .main-header-collapsed ~ .header-buffer{
-	height: 125px;
-}
-
-.main-header-default .header-menu {
-	padding-top: 165px;
-}
-
-.main-header-collapsed .header-menu {
-	padding-top: 15px;
-}
-
-.header-background {
-	background-color: rgba(255, 255, 255, 0.5);
-	height: 110px;
-}
-
-#header-logo {
-	padding: 5px 5px 5px 25px;
-}
-
-.header-nav {
-	display: inline;
-	float: right;
-	padding: 70px 25px 0 5px;
-}
-
-.header-nav a {
-	padding: 15px;
-	color: black;
-	text-decoration: none;
-}
-
-.header-nav a {
-	padding: 15px;
-	color: black;
-	background-color: white;
-}
-
-.header-nav a iron-icon {
-	margin-top: -3px;
-}
-
-.header-nav a:hover {
-	color: white;
-	background-color: #E95D3C;
 }
 
 .content-wrapper {
