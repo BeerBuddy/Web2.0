@@ -9,13 +9,16 @@ angular.module('DevTalk.allTalks', ['ngRoute'])
         });
     }])
 
-    .controller('AllTalksCtrl', ['$scope', '$routeParams', '$location', 'EventService', 'UserService', function ($scope, $routeParams, $location, EventService,UserService) {
+    .controller('AllTalksCtrl', ['$scope', '$routeParams', '$location', 'EventService', 'UserService', 'RecommendationService', function ($scope, $routeParams, $location, EventService, UserService, RecommendationService) {
         $scope.onItemClick = function (e) {
 			EventService.joinEvent(UserService.getCurrentUser().id,e.id);
            // $location.path('/talkDetails/' + e.id);
         };
-        console.info(EventService.getAll());
+        //console.info(EventService.getAll());
 		$scope.data = EventService.getAll();
+        $scope.highlighted = RecommendationService.getTalksForUser(UserService.getCurrentUser().id);
+        //console.info('Recommended Talks');
+        //console.info(RecommendationService.getTalksForUser(UserService.getCurrentUser().id));
         
 		$scope.columns =
             [

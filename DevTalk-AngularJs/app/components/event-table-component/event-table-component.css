@@ -104,3 +104,7 @@
     cursor: pointer;
     color: #099C69;
 }
+
+.highlighted {
+  background-color: #099C69 !important;
+}

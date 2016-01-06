@@ -13,7 +13,7 @@
                         'id': 'ev1',
                         'name': 'Chef Conf Dortmund',
                         'kategorie': 'Provisioning',
-                        'teilnehmer': [1337, 2448]
+                        'teilnehmer': [42, 1337, 2448]
                     },
                     {
                         'id': 'ev2', 
@@ -37,7 +37,7 @@
                         'id': 'ev5', 
                         'name': 'Master of Puppets',
                         'kategorie': 'Provisioning',
-                        'teilnehmer': []
+                        'teilnehmer': [42]
                     }
                 ];
 
@@ -87,9 +87,9 @@
                     expect(talksOfUser.length).toEqual(2);
                 });
 
-                it('should contain the EclipseConf and the WTF.JS talk', function() {
-                    expect(talksOfUser[0].id).toMatch("ev4");
-                    expect(talksOfUser[1].id).toMatch("ev5");
+                it('should contain the IE Talk and the Puppet talk', function() {
+                    expect(talksOfUser[0].id).toMatch("ev5");
+                    expect(talksOfUser[1].id).toMatch("ev4");
                 });
             });
 
@@ -103,18 +103,27 @@
                     expect(talksOfUser.length).toEqual(1);
                 });
 
-                it('should contain the W-JAX and the WTF.JS talk', function() {
+                it('should contain the Puppet talk', function() {
                     expect(talksOfUser[0].id).toMatch("ev5");
+                });
+            });
+
+            describe('Jon Doe (ID=42)', function() {
+                var talksOfUser;
+                beforeEach(function() {
+                    console.info('Los gehts');
+                    talksOfUser = recommendationService.getTalksForUser(42);
+                });
+
+                it('should return zero talks', function() {
+                    expect(talksOfUser.length).toEqual(0);
                 });
             });
             
 
             describe('no valid user provided', function() {
-                it('should be undefined for an empty userid', function() {
-                    expect(recommendationService.getTalksForUser()).toBeUndefined();
-                });
-
-                it('should have no recommendations for a user without visited talks', function() {
+                it('should have no recommendations for a user without visited talks or an invalid userid', function() {
+                    expect(recommendationService.getTalksForUser()).toEqual([]);
                     expect(recommendationService.getTalksForUser(123456789)).toEqual([]);
                 });
             });
