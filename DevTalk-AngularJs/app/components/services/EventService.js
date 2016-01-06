@@ -84,6 +84,7 @@ app.factory('EventService', [function () {
     var eventpostfixs = ["eXchange", "UserGroup", "2016", "Days", "Congress", "Europe"];
 	//some location for events
 	var locations = ["London", "Berlin", "Dortmund", "Boston", "New York", "San Francsiko", "Bangkok", "Sydney"];
+    var teilnehmerIds = [1337, 2448];
    
 	//the list of all events
    var events = [];
@@ -103,7 +104,7 @@ app.factory('EventService', [function () {
             "datum": padDate(date1.getDate()) + "." + padDate(date1.getMonth() + 1) + "." + date1.getFullYear() + " - " + padDate(date2.getDate()) + "." + padDate(date2.getMonth() + 1) + "." + date2.getFullYear(),
             "kategorie": pre,
             "talks": talks,
-            "teilnehmer": []
+            "teilnehmer": [getRandomFromArray(teilnehmerIds)]
         }
         events.push(event);
     }
