@@ -31,6 +31,9 @@
             it('should have the update', function () {
                 expect(eventService.update).toBeDefined();
             });
+            it('should have the decline', function () {
+                expect(eventService.decline).toBeDefined();
+			});
         });
 
 
