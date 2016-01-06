@@ -5,7 +5,7 @@
 	<template>
 		<container class="container">
 			<section>
-				<form>
+				<form name="form" id="form" ng-submit="submit(talk)" role="form">
 					<h2 ng-if="!edit">Create Talk</h2>
 					<h2 ng-if="edit">Edit/Delete Talk</h2>
 					<p>
@@ -20,13 +20,13 @@
 					</p>
 					<p>
 						Categorie: 
-						<select name="categorie_selection" id="talk_categorie" size="1" 
+						<select type="text" id="talk_categorie" size="0" 
 							ng-model="talk.categorie" ng-options="p as p for p in prefixes"/></select>
 					</p>
-					<button raised class="toggle" ng-click="onCreate()" ng-if="!edit">Create</button>
-					<button raised class="toggle" ng-click="onEdit()" ng-if="edit">Edit</button>
-					<button raised class="toggle" ng-click="onDecline()" ng-if="edit">Decline</button>
-					<button raised class="toggle" ng-click="onCancel()">Cancel</button>
+					<button id="create" class="toggle" type="submit" ng-if="!edit">Create</button>
+					<button id="edit" class="toggle" type="submit" ng-if="edit">Edit</button>
+					<button id="decline" class="toggle" type="button" ng-click="decline(talk.id)" ng-if="edit">Decline</button>
+					<button id="cancel" class="toggle" type="button" ng-click="cancel()">Cancel</button>
 				</form>
 			</section>
 		</container>
