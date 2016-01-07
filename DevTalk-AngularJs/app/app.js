@@ -17,8 +17,7 @@ angular.module('DevTalk', [
     'DevTalk.common1',
     'DevTalk.recommendation',
     'eventTableComponent',
-    'profilComponent',
-	'createTalkComponent'
+    'profilComponent'
 ]).
     config(['$routeProvider', function($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/login'});

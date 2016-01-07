@@ -1,8 +1,12 @@
-'use strict';
-angular.module('createTalkComponent', [])
-    .directive('createTalkComponent', function () {
+(function() {
+  'use strict';
+
+  var app = angular.module('DevTalk');
+  app.directive('createTalkComponent', ['EventService', directive]);
+  function directive() {
         return {
             restrict: 'E',
+			templateUrl: 'components/create-talk-component/create-talk-component.html',
             controller: function ($scope) {
 				//set options for categories
 				$scope.prefixes = ["Oracle", "Play", "Microsoft", "DEV", "Java", "Groovy & Grails", "c#", "Scala", "Web", "Cloud", "Microservice", "Spring", "Docker", "Liferay", "FirstSpirit"];
@@ -34,6 +38,7 @@ angular.module('createTalkComponent', [])
 					$scope.talk = talk;
 					$scope.edit="edit";
 				};
-            },
-        };
-    });
+            }
+        }
+    }
+})();
