@@ -1,3 +1,4 @@
+(function() {
 var app = angular.module('DevTalk.recommendation', ['DevTalk.common1']);
 
 app.factory('RecommendationService', ['EventService', function(eventService) {
@@ -44,3 +45,4 @@ app.factory('RecommendationService', ['EventService', function(eventService) {
 
     return srv;
 }]);
+})();

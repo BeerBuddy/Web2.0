@@ -1,34 +1,34 @@
 module.exports = function(config){
   config.set({
 
-    basePath : './',
+   basePath : './',
 
     files : [
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/components/services/**/*.js',
-      //'app/app.js',
+      'app/app.js',
       'app/view_*/**/*.js'
+      //, 'app/**/*.es6'
     ],
 
     autoWatch : true,
 
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'browserify'],
 
-    browsers : ['Chrome'],
+    preprocessors: {
+      //'app/components/services/RecommendationService.js': ['browserify'],
+      'app/**/*.es6': ['browserify']
+    },
 
-    plugins : [
-            'karma-chrome-launcher',
-            'karma-firefox-launcher',
-            'karma-jasmine',
-            'karma-junit-reporter'
-            ],
+    browserify: {
+      debug: true,
+      transform: [
+        'babelify'
+      ]
+    },
 
-    junitReporter : {
-      outputFile: 'test_out/unit.xml',
-      suite: 'unit'
-    }
-
+    browsers : ['Chrome']
   });
 };
