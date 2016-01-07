@@ -20,7 +20,7 @@ describe('Test for DevTalk Header:', function() {
 		element(by.id('user_email')).sendKeys('user@user.de');
 		element(by.id('user_password')).sendKeys('user');
 		element(by.id('user_password')).sendKeys(protractor.Key.ENTER);
-		browser.waitForAngular();
+		browser.driver.sleep(200);
 		
 		expect(element(by.css('#main-header a#header-link-overview')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('#main-header a#header-link-profile')).isDisplayed()).toBeTruthy();
@@ -37,7 +37,7 @@ describe('Test for DevTalk Header:', function() {
 		element(by.id('user_email')).sendKeys('admin@admin.de');
 		element(by.id('user_password')).sendKeys('admin');
 		element(by.id('user_password')).sendKeys(protractor.Key.ENTER);
-		browser.waitForAngular();
+		browser.driver.sleep(200);
 		
 		expect(element(by.css('#main-header a#header-link-overview')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('#main-header a#header-link-profile')).isDisplayed()).toBeTruthy();
@@ -54,7 +54,7 @@ describe('Test for DevTalk Header:', function() {
 		element(by.id('user_email')).sendKeys('admin@admin.de');
 		element(by.id('user_password')).sendKeys('admin');
 		element(by.id('user_password')).sendKeys(protractor.Key.ENTER);
-		browser.waitForAngular();
+		browser.driver.sleep(200);
 		
 		expect(element(by.css('#main-header a#header-link-overview')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('#main-header a#header-link-profile')).isDisplayed()).toBeTruthy();
@@ -65,7 +65,7 @@ describe('Test for DevTalk Header:', function() {
 
 		// logout
 		element(by.id('header-link-logout')).click();
-		browser.waitForAngular();
+		browser.driver.sleep(200);
 		
 		expect(element(by.css('#main-header a#header-link-overview')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('#main-header a#header-link-profile')).isDisplayed()).toBeTruthy();

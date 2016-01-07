@@ -24,6 +24,7 @@ describe('Test for the footer', function() {
 		element(by.id('user_email')).sendKeys('user@user.de');
 		element(by.id('user_password')).sendKeys('user');
 		element(by.id('user_password')).sendKeys(protractor.Key.ENTER);
+		browser.driver.sleep(200);
 		
 		expect(element(by.css('footer a#agb')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#impressum')).isDisplayed()).toBeTruthy();
@@ -38,6 +39,7 @@ describe('Test for the footer', function() {
 		element(by.id('user_email')).sendKeys('admin@admin.de');
 		element(by.id('user_password')).sendKeys('admin');
 		element(by.id('user_password')).sendKeys(protractor.Key.ENTER);
+		browser.driver.sleep(200);
 		
 		expect(element(by.css('footer a#agb')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#impressum')).isDisplayed()).toBeTruthy();
@@ -52,6 +54,7 @@ describe('Test for the footer', function() {
 		element(by.id('user_email')).sendKeys('admin@admin.de');
 		element(by.id('user_password')).sendKeys('admin');
 		element(by.id('user_password')).sendKeys(protractor.Key.ENTER);
+		browser.driver.sleep(200);
 		
 		expect(element(by.css('footer a#agb')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#impressum')).isDisplayed()).toBeTruthy();
@@ -62,6 +65,7 @@ describe('Test for the footer', function() {
 		
 		//logout
 		element(by.id('footer-logout')).click();
+		browser.driver.sleep(200);
 		
 		expect(element(by.css('footer a#agb')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('footer a#impressum')).isDisplayed()).toBeTruthy();
