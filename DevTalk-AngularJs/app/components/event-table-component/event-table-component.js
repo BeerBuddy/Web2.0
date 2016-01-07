@@ -13,10 +13,8 @@ angular.module('eventTableComponent', [])
             scope: {
                 user: '=',
                 editable: '=',
-                onSave: '&'
-            },
-            scope: {
-                icontype: '=',
+                onSave: '&',
+                icontype: '@',
                 clickable: '=',
                 data: '=',
                 highlighted: '=',
