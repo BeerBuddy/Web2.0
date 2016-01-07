@@ -1,0 +1,69 @@
+<link rel="import" href="../bower_components/polymer/polymer.html"/>
+
+<dom-module id="profil-component">
+    <template>
+        <profil>
+            <avatar>
+                <img src="{{user.image}}"/>
+                <p>
+                <template is="dom-if" if="{{editable}}">
+                     <button ><span></span>Change Picture</button>
+                </template>
+                </p>
+            </avatar>
+
+
+            <hr/>
+            <template is="dom-if" if="{{editable}}">
+                <p>
+                    <input placeholder="Username" value="{{user.name}}"/>
+                </p>
+                <p>
+                <input placeholder="Email" value="{{user.email}}"/>
+                </p>
+                <p>
+                <input placeholder="Password" type="password" value="{{user.passoword}}"/>
+                </p>
+                <p>
+                <input placeholder="Reenter Password" type="password"  value="{{user.repassword}}"/>
+                </p>
+                <button ><span></span>Save</button>
+            </template>
+
+            <template is="dom-if" if="{{!editable}}">
+                <input placeholder="Username" value="{{user.name}}" readonly/>
+            </template>
+
+
+        </profil>
+
+
+    </template>
+
+
+    <script>
+
+        Polymer({
+            is: "profil-component",
+            ready: function () {
+                console.info(this.user);
+
+
+            },
+            properties: {
+                user: {
+                    type: Object,
+                    value: function () {
+                        return {};
+                    }
+                },
+                editable: {
+                    type: Boolean,
+                    value: false
+                }
+            }
+
+        });
+    </script>
+
+</dom-module>

@@ -49,10 +49,10 @@ input[type='checkbox'] {
 
 .signup {
     /* Hintergrund */
-    transform: rotateY(180deg);
+    /*transform: rotateY(180deg);*/
 }
 
-.card.flipped {
+.card .flipped {
     transform: rotateY(180deg);
     -moz-backface-visibility: hidden;
 }
