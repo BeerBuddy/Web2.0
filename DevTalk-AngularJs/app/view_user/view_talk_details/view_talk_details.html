@@ -1,5 +1,6 @@
 ﻿<content id="main-content">
     <h1>Talks des Events : {{event.name}}</h1>
+
     <section>
         <event-table-component
                 data="data.talks"
@@ -8,4 +9,7 @@
                 clickable="false"
                 />
     </section>
+
+    <button class='toggle' id="apply-for-event" ng-click="apply();" ng-show="!hasApplyed">Anmelden für dieses Event</button>
+    <button class='toggle' id="apply-for-event" ng-click="unsubscribe();" ng-show="hasApplyed">Bereits für dieses Event angemeldet</button>
 </content>

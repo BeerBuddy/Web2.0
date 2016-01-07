@@ -6,7 +6,7 @@ describe('DevTalk.profile module', function() {
 
   describe('profile controller', function(){
 
-    it('should ....', inject(function($controller) {
+    xit('should ....', inject(function($controller) {
       //spec body
       var profileCtrl = $controller('ProfileCtrl');
       expect(profileCtrl).toBeDefined();

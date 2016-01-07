@@ -23,6 +23,7 @@ app.factory('RecommendationService', ['EventService', function(eventService) {
            for(var talkEvent of allEvents) {
                 if(visitedEvent.id != talkEvent.id && visitedEvent.kategorie == talkEvent.kategorie && visitedEventIds.indexOf(talkEvent.id) === -1) {
                     recommendedEvents.push(talkEvent);
+                    visitedEventIds.push(talkEvent.id);
                 }
             }
         }

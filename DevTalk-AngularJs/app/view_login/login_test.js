@@ -6,7 +6,7 @@ describe('DevTalk.login module', function() {
 
   describe('login controller', function(){
 
-    it('should ....', inject(function($controller) {
+    xit('should ....', inject(function($controller) {
       //spec body
       var loginCtrl = $controller('LoginCtrl');
       expect(loginCtrl).toBeDefined();

@@ -1,16 +1,18 @@
 ﻿'use strict';
 
 describe('DevTalk.allTalks module', function() {
+	describe('AllTalksCtrl', function() {
+    var $scope;
 
-  beforeEach(module('DevTalk.allTalks'));
+    beforeEach(module('DevTalk.allTalks'));
 
-  describe('allTalks controller', function(){
-
-    it('should ....', inject(function($controller) {
-      //spec body
-      var allTalksCtrl = $controller('AllTalksCtrl');
-      expect(allTalks).toBeDefined();
+    beforeEach(inject(function($rootScope, $controller) {
+	    $scope = $rootScope.$new();
+	    $controller('AllTalksCtrl', {$scope: $scope});
     }));
 
+    xit('should work', function() {
+      expect($scope).toBeDefined();
+    });
   });
 });

@@ -9,7 +9,7 @@ angular.module('DevTalk.talkDetails', ['ngRoute'])
         });
     }])
 
-    .controller('TalkDetailsCtrl', ['$scope', '$routeParams', '$location', 'EventService', function ($scope, $routeParams, $location, EventService) {
+    .controller('TalkDetailsCtrl', ['$scope', '$routeParams', '$location', 'UserService', 'EventService', function ($scope, $routeParams, $location, UserService, EventService) {
         $scope.data = EventService.getById($routeParams.eventid);
         $scope.columns = [
             {"name":"title", "title":"Title"},
@@ -17,4 +17,25 @@ angular.module('DevTalk.talkDetails', ['ngRoute'])
             {"name":"Time", "title":"Time"},
             {"name":"Speakers", "title":"Speakers"}
         ];
+
+        $scope.hasApplyed = $scope.data.teilnehmer.indexOf(UserService.getCurrentUser().id) > -1;
+
+        $scope.apply = function() {
+            try {
+                if(UserService.getCurrentUser().id) {
+                    EventService.joinEvent(UserService.getCurrentUser().id, $scope.data.id);
+                    alert('Erfolgreich für das Event ' + $scope.data.name + " angemeldet!");
+                    $location.path('#/allTalks');
+                } else {
+                    $location.path('#login');
+                }
+            } catch(err) {
+                console.info(err);
+                alert('Unerwarteter Fehler.');
+            }
+        }
+
+        $scope.unsubscribe = function() {
+            alert('Abmeldung nur per Mail an foo@bar.com möglich!');
+        }
     }]);
