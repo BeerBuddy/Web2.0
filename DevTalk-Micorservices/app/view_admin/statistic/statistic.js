@@ -10,13 +10,19 @@ angular.module('DevTalk.statistic', ['ngRoute', 'chart.js', 'DevTalk.admin'])
 }])
 
 .controller('StatisticCtrl', ['$scope', 'StatisticService',  function($scope, StatisticService) {
-	$scope.accessData = StatisticService.getAccessStatistics();
-  $scope.reloadAccessData = function(){
-    $scope.accessData = StatisticService.getAccessStatistics();
-  };
-  $scope.registrationData = StatisticService.getRegistrationData();
-  $scope.reloadRegistrationData = function(){
-    $scope.registrationData = StatisticService.getRegistrationData();
-  };
+
+	$scope.reloadAccessData = function(){
+		StatisticService.getAccessStatistics().success(function(data, status, headers, config) {
+			$scope.accessData = data;
+		});
+	};
+	$scope.reloadAccessData();
+	
+	$scope.reloadRegistrationData = function(){
+		StatisticService.getRegistrationData().success(function(data, status, headers, config) {
+			$scope.registrationData = data;
+		});
+	};
+	$scope.reloadRegistrationData();
 
 }]);
