@@ -58,9 +58,10 @@ app.get('/api/statistics/registrationStatistics', function(req, res) {
 });
 
 app.post('/api/statistics/login', function(req, res) {
-	console.log('test');
+	console.log('Ein neuer Login. Hurra!');
 	console.log(req.body);
 	loginCounter++;
+	res.sendStatus(200);
 })
 
 app.listen(8552, function() {

@@ -21,11 +21,11 @@ app.get('/api/statistics/:key', function(req, res) {
 });
 
 app.post('/api/statistics/login', function(req, res) {
-	request.post('http://localhost:8552/api/statistics/login', req.body)
+	res.redirect(307, 'http://localhost:8552/api/statistics/login');
 });
 
 app.get('/api/recommendation/user/:user', function(req, res) {
-	res.redirect('http://localhost:8553/api/recommendation/'+req.params.user);
+	res.redirect('http://localhost:8553/api/recommendation/user/'+req.params.user);
 });
 
 app.get('/api/event/visited/user/:user', function(req, res) {

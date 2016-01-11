@@ -23,12 +23,26 @@
 			return result;
           },
 		  login: function(user){ 
-			console.log(user + ' ++++++++++++++++++++');
-			var result = $http.post('http://localhost:8550/api/statistics/login', user);
+			//console.log(user + ' ++++++++++++++++++++');
+			/*var result = $http.post('http://localhost:8550/api/statistics/login', user);
 			result.error(function(error, status, headers, config) {
 					console.log(status);
 					console.log("Error occured");
-			})  
+			})*/
+			var result = $http({
+	            url: 'http://localhost:8550/api/statistics/login',
+	            method: "POST",
+	            data: {
+	                user
+	            },
+	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	        });
+	        result.error(function(error, status, headers, config) {
+					console.log(status);
+					console.log("Error occured");
+			});
+
+			return result;
 		  }
         };
 

@@ -5,8 +5,15 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.all("/api/*", function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+    return next();
+});
+
 app.get('/api/event/visited/user/*', function(req, res) {
-	res.send('{Hier Events von User}');
+	res.send('{"foo":"bar"}');
 });
 
 app.listen(8554, function() {

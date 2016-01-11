@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var request = require('request');
 var app = express();
 
 //Note that in version 4 of express, express.bodyParser() was
@@ -7,8 +8,16 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get('/api/recommendation/:user', function(req, res) {
-	res.send('Du willst Empfehlungen für User ' + req.params.user);
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  next();
+});
+
+app.get('/api/recommendation/user/:user', function(req, res) {
+	//res.send('Hallo Welt');
+	res.send(JSON.stringify({'user': req.params.user}));
 });
 
 app.listen(8553, function() {
