@@ -7,14 +7,9 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get('/api/recommendation/foo', function(req, res) {
-	res.send('42');
+app.get('/api/recommendation/:user', function(req, res) {
+	res.send('Du willst Empfehlungen für User ' + req.params.user);
 });
-
-app.get('/api/recommendation/bar', function(req, res) {
-	res.send('Drölf!');
-});
-
 
 app.listen(8553, function() {
   console.log('Amazing recommendation service running at http://127.0.0.1:8553/');
