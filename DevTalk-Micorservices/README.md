@@ -1,18 +1,20 @@
-# DevTalk mit Microservices und API Gateway und MongoDB und Mongoose und noch vielem mehr....
+# DevTalk...
+##### ...mit Microservices und API Gateway und MongoDB und Mongoose und Schokolade und Keks
 
-User Service: samizel
-Event Service: davidgri
-Recommendation Service: feress
-E-Mail Service: MaHoel
-Statistics Service: ehhc
+- User Service: samizel
+- Event Service: davidgri
+- Recommendation Service: feress
+- E-Mail Service: MaHoel
+- Statistics Service: ehhc
 
-# How to
-Üblicher Start über `npm update` und so. Dann `start.bat` gesamte Anwendung starten.
+## How to start this bumms
+Update eines jeden Services über `npm update`. Dann mit `start.bat` gesamte Anwendung starten.
 URL: http://localhost:8000/app/index.html
 
 
 ## Hinzufügen eines neuen Services
 Jeder Microservice hat seinen eigenen Ordner in /micorservices/ mit eigenen npm-Abhängigkeiten.
+
 1. Neuer Ordner in /microservices/ anlegen
 2. npm init ausführen
 3. start.bat erweitern (übergeordneter Ordner)
