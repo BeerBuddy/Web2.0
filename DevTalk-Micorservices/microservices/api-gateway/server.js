@@ -11,10 +11,14 @@ app.get('/api/statistics', function(req, res) {
 	res.redirect('http://localhost:8552/api/statistics');
 });
 
-app.get('/api/recommendation/:key', function(req, res) {
-	res.redirect('http://localhost:8553/api/recommendation/'+req.params.key);
+app.get('/api/recommendation/user/:user', function(req, res) {
+	res.redirect('http://localhost:8553/api/recommendation/'+req.params.user);
+});
+
+app.get('/api/event/visited/user/:user', function(req, res) {
+	res.redirect('http://localhost:8554/api/event/visited/user/'+req.params.user);
 });
 
 app.listen(8550, function() {
-  console.log('Fucking API Gateway running at http://127.0.0.1:8550/');
+  console.log('Sassy API Gateway running at http://127.0.0.1:8550/');
 });

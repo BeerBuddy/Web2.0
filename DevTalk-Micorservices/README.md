@@ -8,7 +8,8 @@
 - Statistics Service: ehhc
 
 ## How to start this bumms
-Update eines jeden Services über `npm update`. Dann mit `start.bat` gesamte Anwendung starten.
+Update eines jeden Services über `npm update`, schneller geht es mit der update.bat.
+Dann mit `start.bat` gesamte Anwendung starten.
 URL: http://localhost:8000/app/index.html
 
 
@@ -16,10 +17,10 @@ URL: http://localhost:8000/app/index.html
 Jeder Microservice hat seinen eigenen Ordner in /micorservices/ mit eigenen npm-Abhängigkeiten.
 
 1. Neuer Ordner in /microservices/ anlegen
-2. npm init ausführen
-3. start.bat erweitern (übergeordneter Ordner)
+2. npm init ausführen -> Weiter, Weiter, fertigstellen
+3. start.bat und update.bat analog zu bereits vorhandenen Einträgen erweitern (übergeordneter Ordner)
 4. API-Gateway (/microservices/api-gateway/server.js) um redirect zu eigenem Service erweitern
-5. Eigene REST-API schreiben mit MEAN-Stack
+5. Eigene REST-API schreiben
 6. Anuglar-Services aus der Web-App umschreiben, sodass sie gegen das API-Gateway laufen
 
 ## MongoDB
