@@ -16,13 +16,16 @@ describe('Test for the profile component', function () {
             expect(element(by.id('password2')).isDisplayed()).toBeTruthy();
         });
         it('view others profile should not have an edit button', function () {
-            expect(element(by.id('edit')).isDisplayed()).toBe(false);
+			 browser.get('index.html#/profile/1').then(function(){
+				 expect(element(by.css('#edit')).isPresent()).toBe(false);
             expect(element(by.id('back')).isDisplayed()).toBeTruthy();
             expect(element(by.id('save')).isDisplayed()).toBeTruthy();
             expect(element(by.id('username')).isDisplayed()).toBeTruthy();
             expect(element(by.id('email')).isDisplayed()).toBeTruthy();
             expect(element(by.id('password')).isDisplayed()).toBeTruthy();
             expect(element(by.id('password2')).isDisplayed()).toBeTruthy();
+			 });
+            
         });
 /*
 Dieser Test solte laufen, sobald der Nutzer persistiert wird. Solange bleibt er auskommentiert

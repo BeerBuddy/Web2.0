@@ -17,14 +17,16 @@ angular.module('DevTalk.profile', ['ngRoute'])
         if($routeParams.userid)
         {
             $scope.user = UserService.getUserById($routeParams.userid);
+			$scope.data = EventService.getEventsByUserId( $routeParams.userid);
 			$scope.editable=false;
         }
         else{
             $scope.user = UserService.getCurrentUser();
+			$scope.data = EventService.getEventsByUserId( $scope.user.id);
             $scope.editable=true;
         }
 		
-		$scope.data = EventService.getEventsByUserId( $scope.user.id);
+		
 
         $scope.columns =
             [
