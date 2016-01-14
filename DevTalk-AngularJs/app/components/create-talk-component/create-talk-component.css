@@ -29,6 +29,13 @@ select {
     height: 35px;
 }
 
+fieldset {
+	border: 2px solid #099C69; 
+    border-radius: 6px;
+	padding: 10px;
+    background: white;
+}
+
 .date {
     border: 1px solid #ccc;
     font-size: 0.9em;
@@ -36,6 +43,16 @@ select {
     width: 47%;
     border-radius: 5px;
     height: 35px;
+}
+
+.number{
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+    padding: 2px 5px;
+    width: 60px;
+    border-radius: 5px;
+    height: 35px;
+	margin-left: 8px;
 }
 
 .toggle {
