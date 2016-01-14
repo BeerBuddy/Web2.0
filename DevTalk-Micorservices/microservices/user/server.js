@@ -4,6 +4,12 @@ var cors = require("cors"); // Cross-Origin Resource Sharing (CORS) ist ein Mech
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 
+/*
+TODO authentication token
+https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
+
+*/
+
 mongoose.connect('mongodb://localhost:21337/userService');
 
 app.use(cors());
