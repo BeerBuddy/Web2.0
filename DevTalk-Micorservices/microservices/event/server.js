@@ -12,7 +12,7 @@ app.all("/api/*", function (req, res, next) {
     return next();
 });
 
-app.get('/api/event/visited/user/*', function(req, res) {
+app.get('/visited/user/*', function(req, res) {
 	res.send('{"foo":"bar"}');
 });
 
