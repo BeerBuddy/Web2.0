@@ -1,37 +1,77 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var request = require('request');
-var app = express();
+var http = require('follow-redirects').http,
+    httpProxy = require('http-proxy'),
+    url = require('url');
 
-//Note that in version 4 of express, express.bodyParser() was
-//deprecated in favor of a separate 'body-parser' module.
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// http Server 
+var proxy = new httpProxy.createServer({});
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  next();
+	
+
+var httpServer = http.createServer(function(req, res) {
+
+            console.log('request received: ' + req.url);
+
+            var userService = 'http://localhost:8551/';
+            var statisticService = 'http://localhost:8552/';
+            var recomendationService = 'http://localhost:8553/';
+            var eventService = 'http://localhost:8554/';
+            var emailService = 'http://localhost:8555/';
+            var webServer = 'http://localhost:8000/';
+
+  var urlObj = url.parse(req.url);
+            req.headers['host'] = urlObj.host;
+            req.headers['url'] = urlObj.href;
+			
+proxy.on('error', function (err, req, res) {
+  res.writeHead(503, {
+    'Content-Type': 'text/plain'
+  });
+  res.end('Something went wrong. And we are reporting a custom error message.');
 });
 
+          
+function sendRequest(urlObj, res, req, target){
+		 proxy.proxyRequest(req, res, {
+			host: urlObj.host,
+			target: target + req.url,
+			enable: {
+				xforward: true
+			}
+		});
+						
+}
 
-app.get('/api/statistics/:key', function(req, res) {
-	res.redirect('http://localhost:8552/api/statistics/'+req.params.key);
-});
 
-app.post('/api/statistics/login', function(req, res) {
-	res.redirect(307, 'http://localhost:8552/api/statistics/login');
-});
+            if (req.url && req.url.toString().indexOf('/api') != -1) {    
+                    if (req.url.toString().indexOf('/userService') != -1) {
+                        req.url = req.url.replace('/api/userService','');
+						sendRequest(urlObj, res, req, userService)
+                       
+                    } else if (req.url.toString().indexOf('/statisticService') != -1) {
+                        req.url = req.url.replace('/api/statisticService','');
+						sendRequest(urlObj, res, req, statisticService);
+                       
+                    } else if (req.url.toString().indexOf('/recomendationService') != -1) {
+                        req.url = req.url.replace('/api/recomendationService','');
+                       sendRequest(urlObj, res, req, recomendationService);
+                    } else if (req.url.toString().indexOf('/eventService') != -1) {
+                        req.url = req.url.replace('/api/eventService','');
+						 console.log("redirct to: "+ req.url);
+						 sendRequest(urlObj, res, req, eventService);
+                        
+                    } else if (req.url.toString().indexOf('/emailService') != -1) {
+                        req.url = req.url.replace('/api/emailService','');
+                        sendRequest(urlObj, res, req, emailService);
+                    } else {
+                        console.log(req.url + " has no endpoint");
+						res.sendStatus(502);
+                    }
 
-app.get('/api/recommendation/user/:user', function(req, res) {
-	res.redirect('http://localhost:8553/api/recommendation/user/'+req.params.user);
-});
+                } else {
+				  console.log(req.url + " to Webservice");
+				   sendRequest(urlObj, res, req, webServer);
+                 }
 
-app.get('/api/event/visited/user/:user', function(req, res) {
-	res.redirect('http://localhost:8554/api/event/visited/user/'+req.params.user);
-});
-
-app.listen(8550, function() {
-  console.log('Sassy API Gateway running at http://127.0.0.1:8550/');
-});
+            }); 
+			
+httpServer.listen(8550);
