@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="components/devtalk-footer/devtalk-footer.css" />
+
+<footer id="footer">
+	<div id="footer-content">
+		<span class="footer-item-left">
+		&copy; BeerBuddy Inc.
+		</span>
+		<span class="footer-item-left">
+			<a href="#agbs" id="agb"><span class="nav-text">AGBs</span></a>
+		</span>
+		<span class="footer-item-left">
+			<a href="#impressum" id="impressum"><span class="nav-text">Impressum</span></a>
+		</span>
+		<a href="#logout" class="footer-item-right" ng-show="isUser" id="footer-logout" ng-click="logout()">
+			<iron-icon icon="power-settings-new"></iron-icon><span class="nav-text">Logout</span>
+		</a>
+		<a href="#profile" class="footer-item-right" ng-show="isUser" id="myProfil">
+			<iron-icon icon="account-box"></iron-icon><span class="nav-text">Mein Profil</span>
+		</a>
+		<a href="#/admin/newTalk" class="footer-item-right" ng-show="isAdmin" id="eventLink">
+			<iron-icon icon="add-box"></iron-icon><span class="nav-text">Veranstaltung</span>
+		</a>
+		<a href="#/admin/statistic" class="footer-item-right" ng-show="isAdmin" id="statisticLink">
+			<iron-icon icon="assessment"></iron-icon><span class="nav-text">Statistiken</span>
+		</a>
+	</div>
+</footer>

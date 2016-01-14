@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+}
+
+container {
+    font-family: verdana;
+    height: 390px;
+    perspective: 500px;
+    width: 100%;
+	border-radius: 5px;
+	display:inline-block
+}
+
+input {
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+    padding: 2px 5px;
+    width: 100%;
+    border-radius: 5px;
+    height: 35px;
+}
+
+select {
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+    padding: 2px 5px;
+    width: auto;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.date {
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+    padding: 2px 0px;
+    width: 47%;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.toggle {
+    display: inline-block;
+    background-color: #099C69;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    width: 30%;
+    cursor: pointer;
+}

@@ -1,21 +1,56 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+var random = require('./random');
+var express = require("express");
 var app = express();
+var mongoose = require("mongoose");
+var bodyParser = require("body-parser");
+var settings = require("../settings.json");
+mongoose.connect(settings.eventService.db.protocol+'://'+settings.eventService.db.ip+':'+settings.eventService.db.port+'/'+settings.eventService.db.schema);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.all("/api/*", function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
-    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-    return next();
+var Kategorie = mongoose.model('Kategorie', {
+    id: String,
+    name: String
 });
 
-app.get('/visited/user/*', function(req, res) {
-	res.send('{"foo":"bar"}');
+var Event = mongoose.model('Event', {
+    id: String,
+    name: String,
+    ort: String,
+    datum: String,
+    kategorie: String,
+    talks: [],
+    teilnehmer: []
 });
 
-app.listen(8554, function() {
-  console.log('Badass event service running at http://127.0.0.1:8554/');
+//Initial save random events
+Event.find(function (err, events) {
+    if (events.length === 0) {
+        for (var i = 0; i < (Math.random() * 20) + 1; i++) {
+            var event = new Event(random.getRandomEvent());
+            event.save(function (err) {
+                if (err) {
+                    console.log("failed to save Event: " + err);
+                }
+                else {
+                    console.log("saved Event");
+                }
+
+            });
+        }
+    }
 });
+
+
+app.get("/", function (req, res) {
+    Event.find(function (err, events) {
+        if (err) {
+            res.send(500, err);
+        } else {
+            res.send(events);
+        }
+    });
+});
+
+app.listen(settings.eventService.rest.port);

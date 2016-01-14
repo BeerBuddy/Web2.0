@@ -1,0 +1,87 @@
+{
+	"userService":
+	{
+		"db":{
+			"port": 28551,
+			"ip": "localhost",
+			"protocol": "mongodb",
+			"schemal": "user"
+		},
+		"rest":{
+			"port": 8551,
+			"ip": "localhost",
+			"protocol": "http"
+		}
+	},
+"statisticService":
+	{
+		"db":{
+			"port": 28552,
+			"ip": "localhost",
+			"protocol": "mongodb",
+			"schemal": "statistic"
+		},
+		"rest":{
+			"port": 8552,
+			"ip": "localhost",
+			"protocol": "http"
+		}
+	},
+	"recomendationService":
+	{
+		"db":{
+			"port": 28553,
+			"ip": "localhost",
+			"protocol": "mongodb",
+			"schemal": "recomendation"
+		},
+		"rest":{
+			"port": 8553,
+			"ip": "localhost",
+			"protocol": "http"
+		}
+	},
+	"eventService":
+	{
+		"db":{
+			"port": 28554,
+			"ip": "localhost",
+			"protocol": "mongodb",
+			"schemal": "event"
+		},
+		"rest":{
+			"port": 8554,
+			"ip": "localhost",
+			"protocol": "http"
+		}
+	},
+	"emailService":
+	{
+		"db":{
+			"port": 28555,
+			"ip": "localhost",
+			"protocol": "mongodb",
+			"schemal": "email"
+		},
+		"rest":{
+			"port": 8555,
+			"ip": "localhost",
+			"protocol": "http"
+		}
+	},
+	"webServer":
+	{
+			"port": 8550,
+			"ip": "localhost",
+			"protocol": "http"
+		
+	},
+	"apiGateway":
+	{
+			"port": 8000,
+			"ip": "localhost",
+			"protocol": "http"
+		
+	}
+	
+}

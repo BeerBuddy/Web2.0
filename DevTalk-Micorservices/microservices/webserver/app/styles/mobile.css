@@ -1,0 +1,30 @@
+@media screen and (max-width: 1200px) {
+	.content-wrapper {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 960px) {
+	.nav-text {
+		display: none;
+	}
+
+	.img-left, .img-right {
+		float: none;
+		width: 100%;
+		max-width: none;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	#main-content, #aside {
+		float: none;
+		width: 100%;
+		min-width: 600px;
+	}
+	
+
+}

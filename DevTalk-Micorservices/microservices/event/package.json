@@ -2,8 +2,10 @@
   "name": "event",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+   "main": "server.js",
   "scripts": {
+	"prestart": "npm install",
+    "start": "startScript.bat",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -12,6 +14,7 @@
     "express": "^4.13.3"
   },
   "devDependencies": {
-    "body-parser": "^1.14.2"
+    "body-parser": "^1.14.2",
+    "mongoose": "^4.3.5"
   }
 }

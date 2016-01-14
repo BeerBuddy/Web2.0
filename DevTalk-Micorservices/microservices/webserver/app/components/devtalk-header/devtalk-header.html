@@ -1,0 +1,36 @@
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="stylesheet" href="/components/devtalk-header/devtalk-header.css" />
+
+<header id="main-header">
+    <div class="content-wrapper header-menu">
+        <div class="header-background">
+            <img src="images/logo.png" alt="Logo DevTalk" id="header-logo"/>
+
+            <nav class="header-nav">
+                <a href="#allTalks" id="header-link-overview">
+                    <iron-icon icon="apps"></iron-icon><span class="nav-text">Übersicht</span>
+                </a>
+                <a href="{{isUser ? '#profile' : '#login'}}" id="header-link-profile">
+                    <iron-icon icon="account-box"></iron-icon><span class="nav-text">Mein Profil</span>
+                </a>
+
+                <a href="#admin/newTalk" ng-show="isAdmin" id="header-link-talk">
+                    <iron-icon icon="add-box"></iron-icon><span class="nav-text">Veranstaltung</span>
+                </a>
+                <a href="#admin/statistic" ng-show="isAdmin" id="header-link-statistics">
+                    <iron-icon icon="assessment"></iron-icon><span class="nav-text">Statistiken</span>
+                </a>
+                
+                <a href="#logout" title="{{userName}} abmelden" ng-show="isUser" ng-click="logout()" id="header-link-logout">
+                    <iron-icon icon="power-settings-new"></iron-icon><span class="nav-text" style="padding-right: 15px;">Logout</span>
+                </a>
+                
+                <a href="#login" ng-show="!isUser" id="header-link-login">
+                    <iron-icon icon="power-settings-new"></iron-icon><span class="nav-text" style="padding-right: 15px;">Login</span>
+                </a>
+            </nav>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+</header>
+<div class="header-buffer"></div>

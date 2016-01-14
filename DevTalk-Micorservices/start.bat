@@ -1,13 +1,14 @@
 @Echo Off
 
 :: Services starten
-start node microservices/api-gateway/server.js
-start node microservices/statistics/server.js
-start node microservices/recommendation/server.js
-start node microservices/event/server.js
-start %~dp0microservices\user\startScript.bat
+
+start %~dp0microservices\api-gateway\NpmStart.bat 
+start %~dp0microservices\statistics\NpmStart.bat 
+start %~dp0microservices\recommendation\NpmStart.bat
+start %~dp0microservices\event\NpmStart.bat
+start %~dp0microservices\user\NpmStart.bat
+start %~dp0microservices\webserver\NpmStart.bat
 
 echo Microservices gestartet
+exit
 
-:: Web-App starten
-npm start

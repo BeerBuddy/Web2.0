@@ -1,6 +1,8 @@
 module.exports = function(config){
   config.set({
 
+  
+	//TODO add all Tests from microservices here
     basePath : './',
 
     files : [

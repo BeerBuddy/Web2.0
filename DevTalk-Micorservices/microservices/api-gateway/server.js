@@ -1,9 +1,11 @@
 var http = require('follow-redirects').http,
     httpProxy = require('http-proxy'),
-    url = require('url');
+    url = require('url'),
+	settings = require("../settings.json");
 
 // http Server 
-var proxy = new httpProxy.createServer({});
+var proxy = new httpProxy.createServer();
+
 
 	
 
@@ -11,12 +13,12 @@ var httpServer = http.createServer(function(req, res) {
 
             console.log('request received: ' + req.url);
 
-            var userService = 'http://localhost:8551/';
-            var statisticService = 'http://localhost:8552/';
-            var recomendationService = 'http://localhost:8553/';
-            var eventService = 'http://localhost:8554/';
-            var emailService = 'http://localhost:8555/';
-            var webServer = 'http://localhost:8000/';
+            var userService = settings.userService.rest.protocol+'://'+settings.userService.rest.ip+':'+settings.userService.rest.port+'/';
+            var statisticService = settings.statisticService.rest.protocol+'://'+settings.statisticService.rest.ip+':'+settings.statisticService.rest.port+'/';
+            var recomendationService = settings.recomendationService.rest.protocol+'://'+settings.recomendationService.rest.ip+':'+settings.recomendationService.rest.port+'/';
+            var eventService = settings.eventService.rest.protocol+'://'+settings.eventService.rest.ip+':'+settings.eventService.rest.port+'/';
+            var emailService = settings.emailService.rest.protocol+'://'+settings.emailService.rest.ip+':'+settings.emailService.rest.port+'/';
+            var webServer = settings.webServer.protocol+'://'+settings.webServer.ip+':'+settings.webServer.port+'/';
 
   var urlObj = url.parse(req.url);
             req.headers['host'] = urlObj.host;
@@ -69,9 +71,15 @@ function sendRequest(urlObj, res, req, target){
 
                 } else {
 				  console.log(req.url + " to Webservice");
-				   sendRequest(urlObj, res, req, webServer);
+				  	 proxy.proxyRequest(req, res, {
+			host: urlObj.host,
+			target: webServer,
+			enable: {
+				xforward: true
+			}
+		});
                  }
 
             }); 
 			
-httpServer.listen(8550);
+httpServer.listen(settings.apiGateway.port);

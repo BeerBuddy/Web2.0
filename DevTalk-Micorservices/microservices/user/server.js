@@ -3,6 +3,7 @@ var app = express();
 var cors = require("cors"); // Cross-Origin Resource Sharing (CORS) ist ein Mechanismus, der Webbrowsern oder auch anderen Webclients Cross-Origin-Requests ermöglicht.[1] Zugriffe dieser Art sind normalerweise durch die Same-Origin-Policy (SOP) untersagt. CORS ist ein Kompromiss zugunsten größerer Flexibilität im Internet unter Berücksichtigung möglichst hoher Sicherheitsmaßnahmen.
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
+var settings = require("../settings.json");
 
 /*
 TODO authentication token
@@ -10,7 +11,7 @@ https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
 
 */
 
-mongoose.connect('mongodb://localhost:21337/userService');
+mongoose.connect(settings.userService.db.protocol+'://'+settings.userService.db.ip+':'+settings.userService.db.port+'/'+settings.userService.db.schema);
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -66,6 +67,6 @@ function saveUser(user){
     });
 }
 
-app.listen(9123);
+app.listen(settings.userService.rest.port);
 
 console.log("User Service started on localhost:9123");

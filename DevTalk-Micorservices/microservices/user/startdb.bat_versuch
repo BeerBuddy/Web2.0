@@ -1,0 +1,51 @@
+@echo off&SETLOCAL
+IF NOT defined %MONGO_HOME GOTO FINDPORT ELSE GOTO FINDPORT
+
+:FINDPORT
+echo findport >> log.log
+for /f "delims=" %%a in (%~dp0../settings.json) do call:DOit "%%~a"
+if exist %%port GOTO START ELSE GOTO ERRORPORT  
+goto:Eof
+
+:DOit
+setlocal
+echo %~1 >> log.log
+set "string=%~1"
+If NOT "%string%"=="%string:userService=%" (
+   	echo foundservice=1 >> log.log
+	set foundservice="1"
+)
+
+If NOT "%string%"=="%string:db=%" (
+   	echo founddb=1 >> log.log
+	set founddb="1"
+)
+
+If NOT "%string%"=="%string:port=%" (
+	echo  string:"%string%" >> log.log
+   	set port=%string%
+	if "%founddb%" == "1" if "%foundservice%"=="1" (
+	set "foundservice="0""
+	set "founddb="0""
+	goto:START "%%~port"
+	)
+)
+exit /b
+
+:START 
+echo called with port %~1 >> log.log
+set var="%~1%"
+echo substring "%var:~19,5%" >> log.log
+mkdir "db"
+"%%MONGO_HOME\bin\mongod.exe" --port ""%var:~19,5%"" --dbpath "%%~dp0db"
+echo "%%MONGO_HOME\bin\mongod.exe" --port ""%var:~19,5%"" --dbpath "%%~dp0db" >> log.log
+echo User Service DB started!
+goto:eof
+
+:ERROR
+echo MONGO_HOME is not set >> log.log
+goto:eof
+
+:ERRORPORT 
+ECHO "Could not extrcat port"
+goto:eof

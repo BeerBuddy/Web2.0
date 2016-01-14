@@ -4,7 +4,8 @@
   "description": "da best user service!",
   "main": "server.js",
   "scripts": {
-    "start": "startScript.bat",
+	"prestart": "npm install",
+     "start": "startScript.bat",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "A. J. W.",

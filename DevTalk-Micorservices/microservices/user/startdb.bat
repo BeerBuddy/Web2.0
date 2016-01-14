@@ -1,3 +1,10 @@
-mkdir "C:\projects\fh\Web2.0\DevTalk-Micorservices\microservices\user\db"
-"C:\Program Files\MongoDB\Server\3.2\bin\mongod.exe" --port 21337 --dbpath "C:\projects\fh\Web2.0\DevTalk-Micorservices\microservices\user\db"
+@echo off
+mkdir "%~dp0%db"
+IF NOT defined %MONGO_HOME GOTO ERROR
+"%MONGO_HOME%\bin\mongod.exe" --port 28551 --dbpath "%~dp0%db"
 ECHO "User Service DB started!"
+goto:eof
+
+:ERROR
+ECHO  "MONGO_HOME is not set" 
+goto:eof
