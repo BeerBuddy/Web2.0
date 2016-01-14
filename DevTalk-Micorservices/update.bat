@@ -1,2 +1,2 @@
 @Echo Off
-npm update microservices\api-gateway\package.json && npm update microservices\statistics\package.json && npm update microservices\recommendation\package.json && npm update microservices\event\package.json && echo Update abgeschlossen
+npm update microservices\api-gateway\package.json && npm update microservices\statistics\package.json && npm update microservices\recommendation\package.json && npm update microservices\event\package.json && npm update microservices\user\package.json && echo Update abgeschlossen
