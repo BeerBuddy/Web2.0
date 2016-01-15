@@ -35,7 +35,7 @@ proxy.on('error', function (err, req, res) {
 function sendRequest(urlObj, res, req, target){
 		 proxy.proxyRequest(req, res, {
 			host: urlObj.host,
-			target: target + req.url,
+			target: target,
 			enable: {
 				xforward: true
 			}
@@ -66,19 +66,16 @@ function sendRequest(urlObj, res, req, target){
                         sendRequest(urlObj, res, req, emailService);
                     } else {
                         console.log(req.url + " has no endpoint");
-						res.sendStatus(502);
+						res.writeHead(502, {
+						'Content-Type': 'text/plain'
+						});
+						res.end(req.url + " has no endpoint");
                     }
 
                 } else {
-				  console.log(req.url + " to Webservice");
-				  	 proxy.proxyRequest(req, res, {
-			host: urlObj.host,
-			target: webServer,
-			enable: {
-				xforward: true
-			}
-		});
-                 }
+				  console.log(req.url + " to webServer");
+				  sendRequest(urlObj, res, req, webServer);
+                }
 
             }); 
 			

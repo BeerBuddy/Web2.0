@@ -1,3 +1,3 @@
 start %~dp0startdb.bat
-start node server.js
+start supervisor server.js
 exit

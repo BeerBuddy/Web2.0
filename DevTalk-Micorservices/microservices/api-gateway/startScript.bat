@@ -1,2 +1,2 @@
-start node server.js
+start supervisor server.js
 exit

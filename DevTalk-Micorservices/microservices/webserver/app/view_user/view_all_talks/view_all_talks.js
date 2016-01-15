@@ -11,7 +11,7 @@ angular.module('DevTalk.allTalks', ['ngRoute'])
 
     .controller('AllTalksCtrl', ['$scope', '$routeParams', '$location', 'EventService', 'UserService', 'RecommendationService', function ($scope, $routeParams, $location, EventService, UserService, RecommendationService) {
         $scope.onItemClick = function (e) {
-			$location.path('/talkDetails/' + e.id);
+			$location.path('/talkDetails/' + e._id);
         };
 
 		$scope.data = EventService.getAll();
