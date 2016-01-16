@@ -12,7 +12,7 @@ var Event = mongoose.model('Event', {
     talks: [],
     teilnehmer: [],
 	warteliste: [],
-	maxAnzahl: Number
+	kapazitaet: Number
 });
 
  
@@ -59,16 +59,8 @@ router.route('/')
 		}
 })
 .post( function(req, res) {
-   var event = new Event();      // create a new instance of the event model
+   var event = new Event(req.body);      // create a new instance of the event model
         
-		    event.name = req.body.name;  // set the event name (comes from the request)
-            event.ort = req.body.ort;  
-            event.datum = req.body.datum;  
-            event.event = req.body.event;  
-            event.talks = req.body.talks; 
-            event.teilnehmer = req.body.teilnehmer;  
-            event.warteliste = req.body.warteliste;  
-            event.maxAnzahl = req.body.maxAnzahl; 
 			
         // save the event and check for errors
         event.save(function(err) {
@@ -108,7 +100,7 @@ router.route('/:event_id/')
 				event.talks = req.body.talks; 
 				event.teilnehmer = req.body.teilnehmer;  
 				event.warteliste = req.body.warteliste;  
-				event.maxAnzahl = req.body.maxAnzahl; 
+				event.kapazitaet = req.body.kapazitaet; 
 				   // save the event
             event.save(function(err) {
                 if (err)
