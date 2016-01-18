@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+var settings = require("../settings.json");
 
 //Note that in version 4 of express, express.bodyParser() was
 //deprecated in favor of a separate 'body-parser' module.
@@ -46,24 +47,28 @@ var getRegistrationData = function(){
 	  result.data[1].push(result.data[0][i] - getRandomValue(0, result.data[0][i] * 0.4));
 	}
 	return result;
-}
+};
 
-
-app.get('/api/statistics/accessStatistics', function(req, res) {
+app.get('/accessStatistics', function(req, res) {
 	res.send(getAccessStatistics());
 });
 
-app.get('/api/statistics/registrationStatistics', function(req, res) {
+app.get('/registrationStatistics', function(req, res) {
 	res.send(getRegistrationData());
 });
 
-app.post('/api/statistics/login', function(req, res) {
+app.post('/test', function(req, res) {
+	console.log('test');
+	res.send({test:"test"});
+});
+
+app.post('/login', function(req, res) {
 	console.log('Ein neuer Login. Hurra!');
-	console.log(req.body);
+	console.log(req.body.email);
 	loginCounter++;
-	res.sendStatus(200);
-})
+	res.send('login');
+});
 
 app.listen(8552, function() {
-  console.log('Lame statistics service running at http://127.0.0.1:8552/');
+  console.log('Lame statistics service running at '+ settings.statisticService.rest.protocol+'://'+settings.statisticService.rest.ip+':'+settings.statisticService.rest.port+'/');
 });

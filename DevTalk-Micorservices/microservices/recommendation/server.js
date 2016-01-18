@@ -1,6 +1,5 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var request = require('request');
 var app = express();
 
 //Note that in version 4 of express, express.bodyParser() was
