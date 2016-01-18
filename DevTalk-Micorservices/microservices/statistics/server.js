@@ -1,40 +1,63 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+var cors = require("cors");
 var settings = require("../settings.json");
+var mongoose = require("mongoose");
 
-//Note that in version 4 of express, express.bodyParser() was
-//deprecated in favor of a separate 'body-parser' module.
+mongoose.connect(settings.statisticService.db.protocol+'://'+settings.statisticService.db.ip+':'+settings.statisticService.db.port+'/'+settings.statisticService.db.schema);
+
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+var EVENTTYPE = [{LOGIN: 'LOGIN'},
+                {REGISTER: 'REGISTER'}
+                ];
+var eventSchema = mongoose.Schema({
+    name: String,
+    email: String,
+    type: String,
+    date: Date
+});
+
+eventSchema.pre('save', function (next) {
+  this.date = new Date();
   next();
 });
 
+var Event = mongoose.model('Event', eventSchema);
 
-var getRandomValue = function(min, max){
-	return Math.floor(((Math.random() * (max || 500)) + (min || 1)));
-};
+//Initial save same users
+Event.find(function (err, events) {
+    if (events.length === 0) {
+        var event = new Event({
+            name: "user",
+            email: "user@user.de",
+            type: EVENTTYPE.REGISTER
+        });
+        saveEvent(event);
 
-var loginCounter = 0;
+        event = new Event({
+            name: "user",
+            email: "user@user.de",
+            type: EVENTTYPE.LOGIN
+        });
+        saveEvent(event);
+    }
+});
 
-var getAccessStatistics =  function(){
-	var result = {};
-	result.labels = ["January", "February", "March", "April", "May", "June", "July"];
-	result.series = ['Zugriff 2014', 'Zugriff 2015'];
-	result.data = [[],[]];
-	for (var i = 0; i < 2; i++) {
-	  for (var j = 0; j < 7; j++) {
-		result.data[i].push(getRandomValue(500, 7000));
-	  }
-	}
-	result.data[1][6] = loginCounter;
-	return result;
-};
+function saveEvent(event){
+    event.save(function(err){
+        if (err) {
+            console.log("failed to save event: " + err);
+        }
+        else {
+            console.log("saved event");
+        }
+    });
+}
+
 var getRegistrationData = function(){
 	var result = {};
 	result.labels = ["January", "February", "March", "April", "May", "June", "July"];
@@ -49,26 +72,27 @@ var getRegistrationData = function(){
 	return result;
 };
 
-app.get('/accessStatistics', function(req, res) {
+app.get('/events', function(req, res){
+  Event.find(function (err, events) {
+      if (err) {
+          res.send(500, err);
+      } else {
+          res.send(events);
+      }
+  });
+});
+
+app.get('/userStatistics', function(req, res) {
 	res.send(getAccessStatistics());
 });
 
-app.get('/registrationStatistics', function(req, res) {
-	res.send(getRegistrationData());
-});
-
-app.post('/test', function(req, res) {
-	console.log('test');
-	res.send({test:"test"});
-});
-
-app.post('/login', function(req, res) {
+app.post('/userStatistics', function(req, res) {
 	console.log('Ein neuer Login. Hurra!');
 	console.log(req.body.email);
 	loginCounter++;
 	res.send('login');
 });
 
-app.listen(8552, function() {
+app.listen(settings.statisticService.rest.port, function() {
   console.log('Lame statistics service running at '+ settings.statisticService.rest.protocol+'://'+settings.statisticService.rest.ip+':'+settings.statisticService.rest.port+'/');
 });

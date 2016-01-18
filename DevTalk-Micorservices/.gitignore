@@ -13,6 +13,7 @@ microservices/recommendation/node_modules/*
 microservices/email/db/*
 microservices/email/node_modules/*
 microservices/statistics/db/*
+microservices/statistics/db_test/*
 microservices/statistics/node_modules/*
 microservices/user/db/*
 microservices/user/node_modules/*
