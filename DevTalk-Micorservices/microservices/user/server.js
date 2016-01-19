@@ -45,6 +45,16 @@ User.find(function (err, users) {
     }
 });
 
+app.post('/login', function(req, res) {
+	console.log('login function called');
+  User.findOne({'name': 'user'}, function (err, events) {
+      if (err) {
+          res.send(500, err);
+      } else {
+          res.send(events);
+      }
+  });
+});
 
 app.get("/", function (req, res) {
     User.find(function (err, events) {
@@ -55,6 +65,8 @@ app.get("/", function (req, res) {
         }
     });
 });
+
+
 
 function saveUser(user){
     user.save(function(err){

@@ -2,9 +2,9 @@
 
     'use strict';
 
-    var app = angular.module('DevTalk.common', ['DevTalk.admin']);
+    var app = angular.module('DevTalk.common', []);
 
-    app.factory('UserService', ['StatisticService', function (StatisticService) {
+    app.factory('UserService', [function () {
         // all available users
         var users = [];
 
@@ -33,13 +33,11 @@
 
         return {
             login: function (email, password) {
-				console.log('############################################');
                 // Iterate over all users and look if the got a hit!
                 for (var user in users) {
                     if (users[user].email === email && users[user].password === password) {
                         currentUser = users[user];
                         //quickest way to deep-clone a object, see https://jsperf.com/cloning-an-object/2
-						StatisticService.login(users[user]);
                         return JSON.parse(JSON.stringify(users[user]));
                     }
                 }
