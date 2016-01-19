@@ -7,6 +7,7 @@ var http = require('follow-redirects').http,
     settings = require("../settings.json");
 
 const userService = settings.userService.rest.protocol+'://'+settings.userService.rest.ip+':'+settings.userService.rest.port+'/';
+const talkService = settings.talkService.rest.protocol+'://'+settings.talkService.rest.ip+':'+settings.talkService.rest.port+'/';
 const statisticService = settings.statisticService.rest.protocol+'://'+settings.statisticService.rest.ip+':'+settings.statisticService.rest.port+'/';
 const recomendationService = settings.recomendationService.rest.protocol+'://'+settings.recomendationService.rest.ip+':'+settings.recomendationService.rest.port+'/';
 const eventService = settings.eventService.rest.protocol+'://'+settings.eventService.rest.ip+':'+settings.eventService.rest.port+'/';
@@ -83,6 +84,11 @@ var httpServer = http.createServer(function(req, res) {
           interceptResponse(res, (statisticService + 'login'));
         }
 	      sendRequest(urlObj, res, req, userService);
+    }
+	// requests for the talk service
+    if (req.url.toString().indexOf('/talkService') != -1) {
+		    req.url = req.url.replace('/api/talkService','');
+            sendRequest(urlObj, res, req, talkService);
     }
     //requests for the statistic service
     else if (req.url.toString().indexOf('/statisticService') != -1) {
