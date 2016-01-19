@@ -1,5 +1,8 @@
-'use strict';
-var app = angular.module('DevTalk.common1', []);
+(function () {
+
+    'use strict';
+
+    var app = angular.module('DevTalk.common');
 
 app.factory('EventService', [function () {
     function getRandomDate(from, to) {
@@ -224,3 +227,4 @@ app.factory('EventService', [function () {
     };
 }
 ]);
+})();

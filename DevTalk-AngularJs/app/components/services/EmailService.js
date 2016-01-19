@@ -1,3 +1,4 @@
+(function() {
 'use strict';
 var app = angular.module('DevTalk.admin', []);
 
@@ -13,3 +14,4 @@ app.factory('EventService', [function () {
 	  }
 	}
 }]);
+})();

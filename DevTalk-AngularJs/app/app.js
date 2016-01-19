@@ -14,7 +14,6 @@ angular.module('DevTalk', [
     'DevTalk.newTalk',
     'DevTalk.editTalk',
     'DevTalk.common',
-    'DevTalk.common1',
     'DevTalk.recommendation',
     'eventTableComponent',
     'profilComponent'
