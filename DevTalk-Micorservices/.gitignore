@@ -8,6 +8,8 @@ tmp
 *.log
 microservices/event/db/*
 microservices/event/node_modules/*
+microservices/talk/db/*
+microservices/talk/node_modules/*
 microservices/recommendation/db/*
 microservices/recommendation/node_modules/*
 microservices/email/db/*

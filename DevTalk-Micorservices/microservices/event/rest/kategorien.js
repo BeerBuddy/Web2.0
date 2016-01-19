@@ -2,9 +2,6 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require("mongoose");
 
-var Kategorie = mongoose.model('Kategorie', {
-     name: String
-});
 
 router.route('/')
 .get( function(req, res) {

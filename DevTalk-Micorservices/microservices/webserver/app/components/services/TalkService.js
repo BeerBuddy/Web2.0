@@ -1,12 +1,12 @@
 'use strict';
 var app = angular.module('DevTalk.common');
-app.factory('EventService', ['$resource',function ($resource) {
+app.factory('TalkService', ['$resource',function ($resource) {
    
-  return $resource('/api/eventService/events/:_id',{},{
+  return $resource('/api/talkService/talks/:_id',{},{
 			/*
-			Recvies Event by Event._id expect 
+			Recvies Talk by Talk._id expect 
 			{
-				'_id' : ObjectId //the id of the event
+				'_id' : ObjectId //the id of the talk
 			}
 			*/
 			getById: {
@@ -17,7 +17,7 @@ app.factory('EventService', ['$resource',function ($resource) {
 					}
 			},
 			/*
-			Recvies all Events
+			Recvies all Talks
 			*/
 			getAll: {
 					method: 'GET' , 
@@ -27,7 +27,7 @@ app.factory('EventService', ['$resource',function ($resource) {
 					}
 			},
 			/*
-			Insert a new Event
+			Insert a new Talk
 			*/
 			insert: {
 					method: 'POST' , 
@@ -37,10 +37,10 @@ app.factory('EventService', ['$resource',function ($resource) {
 					}
 			},
 			/* 
-			update an existing event expect 
+			update an existing talk expect 
 			{
-				'_id' : ObjectId //the id of the event
-				... All other Event attributes
+				'_id' : ObjectId //the id of the talk
+				... All other Talk attributes
 			}
 			*/
 			update: {
@@ -51,9 +51,9 @@ app.factory('EventService', ['$resource',function ($resource) {
 					}
 			},
 			/* 
-			delete an existing event expect 
+			delete an existing talk expect 
 			{
-				'_id' : ObjectId //the id of the event
+				'_id' : ObjectId //the id of the talk
 			}
 			*/
 			delete: {
@@ -64,19 +64,19 @@ app.factory('EventService', ['$resource',function ($resource) {
 					}
 			},
 			/* 
-			Returns all Events a user has joined
+			Returns all Talks a user has joined
 			{
-				'teilnehmer':{
+				'event':{
 				
 				'_id' : ObjectId //the id of the User
 				}
 			}
 			*/
-			getEventsByUserId:{
+			getTalksByUserId:{
 					method: 'GET' , 
 					isArray: true,
 					params: {
-						'teilnehmer' : '@teilnehmer._id'
+						'event' : '@event._id'
 					},
 					headers : {
 						'Content-Type' : 'application/json'

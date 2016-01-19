@@ -2,7 +2,7 @@
 
     'use strict';
 
- var app = angular.module('DevTalk.common', ['ngResource']);
+ var app = angular.module('DevTalk.common');
 
 app.factory('EventService', ['$resource',function ($resource) {
    

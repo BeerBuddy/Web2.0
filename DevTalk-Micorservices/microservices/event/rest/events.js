@@ -2,20 +2,9 @@ var random = require('../random');
 var express = require('express');
 var router = express.Router();
 var mongoose = require("mongoose");
+var Event = require('../model/event');
 
 
-var Event = mongoose.model('Event', {
-    name: String,
-    ort: String,
-    datum: String,
-    event: String,
-    talks: [],
-    teilnehmer: [],
-	warteliste: [],
-	kapazitaet: Number
-});
-
- 
 //Initial save random events
 Event.find(function (err, events) {
     if (events.length === 0) {
@@ -33,6 +22,7 @@ Event.find(function (err, events) {
 });
 
 router.route('/')
+//get all events
 .get( function(req, res) {
 		//get where teilnehmer = ?
 		 console.log("Get All where Teilnehmer: "+req.query.teilnehmer +" has taken part");
@@ -57,6 +47,7 @@ router.route('/')
 			});
 		}
 })
+//insert a new event
 .post( function(req, res) {
 		 console.log("save new Event:");
 		 console.log(req.body);
@@ -65,7 +56,6 @@ router.route('/')
 				event.ort = req.body.ort;  
 				event.datum = req.body.datum;  
 				event.event = req.body.event;  
-				event.talks = req.body.talks; 
 				event.teilnehmer = req.body.teilnehmer;  
 				event.warteliste = req.body.warteliste;  
 				event.kapazitaet = req.body.kapazitaet; 
@@ -80,8 +70,8 @@ router.route('/')
 })
 
 router.route('/:event_id/')
-    // get the event with that id 
-    .get(function(req, res) {
+// get the event with that id 
+.get(function(req, res) {
         Event.findById(req.params.event_id, function(err, event) {
             if (err)
                 res.send(err);
@@ -89,8 +79,8 @@ router.route('/:event_id/')
 				res.json(event);
         });
     })
-	// update the event with this id 
- .put(function(req, res) {
+// update the event with this id 
+.put(function(req, res) {
 		 console.log("update Event:");
 		 console.log(req.body);
         // use our Event model to find the event we want
@@ -151,65 +141,118 @@ else
 		res.json({ message: 'Successfully deleted' });
 	});
 });
-			/*
-			Join event expects following json:
-			{
-				'teilnehmer': {
-					'_id' : ObjectId //the id of the user
+
+router.route('/:event_id/teilnehmer')
+//get all teilnehmer of a certain event
+.get(function(req,res){
+ Event.findById(req.params.event_id, function(err, event) {
+				if (err){
+                res.send(err);
+				}else if(event ){
+					res.json(event.teilnehmer);
+				}else{
+					res.writeHead(404, {
+						'Content-Type': 'text/plain'
+					});
+					res.end('Not found');
 				}
-			}
-			*/
-router.route('/:event_id/join').put(function(req, res) {
-		 console.log("join Event:"+req.params.event_id);
-		 console.log(req.body);
-		
-			
+ });
+})
+//add a new teilnhemer to a event
+.post(function(req,res){
+					
 			 Event.findById(req.params.event_id, function(err, event) {
 			
             if (err)
                 res.send(err);
 				else if(event){
-				console.log(!event.kapazitaet);
-				console.log(event.teilnehmer.length < event.kapazitaet);
-				if(event.teilnehmer.length < event.kapazitaet)
-				{
-					if(event.teilnehmer.indexOf(req.body.teilnehmer._id) === -1)
-						event.teilnehmer.push(req.body.teilnehmer._id);
-				}else
-				{
-				if(event.warteliste.indexOf(req.body.teilnehmer._id) === -1)
-					event.warteliste.push(req.body.teilnehmer._id);
-				}
-					
 				
-				  event.save(function(err) {
-                if (err)
-                    res.send(err);
-					else
-					res.json(event);
-            });
+				
+					if(event.teilnehmer.length < event.kapazitaet)
+					{
+						if(event.teilnehmer.indexOf(req.body.teilnehmer._id) === -1){
+							event.teilnehmer.push(req.body.teilnehmer._id);
+							event.save(function(err) {
+								if (err)
+								res.send(err);
+								else
+								res.json(event);
+							});
+						}
+						else
+						{
+						res.json(event);
+						}
+					}else
+					{
+						//no capacity left add to warteliste
+						res.redirect('../warteliste');
+					}
+
+				 
 				}else
 				{
-				 res.writeHead(500, {
+				 res.writeHead(404, {
 				'Content-Type': 'text/plain'
 					});
-					res.end('Could not decline');
+					res.end('Not found');
 				}
 				});
 			
 });
-			/*
-			If someone has decided to not take part on the event declineEvent can be called to remove him from teilnehmers
-			The function expects the following json:
-			{
-				'teilnehmer': {
-					'_id' : ObjectId //the id of the user
+
+router.route('/:event_id/teilnehmer/:teilnehmer_id')
+//get the teilnehmer id
+.get(function(req,res){
+		Event.findById(req.params.event_id, function(err, event) {
+				if (err){
+                res.send(err);
+				}else if(event && event.teilnehmer && event.teilnehmer.indexOf(req.params.teilnehmer_id) > 0){
+					res.json(event.teilnehmer[event.teilnehmer.indexOf(req.params.teilnehmer_id)]);
+				}else{
+					res.writeHead(404, {
+						'Content-Type': 'text/plain'
+					});
+					res.end('Not found');
 				}
+});
+})
+//update teilnehmer id in teilnehmer list
+.put(function(req,res){
+		Event.findById(req.params.event_id, function(err, event) {
+			if (err)
+                res.send(err);
+			else if(event){
+					var index = event.teilnehmer.indexOf(req.params.teilnehmer_id);
+					if(index > 0)
+					{
+						event.teilnehmer[index]=req.body.teilnehmer._id;
+						event.save(function(err) {
+						if (err)
+							res.send(err);
+						else
+							res.json(event);
+					});
+					}
+					else
+					{
+					//not in teilnehmer maybe in warteliste
+					res.redirect('../../warteliste/'+req.params.teilnehmer_id);
+					}
+					
+				}
+			else
+			{
+				 res.writeHead(404, {
+				'Content-Type': 'text/plain'
+					});
+					res.end('Not found');
 			}
-			*/
-router.route('/:event_id/decline').put(function(req, res) {
-		 console.log("decline Event:"+req.params.event_id);
-		 console.log(req.body);
+		})
+		})
+//delete teilnehmer from teilnehmer list
+.delete(function(req,res){
+			console.log(req.body);
 			 Event.findById(req.params.event_id, function(err, event) {
 			
             if (err)
@@ -217,7 +260,7 @@ router.route('/:event_id/decline').put(function(req, res) {
 				else if(event ){
 					
 					//if he is in teinehmers
-					var index = event.teilnehmer.indexOf(req.body.teilnehmer._id);
+					var index = event.teilnehmer.indexOf(req.params.teilnehmer_id);
 					if(index > -1)
 					{
 						//if there is someone waiting to join add him to teilnehmers
@@ -228,29 +271,166 @@ router.route('/:event_id/decline').put(function(req, res) {
 						{
 							event.teilnehmer.splice( index, 1 );
 						}
+						
+						 event.save(function(err) {
+							if (err)
+								res.send(err);
+							else
+								res.json(event);
+						 });
+			
 					}
 					else{
 					//if he is in warteliste
-					index = event.warteliste.indexOf(req.body.teilnehmer._id) === -1
-						if(index > -1)
-						event.warteliste.splice( index, 1 );
+					res.redirect('../../warteliste/'+req.params.teilnehmer_id);
 					}
 				
-				  event.save(function(err) {
-                if (err)
-                    res.send(err);
-					else
-					res.json(event);
-            });
+				 
 				}
 				else
 				{
-				 res.writeHead(500, {
+				 res.writeHead(404, {
 				'Content-Type': 'text/plain'
 					});
-					res.end('Could not decline');
+					res.end('Not found');
 				}
 				});
+});
+
+router.route('/:event_id/warteliste')
+//get all teilnehmer in warteliste of a certain event
+.get(function(req,res){
+				Event.findById(req.params.event_id, function(err, event) {
+				if (err){
+					res.send(err);
+				}else if(event ){
+					res.json(event.warteliste);
+				}else{
+					res.writeHead(404, {
+						'Content-Type': 'text/plain'
+					});
+					res.end('Not found');
+				}
+});
+})
+//add a new teilnhemer to warteliste
+.post(function(req,res){			
+		Event.findById(req.params.event_id, function(err, event) {
+            if (err)
+                res.send(err);
+				else if(event){
+					if(event.warteliste.indexOf(req.body.teilnehmer._id) === -1){
+						event.warteliste.push(req.body.teilnehmer._id);
+						event.save(function(err) {
+							if (err)
+							res.send(err);
+							else
+							res.json(event);
+						});
+					}else
+					{
+					  res.json(event);
+					}
+
+				 
+				}else
+				{
+				 res.writeHead(404, {
+				'Content-Type': 'text/plain'
+					});
+					res.end('Not found');
+				}
+		});
+			
+});
+
+router.route('/:event_id/warteliste/:teilnehmer_id')
+//get the teilnehmer id
+.get(function(req,res){
+				Event.findById(req.params.event_id, function(err, event) {
+				if (err){
+					res.send(err);
+				}else if(event && event.warteliste && event.warteliste.indexOf(req.params.teilnehmer_id) > 0){
+					res.json(event.warteliste[event.warteliste.indexOf(req.params.teilnehmer_id)]);
+				}else{
+					res.writeHead(404, {
+						'Content-Type': 'text/plain'
+					});
+					res.end('Not found');
+				}
+});
+})
+//update teilnehmer id in warteliste list
+.put(function(req,res){
+		Event.findById(req.params.event_id, function(err, event) {
+			if (err)
+                res.send(err);
+			else if(event){
+					var index = event.warte.indexOf(req.params.teilnehmer_id);
+					if(index > 0)
+					{
+						event.teilnehmer[index]=req.body.teilnehmer._id;
+						event.save(function(err) {
+						if (err)
+							res.send(err);
+						else
+							res.json(event);
+					});
+					}
+					else
+					{
+						res.writeHead(404, {
+						'Content-Type': 'text/plain'
+						});
+						res.end('Not found');
+					}
+					
+				
+			}else
+			{
+				 res.writeHead(404, {
+				'Content-Type': 'text/plain'
+					});
+					res.end('Not found');
+			}
+		})
+		})
+//delete teilnehmer from warteliste list
+.delete(function(req,res){
+			console.log(req.body);
+			 Event.findById(req.params.event_id, function(err, event) {
+			
+            if (err)
+                res.send(err);
+				else if(event){
+					
+					//if he is in warteliste
+					var index = event.warteliste.indexOf(req.params.teilnehmer_id);
+					if(index > -1)
+					{
+						event.warteliste.splice( index, 1 );
+						event.save(function(err) {
+							if (err)
+								res.send(err);
+							else
+								res.json(event);
+						 });
+					}
+					else{
+						res.writeHead(404, {
+						'Content-Type': 'text/plain'
+						});
+						res.end('Not found');
+					}
+				}
+				else
+				{
+				 res.writeHead(404, {
+				'Content-Type': 'text/plain'
+					});
+					res.end('Not found');
+				}
+			});
 });
 
 module.exports = router;

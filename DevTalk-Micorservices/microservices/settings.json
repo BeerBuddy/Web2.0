@@ -13,7 +13,7 @@
 			"protocol": "http"
 		}
 	},
-"statisticService":
+	"statisticService":
 	{
 		"db":{
 			"port": 28552,
@@ -51,6 +51,20 @@
 		},
 		"rest":{
 			"port": 8554,
+			"ip": "localhost",
+			"protocol": "http"
+		}
+	},
+	"talkService":
+	{
+		"db":{
+			"port": 28556,
+			"ip": "localhost",
+			"protocol": "mongodb",
+			"schemal": "talk"
+		},
+		"rest":{
+			"port": 8556,
 			"ip": "localhost",
 			"protocol": "http"
 		}
