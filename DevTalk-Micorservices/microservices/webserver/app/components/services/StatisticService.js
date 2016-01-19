@@ -33,7 +33,7 @@
 	            url: 'http://localhost:8550/api/statistics/login',
 	            method: "POST",
 	            data: {
-	                user
+	                user :[]
 	            },
 	            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 	        });

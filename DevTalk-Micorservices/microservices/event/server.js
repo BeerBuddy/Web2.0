@@ -12,8 +12,6 @@ mongoose.connect(settings.eventService.db.protocol+'://'+settings.eventService.d
 //restendpoints
 var kategorien = require('./rest/kategorien');
 var events = require('./rest/events');
-var teilnehmer = require('./rest/teilnehmer');
-var speaker = require('./rest/speaker');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

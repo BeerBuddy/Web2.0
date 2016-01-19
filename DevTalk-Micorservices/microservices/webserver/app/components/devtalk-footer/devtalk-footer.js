@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  var app = angular.module('DevTalk');
+  var app = angular.module('DevTalk',['DevTalk.common']);
 
   app.directive('devTalkFooter', ['UserService', directive]);
   function directive() {

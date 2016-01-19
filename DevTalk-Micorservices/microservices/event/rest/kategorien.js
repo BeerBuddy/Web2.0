@@ -50,7 +50,7 @@ router.route('/:kategorie_id')
 			else{
 			
 			//optimistic locking
-				if(kategorie._v === req.body._v)
+				if(kategorie.__v === req.body.__v)
 				{
 				  kategorie.name = req.body.name;  // update the kategorie info
 			
