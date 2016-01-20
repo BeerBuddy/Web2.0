@@ -81,12 +81,12 @@ var httpServer = http.createServer(function(req, res) {
     if (req.url.toString().indexOf('/userService') != -1) {
 		    req.url = req.url.replace('/api/userService','');
         if(req.url.toString().indexOf('/login') != -1){
-          interceptResponse(res, (statisticService + 'login'));
+          interceptResponse(res, (statisticService + 'events/login'));
         }
 	      sendRequest(urlObj, res, req, userService);
     }
 	// requests for the talk service
-    if (req.url.toString().indexOf('/talkService') != -1) {
+    else if (req.url.toString().indexOf('/talkService') != -1) {
 		    req.url = req.url.replace('/api/talkService','');
             sendRequest(urlObj, res, req, talkService);
     }
