@@ -1,17 +1,17 @@
 module.exports = function(config){
   config.set({
 
-  
+
 	//TODO add all Tests from microservices here
     basePath : './',
 
     files : [
-      'app/bower_components/angular/angular.js',
-      'app/bower_components/angular-route/angular-route.js',
-      'app/bower_components/angular-mocks/angular-mocks.js',
-      'app/components/services/**/*.js',
+      'microservices/webserver/app/bower_components/angular/angular.js',
+      'microservices/webserver/app/bower_components/angular-route/angular-route.js',
+      'microservices/webserver/app/bower_components/angular-mocks/angular-mocks.js',
+      'microservices/webserver/app/components/services/**/*.js',
       //'app/app.js',
-      'app/view_*/**/*.js'
+      'microservices/webserver/app/view_*/**/*.js'
     ],
 
     autoWatch : true,

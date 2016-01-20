@@ -50,6 +50,9 @@ Event.find(function (err, events) {
                   date: (new Date(d.getTime()))
               });
               event.save(error);
+            }
+            for(var index = 0; index <= getRandomValue(2,90); index++){
+              d.setDate(getRandomValue(0,29));
               event = new Event({
                   email: "dummy"+index+"@example.com",
                   type: EVENTTYPE.LOGIN,
