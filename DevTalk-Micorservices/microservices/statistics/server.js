@@ -34,6 +34,9 @@ Event.find(function (err, events) {
         var getRandomValue = function(min, max){
           return Math.floor(((Math.random() * (max || 500)) + (min || 1)));
         };
+        var error = function(err){if (err) {
+            console.log("failed to save event: " + err);
+        }};
         var d = new Date();
         d.setDate(1);
         d.setMonth(d.getMonth() - 6);
@@ -44,15 +47,15 @@ Event.find(function (err, events) {
               var event = new Event({
                   email: "dummy"+index+"@example.com",
                   type: EVENTTYPE.REGISTER,
-                  date: d
+                  date: (new Date(d.getTime()))
               });
-              saveEvent(event, function(){}, function(){});
+              event.save(error);
               event = new Event({
                   email: "dummy"+index+"@example.com",
                   type: EVENTTYPE.LOGIN,
-                  date: d
+                  date: (new Date(d.getTime()))
               });
-              saveEvent(event, function(){}, function(){});
+              event.save(error);
             }
             d.setMonth(d.getMonth() +1);
         }
@@ -62,45 +65,33 @@ Event.find(function (err, events) {
     }
 });
 
-function saveEvent(event, callbackSuccess, callbackError){
-    event.save(function(err){
+app.get('/events?:from', function(req, res){
+  if(!req.query.from){
+    Event.find(function (err, events) {
         if (err) {
-            if(callbackError)
-              callbackError(err);
-            else
-              console.log("failed to save event: " + err);
-        }
-        else {
-            if(callbackSuccess)
-              callbackSuccess();
-            else
-              console.log("saved event");
+            res.status(500).send(err);
+        } else {
+            res.send(events);
         }
     });
-}
-
-var getRegistrationData = function(){
-	var result = {};
-	result.labels = ["January", "February", "March", "April", "May", "June", "July"];
-	result.series = ['Anmeldungen', 'Teilnahmen'];
-	result.data = [[],[]];
-	for (var j = 0; j < 7; j++) {
-	  result.data[0].push(getRandomValue(300, 3000));
-	}
-	for (var i = 0; i < 7; i++) {
-	  result.data[1].push(result.data[0][i] - getRandomValue(0, result.data[0][i] * 0.4));
-	}
-	return result;
-};
-
-app.get('/events', function(req, res){
-  Event.find(function (err, events) {
-      if (err) {
-          res.sendStatus(500).sendBody(err);
-      } else {
-          res.send(events);
-      }
-  });
+  } else {
+    try {
+        var fromDate = new Date(parseInt(req.query.from));
+        if(fromDate){
+          Event.find({'date': { $gt: fromDate}}, function (err, events) {
+              if (err) {
+                  res.status(500).send(err);
+              } else {
+                  res.send(events);
+              }
+          });
+        } else {
+          throw new Error('No valid date supplied');
+        }
+    } catch (e) {
+      res.status(500).send(e);
+    }
+  }
 });
 
 function saveNewEvent(req, res, type){
@@ -109,16 +100,22 @@ function saveNewEvent(req, res, type){
         email: req.body.email || 'unbekannt',
         type: type
     });
-    saveEvent(event, function(){
-      res.sendStatus(200).sendBody(event);
-    }, function(error){
-      res.sendStatus(500).sendBody(error);
-    });
+    event.save(
+      function(err){
+          if (err) {
+              res.status(500).send(err);
+              console.log("failed to save event: " + err);
+          }
+          else {
+              res.status(200).send(event);
+              console.log("saved event");
+          }
+      });
   }
 }
 
 app.post('/events/login', function(req, res){
-  saveNewEvent(req, res, EVENTTYPE.LOGIN);
+    saveNewEvent(req, res, EVENTTYPE.LOGIN);
 });
 
 app.post('/events/register', function(req, res){
@@ -128,7 +125,7 @@ app.post('/events/register', function(req, res){
 app.delete('/events', function(req, res){
   Event.remove({}, function (err, events) {
       if (err) {
-          res.sendStatus(500).sendBody(err);
+          res.status(500).send(err);
       } else {
           res.sendStatus(204);
       }
