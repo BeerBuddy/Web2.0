@@ -6,3 +6,7 @@ tmp
 .DS_Store
 .idea
 *.log
+microservices/user/db/*
+microservices/statistics/db/*
+microservices/recommendation/db/*
+microservices/event/db/*
