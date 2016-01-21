@@ -1,14 +1,13 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var cors = require("cors");
 var settings = require("../settings.json");
 var initializer = require("./initDB.js");
 var mongoose = require("mongoose");
+var roles = require("../roles.js");
 
 mongoose.connect(settings.statisticService.db.protocol+'://'+settings.statisticService.db.ip+':'+settings.statisticService.db.port+'/'+settings.statisticService.db.schema);
 
-app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -33,7 +32,7 @@ initializer.initDB(Event);
 
 app.get('/events?:from', function(req, res){
   // only admins are allowed to see the statistic data
-  if(req.headers.user.role === 'admin'){
+  if(roles.isAdmin(req.headers.user)){
     if(!req.query.from){
       Event.find(function (err, events) {
           if (err) {

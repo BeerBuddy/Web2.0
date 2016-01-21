@@ -3,6 +3,7 @@ angular.module('DevTalk')
     .factory('authInterceptor', [
       '$q',
       '$window',
+      '$location',
       function($q, $window, $location) {
         return {
           request : function(config) {
@@ -21,4 +22,7 @@ angular.module('DevTalk')
           }
         };
       }
-    ]);
+    ])
+    .config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptor');
+}]);

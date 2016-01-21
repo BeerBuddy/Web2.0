@@ -50,7 +50,7 @@
               var fromDate = new Date();
               fromDate.setMonth(fromDate.getMonth() - 6);
               fromDate.setDate(1);
-              var result = $http.get('http://localhost:8000/api/statisticService/events',
+              var result = $http.get('https://localhost:8000/api/statisticService/events',
               {
                 params: {
                   "from" : fromDate.getTime()
