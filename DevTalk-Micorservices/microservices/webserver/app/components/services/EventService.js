@@ -2,7 +2,7 @@
 var app = angular.module('DevTalk.common', ['ngResource']);
 app.factory('EventService', ['$resource',function ($resource) {
    
-  return $resource('/api/eventService/events/:id',{id:'@_id'},{
+  return $resource('/api/eventService/events/:id',{id:'@id'},{
 			/*
 			Recvies Event by Event._id expect 
 			{
@@ -59,22 +59,6 @@ app.factory('EventService', ['$resource',function ($resource) {
 			delete: {
 					method: 'DELETE' , 
 					isArray: false,
-					headers : {
-						'Content-Type' : 'application/json'
-					}
-			},
-			/* 
-			Returns all Events a user has joined
-			{
-				'teilnehmer':{
-				
-				'_id' : ObjectId //the id of the User
-				}
-			}
-			*/
-			getEventsByUserId:{
-					method: 'GET' , 
-					isArray: true,
 					headers : {
 						'Content-Type' : 'application/json'
 					}

@@ -19,7 +19,8 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
             [
                 {"name": "name", "title": "Name"},
                 {"name": "ort", "title": "Location"},
-                {"name": "datum", "title": "Date"},
+                {"name": "datumVon", "title": "Date from"},
+				{"name": "datumBis", "title": "Date to"},
                 {"name": "kategorie", "title": "Categorie"}
             ];
 			
@@ -30,10 +31,11 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
 			var talk = {
 				"id": $scope.anEvent._id,
 				"name": $scope.anEvent.name,
-				"location": $scope.anEvent.ort,
-				"categorie": $scope.anEvent.kategorie,
-				"start": new Date($scope.anEvent.datum.substring(3,6) + $scope.anEvent.datum.substring(0,3) + $scope.anEvent.datum.substring(6,10)),
-				"end": new Date($scope.anEvent.datum.substring(16,19) + $scope.anEvent.datum.substring(13,16) + $scope.anEvent.datum.substring(19,23))
+				"ort": $scope.anEvent.ort,
+				"kategorie": $scope.anEvent.kategorie,
+				"datumVon": new Date($scope.anEvent.datum.substring(3,6) + $scope.anEvent.datum.substring(0,3) + $scope.anEvent.datum.substring(6,10)),
+				"datumBis": new Date($scope.anEvent.datum.substring(16,19) + $scope.anEvent.datum.substring(13,16) + $scope.anEvent.datum.substring(19,23)),
+				"beschreibung": "Es muss noch eine Beschreibung in die new Event Komponente eingefügt werden !!!!!"
 			}
 			$scope.setToEdit(talk);
         };
@@ -41,16 +43,15 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
 //----- Part for handling Actions from Create-Talk-Component ------
 		//create new Event
 		$scope.onCreate = function (talk) {
-			$scope.anEvent = EventService.createEvent(talk.id, talk.name, talk.location, talk.start, talk.end, talk.categorie);
-			EventService.insert($scope.anEvent);
+			EventService.insert(talk);
         }
 		//edit existing Event
 		$scope.onEdit = function (talk) {
-			$scope.anEvent = EventService.createEvent(talk.id, talk.name, talk.location, talk.start, talk.end, talk.categorie);
-			EventService.update($scope.anEvent);
+			talk.id = talk._id;
+			EventService.update(talk);
         }
 		//deleting existing Event
 		$scope.onDecline = function (id) {
-			EventService.decline(id);
+			EventService.delete({'id':id});
         }
         }]);

@@ -6,6 +6,7 @@ var bodyParser = require("body-parser");
 var settings = require("../settings.json");
 var cert = fs.readFileSync('../server.cer');  // get private key
 var jwt = require('jsonwebtoken');
+var roles = require('../roles');
 
 /*
 TODO authentication token
@@ -32,7 +33,7 @@ User.find(function (err, users) {
             name: "user",
             email: "user@user.de",
             password: "user",
-            role: "user"
+            role: roles.user
         });
         saveUser(user);
 
@@ -40,7 +41,7 @@ User.find(function (err, users) {
             name: "admin",
             email: "admin@admin.de",
             password: "admin",
-            role: "admin"
+            role: roles.admin
         });
         saveUser(admin);
     }

@@ -6,13 +6,13 @@
 
 app.factory('TeilnehmerService', ['$resource',function ($resource) {
    
-  return $resource('/api/eventService/events/:event._id/teilnehmer/:teilnehmer._id',{},{
+  return $resource('/api/eventService/events/:id/teilnehmer/:tid',{id: '@id',tid: '@tid'},{
 		/*
 			Get all Teilnehmer for a event
 			{
-				'event': {
-					'_id': ObjectId //the id of the event
-				}
+				
+					'id': ObjectId //the id of the event
+				
 			}
 			*/
 			getAll:{
@@ -26,10 +26,9 @@ app.factory('TeilnehmerService', ['$resource',function ($resource) {
 			/*
 			Join event expects following json:
 			{
-				'_id' : ObjectId //the id of the user,
-				'event': {
-					'_id': ObjectId //the id of the event
-				}				
+				'tid' : ObjectId //the id of the user,
+				'id': ObjectId //the id of the event
+								
 			}
 			*/
 			join:{
@@ -43,12 +42,8 @@ app.factory('TeilnehmerService', ['$resource',function ($resource) {
 			If someone has decided to not take part on the event declineEvent can be called to remove him from teilnehmers
 			The function expects the following json:
 			{
-				'event': { 
-					'_id': ObjectId //the id of the event
-				},
-				'teilnehmer': {
-					'_id' : ObjectId //the id of the user
-				}
+				'tid' : ObjectId //the id of the user,
+				'id': ObjectId //the id of the event
 			}
 			*/
 			decline:{

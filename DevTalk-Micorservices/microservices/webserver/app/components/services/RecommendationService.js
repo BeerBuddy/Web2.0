@@ -8,7 +8,7 @@ app.factory('RecommendationService', ['EventService', function(eventService) {
             return [];
 
         var allEvents = eventService.getAll();
-        var visitedEvents = eventService.getEventsByUserId(userId);
+        var visitedEvents = eventService.getAll({'teilnehmer': userId});
 
         //console.debug(allEvents);
         //console.debug(visitedEvents);

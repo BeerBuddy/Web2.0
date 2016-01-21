@@ -9,36 +9,24 @@ angular.module('DevTalk.talkDetails', ['ngRoute'])
         });
     }])
 
-    .controller('TalkDetailsCtrl', ['$scope', '$routeParams', '$location', 'UserService', 'EventService', function ($scope, $routeParams, $location, UserService, EventService) {
-        $scope.data = EventService.getById({'_id':$routeParams.eventid}, function(data){
-		if(data.teilnehmer)
-    $scope.hasApplyed = data.teilnehmer.indexOf(UserService.getCurrentUser().id) > -1; 
+    .controller('TalkDetailsCtrl', ['$scope', '$routeParams', '$location', 'UserService', 'EventService','TeilnehmerService', function ($scope, $routeParams, $location, UserService, EventService,TeilnehmerService) {
+        $scope.event = EventService.getById({'id':$routeParams.eventid}, function(event){
+		if(event.teilnehmer)
+			$scope.hasApplyed = event.teilnehmer.indexOf(UserService.getCurrentUser().id) > -1; 
 		});
-        $scope.columns = [
-            {"name":"title", "title":"Title"},
-            {"name":"description", "title":"Description"},
-            {"name":"Time", "title":"Time"},
-            {"name":"Speakers", "title":"Speakers"}
-        ];
-
        
-
-        $scope.apply = function() {
-            try {
-                if(UserService.getCurrentUser().id) {
-                    EventService.joinEvent(UserService.getCurrentUser()._id, $scope.data._id);
-                    alert('Erfolgreich für das Event ' + $scope.data.name + " angemeldet!");
-                    $location.path('#/allTalks');
-                } else {
-                    $location.path('#login');
-                }
-            } catch(err) {
-                console.info(err);
-                alert('Unerwarteter Fehler.');
-            }
+    $scope.apply = function() {
+			 TeilnehmerService.join({'id': $scope.event._id, 'tid':UserService.getCurrentUser()._id}, function(){
+				alert('Erfolgreich für das Event ' + $scope.event.name + " angemeldet!");
+				$location.path('#/allTalks');
+			});
         }
 
-        $scope.unsubscribe = function() {
-            alert('Abmeldung nur per Mail an foo@bar.com möglich!');
-        }
+	$scope.unsubscribe = function() {
+		 TeilnehmerService.decline({'id': $scope.event._id, 'tid':UserService.getCurrentUser()._id}, function(){
+			 alert('Erfolgreich vom Event ' + $scope.event.name + " abgemeldet!");
+			 $location.path('#/allTalks');
+		});
+	}
+	
     }]);
