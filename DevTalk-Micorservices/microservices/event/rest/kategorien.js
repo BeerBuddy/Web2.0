@@ -5,6 +5,23 @@ var Kategorie = require('../model/kategorie');
 var roles = require('../../roles');
 
 
+//Initial save Kategorien
+Kategorie.find(function (err, kategorie) {
+    if (kategorie.length === 0) {   
+		var kategorien = [new Kategorie({"name":"Java"}), new Kategorie({"name":"C"}), new Kategorie({"name":"C#"}), new Kategorie({"name":"Webtechnologien"})];
+		kategorien.forEach(function(k)
+		{
+			k.save(function (err) {
+				if (err) {
+					console.log("failed to save kategorie: " + err);
+				} else {
+					console.log("saved kategorie");
+				}
+			});
+		});
+    }
+});
+
 router.route('/')
 .all( function (req, res, next) {
 	if(req.headers.user){

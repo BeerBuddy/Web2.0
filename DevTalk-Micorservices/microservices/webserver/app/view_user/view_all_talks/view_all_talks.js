@@ -14,7 +14,18 @@ angular.module('DevTalk.allTalks', ['ngRoute'])
 			$location.path('/talkDetails/' + e._id);
         };
 
-		$scope.data = EventService.getAll();
+		$scope.data = EventService.getAll(function(data)
+		{
+			data.forEach(function(event){
+				if(event.datumVon)
+				{
+					var von = $filter('date')(date[ event.datumVon , "dd.MM.yyyy HH:mm"]);
+					event.datum = von + (event.datumBis ? '-'+ $filter('date')(date[ event.datumBis , "dd.MM.yyyy HH:mm"]) : '');
+				}
+				
+			});
+			
+		});
         $scope.highlighted = RecommendationService.getTalksForUser(UserService.getCurrentUser().id);
         
 		$scope.columns =

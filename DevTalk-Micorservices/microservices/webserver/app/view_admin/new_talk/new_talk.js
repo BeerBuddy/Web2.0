@@ -9,18 +9,29 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
   });
 }])
 
-.controller('NewTalkCtrl', ['$scope', '$location', 'EventService', function ($scope, $location, EventService) {
+.controller('NewTalkCtrl', ['$scope', '$location', 'EventService','KategorieService', function ($scope, $location, EventService,KategorieService) {
 
 //----- Part for setting Data for and handling Actions from Event-Table-Component ------
 		//get random Events
-		$scope.data = EventService.getAll();
+		$scope.data = EventService.getAll(function(data)
+		{
+			data.forEach(function(event){
+				if(event.datumVon)
+				{
+					 var von = $filter('date')(date[ event.datumVon , "dd.MM.yyyy HH:mm"]);
+					event.datum = von + (event.datumBis ? '-'+ $filter('date')(date[ event.datumBis , "dd.MM.yyyy HH:mm"]) : '');
+				}
+				
+			});
+			
+		});
+		$scope.kategorien = KategorieService.getAll();
         //set them into table
 		$scope.columns =
             [
                 {"name": "name", "title": "Name"},
                 {"name": "ort", "title": "Location"},
-                {"name": "datumVon", "title": "Date from"},
-				{"name": "datumBis", "title": "Date to"},
+                {"name": "datum", "title": "Date"},
                 {"name": "kategorie", "title": "Categorie"}
             ];
 			

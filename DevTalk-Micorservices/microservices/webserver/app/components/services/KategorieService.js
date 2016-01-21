@@ -6,7 +6,7 @@
 
 app.factory('KategorieService', ['$resource',function ($resource) {
    
-  return $resource('/api/KategorieService/kategorien/:id',{id:'@id'},{
+  return $resource('/api/eventService/kategorien/:id',{id:'@id'},{
 			/*
 			Recvies Kategorie by Kategorie._id expect 
 			{
