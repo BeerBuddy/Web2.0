@@ -4,7 +4,7 @@
 
  var app = angular.module('DevTalk.common');
 
-app.factory('EventService', ['$resource',function ($resource) {
+app.factory('TeilnehmerService', ['$resource',function ($resource) {
    
   return $resource('/api/eventService/events/:event._id/teilnehmer/:teilnehmer._id',{},{
 		/*

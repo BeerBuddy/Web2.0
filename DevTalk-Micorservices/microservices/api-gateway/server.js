@@ -5,6 +5,10 @@ var http = require('follow-redirects').http,
     url = require('url'),
     request = require('request');
     settings = require("../settings.json");
+	var auth = require('basic-auth');
+	var fs = require("fs");
+	var cert = fs.readFileSync('../server.cer');  // get private key
+	var jwt = require('jsonwebtoken');
 
 const userService = settings.userService.rest.protocol+'://'+settings.userService.rest.ip+':'+settings.userService.rest.port+'/';
 const talkService = settings.talkService.rest.protocol+'://'+settings.talkService.rest.ip+':'+settings.talkService.rest.port+'/';
@@ -74,7 +78,30 @@ var httpServer = http.createServer(function(req, res) {
       res.oldWrite(data);
     };
   }
+  //check user token
+  // route middleware to verify a token
 
+
+  // check header for token
+  var token = req.headers['x-access-token'];
+
+  // decode token
+  if (token) {
+	
+	
+    // verifies secret and checks exp
+    jwt.verify(token, cert, function(err, decoded) {      
+      if (err) {
+        return res.status(401).json({ success: false, message: 'Failed to authenticate token.' });    
+      } else {
+        // if everything is good, save to request for use in other routes
+        req.user = decoded;    
+      }
+    });
+
+  } 
+
+  
  //handle and redirct requests
   if (req.url && req.url.toString().indexOf('/api') != -1) {
     // requests for the user service
@@ -84,9 +111,9 @@ var httpServer = http.createServer(function(req, res) {
           interceptResponse(res, (statisticService + 'login'));
         }
 	      sendRequest(urlObj, res, req, userService);
-    }
+    } 
 	// requests for the talk service
-    if (req.url.toString().indexOf('/talkService') != -1) {
+	else if (req.url.toString().indexOf('/talkService') != -1) {
 		    req.url = req.url.replace('/api/talkService','');
             sendRequest(urlObj, res, req, talkService);
     }

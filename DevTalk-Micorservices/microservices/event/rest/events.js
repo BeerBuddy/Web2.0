@@ -104,8 +104,8 @@ router.route('/:event_id/')
             event.save(function(err) {
                 if (err)
                     res.send(err);
-else
-                res.json(event);
+					else
+					res.json(event);
             });
 				}else
 				{
