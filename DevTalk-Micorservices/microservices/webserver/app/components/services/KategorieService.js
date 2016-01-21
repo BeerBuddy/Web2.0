@@ -4,13 +4,13 @@
 
  var app = angular.module('DevTalk.common');
 
-app.factory('EventService', ['$resource',function ($resource) {
+app.factory('KategorieService', ['$resource',function ($resource) {
    
-  return $resource('/api/eventService/kategorien/:_id',{},{
+  return $resource('/api/KategorieService/kategorien/:id',{id:'@id'},{
 			/*
-			Recvies Event by Event._id expect 
+			Recvies Kategorie by Kategorie._id expect 
 			{
-				'_id' : ObjectId //the id of the event
+				'_id' : ObjectId //the id of the Kategorie
 			}
 			*/
 			getById: {
@@ -21,7 +21,7 @@ app.factory('EventService', ['$resource',function ($resource) {
 					}
 			},
 			/*
-			Recvies all Events
+			Recvies all Kategories
 			*/
 			getAll: {
 					method: 'GET' , 
@@ -31,7 +31,7 @@ app.factory('EventService', ['$resource',function ($resource) {
 					}
 			},
 			/*
-			Insert a new Event
+			Insert a new Kategorie
 			*/
 			insert: {
 					method: 'POST' , 
@@ -41,10 +41,10 @@ app.factory('EventService', ['$resource',function ($resource) {
 					}
 			},
 			/* 
-			update an existing event expect 
+			update an existing Kategorie expect 
 			{
-				'_id' : ObjectId //the id of the event
-				... All other Event attributes
+				'_id' : ObjectId //the id of the Kategorie
+				... All other Kategorie attributes
 			}
 			*/
 			update: {
@@ -55,9 +55,9 @@ app.factory('EventService', ['$resource',function ($resource) {
 					}
 			},
 			/* 
-			delete an existing event expect 
+			delete an existing Kategorie expect 
 			{
-				'_id' : ObjectId //the id of the event
+				'_id' : ObjectId //the id of the Kategorie
 			}
 			*/
 			delete: {

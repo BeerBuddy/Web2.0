@@ -13,9 +13,9 @@ module.exports = {
             "id": id,
             "name": pre + " " + getRandomFromArray(eventpostfixs) + " " + location,
             "ort": location,
-            "datum": padDate(date1.getDate()) + "." + padDate(date1.getMonth() + 1) + "." + date1.getFullYear() + " - " + padDate(date2.getDate()) + "." + padDate(date2.getMonth() + 1) + "." + date2.getFullYear(),
+            "datumVon": date1,
+			"datumBis": date2,
             "kategorie": pre,
-            "talks": talks,
             "teilnehmer": [getRandomFromArray(teilnehmerIds)]
         };
         return event;
@@ -40,41 +40,6 @@ function getRandomFromArray(array) {
     //returns an random item from given array
     return array[Math.floor(Math.random() * array.length)];
 }
-function getRandomTalks(prefix, eventid) {
-    //generates random talks for an event
-    var name = ["Removing the Boilerplate", "on Rails", "Best Practice", "Performance", "the awaking", "gets better", "in Action", "revival"]
-    var talks = [];
-    for (var i = 0; i < (Math.random() * 20) + 1; i++) {
-        var id = generateRandomId(talks, eventid);
-        var title = prefix + getRandomFromArray(name);
-        var speakers = getRandomSpeaker(id);
-        var talk = {
-            "id": id,
-            "title": title,
-            "description": title + " (1) Sixteen-year-old Emme Belrose has it all: four best friends, her own horse, a hidden teepee hangou",
-            "time": "1" + i + ":00 - 1" + (i + 1) + ":00",
-            "speakers": speakers
-
-        };
-        talks.push(talk);
-    }
-    return talks;
-}
-function getRandomSpeaker(talkid) {
-    //generates a random speaker
-    var name = ["John", "Mike", "Nick", "David", "Felix", "Aria", "Sansa", "Marco", "Jill", "Anna", "Lisa", "Sandra"];
-    var lastname = ["Müller", "Meier", "Stark", "Bäcker", "Bauer", "Spinn", "Cruz"];
-
-    var speakers = [];
-    for (var i = 0; i < (Math.random() * 3) + 1; i++) {
-        var speaker = {
-            "id": generateRandomId(speakers, talkid),
-            "name": getRandomFromArray(name) + " " + getRandomFromArray(lastname)
-        }
-        speakers.push(speaker);
-    }
-    return speakers;
-}
 
 function generateRandomId(array, prefix) {
     //generates Random id
@@ -93,11 +58,7 @@ function generateRandomId(array, prefix) {
     return id;
 }
 
-function padDate(input) {
-    //padding input if lower 10
-    //used for converting date to dd.mm.yyyy
-    return (input < 10) ? '0' + input : input;
-}
+
 
 //some event names
 var eventsprefixes = ["Oracle", "Play", "Microsoft", "DEV", "Java", "Groovy & Grails", "c#", "Scala", "Web", "Cloud", "Microservice", "Spring", "Docker", "Liferay", "FirstSpirit"];

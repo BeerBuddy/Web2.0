@@ -3,8 +3,10 @@ var mongoose = require("mongoose");
 var Event = mongoose.model('Event', {
     name: String,
     ort: String,
-    datum: Date,
-    event: String,
+    datumVon: Date,
+	datumBis: Date,
+	kategorie: String,
+    beschreibung: String,
     teilnehmer: [String],
 	warteliste: [String],
 	kapazitaet: Number

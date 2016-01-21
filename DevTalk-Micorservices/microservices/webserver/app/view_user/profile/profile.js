@@ -24,7 +24,7 @@ angular.module('DevTalk.profile', ['ngRoute'])
             $scope.editable=true;
         }
 		
-		$scope.data = EventService.getEventsByUserId( $scope.user.id);
+		$scope.data = EventService.getAll({'teilnehmer':$scope.user.id} );
 
         $scope.columns =
             [

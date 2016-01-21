@@ -1,15 +1,40 @@
-﻿<content id="main-content">
-    <h1>Talks des Events : {{event.name}}</h1>
-
-    <section>
-        <event-table-component
-                data="data.talks"
-                columns="columns"
-                icontype="view"
-                clickable="false"
-                />
-    </section>
-
-    <button class='toggle' id="apply-for-event" ng-click="apply();" ng-show="!hasApplyed">Anmelden für dieses Event</button>
-    <button class='toggle' id="apply-for-event" ng-click="unsubscribe();" ng-show="hasApplyed">Bereits für dieses Event angemeldet</button>
-</content>
+﻿
+     <h1>Details des Events : {{event.name}}</h1>
+	<content id="main-content">
+   
+	 
+		<h2>Beschreibung:</h2>
+		<description>
+			<p>
+			  {{event.beschreibung}}
+			</p>
+		</description>
+		
+		 <button class='toggle' id="apply-for-event" ng-click="apply();" ng-show="!hasApplyed">Anmelden für dieses Event</button>
+		 <button class='toggle' id="apply-for-event" ng-click="unsubscribe();" ng-show="hasApplyed">Bereits für dieses Event angemeldet</button>
+	</content>
+	
+	<aside id="aside">
+		<details>
+			<p>
+			<label>Ort:</label>
+			<location>{{event.ort}}</location>
+			</p>
+			<p>
+			<label>Datum:</label>
+			<date>{{event.datumVon}}  {{event.datumBis ?  '- '+ event.datumBis : ''}}</date>
+			</p>
+			
+			<p>
+			<label>Teilnehmer:</label>
+			<kapazitaet>{{event.teilnehmer.length}}/{{event.kapazitaet ? event.kapazitaet : '∞'}}</kapazitaet>
+			</p>
+			
+			<p>
+			<label>Kategorie:</label>
+			<kategorie>{{event.kategorie}}</kategorie>
+			</p>
+		</details>
+	</aside>
+	
+  
