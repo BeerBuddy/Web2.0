@@ -26,9 +26,9 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
 		//handling clicks on Buttons for editing Events
 		$scope.onItemClick = function (e) {
             //$location.path('/talkDetails/' + e.id);
-			$scope.anEvent = EventService.getById(e.id);
+			$scope.anEvent = EventService.getById(e._id);
 			var talk = {
-				"id": $scope.anEvent.id,
+				"id": $scope.anEvent._id,
 				"name": $scope.anEvent.name,
 				"location": $scope.anEvent.ort,
 				"categorie": $scope.anEvent.kategorie,

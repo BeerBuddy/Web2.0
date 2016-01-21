@@ -1,35 +1,20 @@
 var app = angular.module('DevTalk.recommendation', []);
 
-app.factory('RecommendationService', function($http) {
+app.factory('RecommendationService', ['EventService', function(eventService) {
     var srv = {};
 
     srv.getTalksForUser = function(userId) {
        if(!userId) 
             return [];
 
-        //$http.get('http://localhost:8554/api/event/visited/user/' + userId)
-        $http({
-            url: 'http://localhost:8550/api/recommendation/user/' + userId,
-            method: "GET"
-        }).then(function success(response) {
-                // this callback will be called asynchronously
-                // when the response is available
-                console.info(response);
-            }, function error(response) {
-                console.info('fail');
-                console.info(response);
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-
-        var allEvents = [];//eventService.getAll();
-        var visitedEvents = [];//eventService.getEventsByUserId(userId);
+        var allEvents = eventService.getAll();
+        var visitedEvents = eventService.getEventsByUserId(userId);
 
         //console.debug(allEvents);
         //console.debug(visitedEvents);
 
         var recommendedEvents = [];
-        /*var visitedEventIds = [];
+        var visitedEventIds = [];
         for(var visitedEvent of visitedEvents) {
             visitedEventIds.push(visitedEvent.id);
         }
@@ -58,4 +43,4 @@ app.factory('RecommendationService', function($http) {
     };
 
     return srv;
-});
+}]);

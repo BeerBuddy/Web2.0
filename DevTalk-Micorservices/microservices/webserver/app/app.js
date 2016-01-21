@@ -3,6 +3,7 @@
 // Declare app level module which depends on views, and components
 angular.module('DevTalk', [
     'ngRoute',
+	 'DevTalk.common',
     'DevTalk.version',
     'DevTalk.talkDetails',
     'DevTalk.allTalks',
@@ -13,8 +14,6 @@ angular.module('DevTalk', [
     'DevTalk.statistic',
     'DevTalk.newTalk',
     'DevTalk.editTalk',
-    'DevTalk.common',
-    'DevTalk.common1',
     'DevTalk.recommendation',
     'eventTableComponent',
     'profilComponent'

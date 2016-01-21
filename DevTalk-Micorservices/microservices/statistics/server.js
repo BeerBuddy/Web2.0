@@ -1,69 +1,141 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+var cors = require("cors");
+var settings = require("../settings.json");
+var mongoose = require("mongoose");
 
-//Note that in version 4 of express, express.bodyParser() was
-//deprecated in favor of a separate 'body-parser' module.
+mongoose.connect(settings.statisticService.db.protocol+'://'+settings.statisticService.db.ip+':'+settings.statisticService.db.port+'/'+settings.statisticService.db.schema);
+
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+var EVENTTYPE = [];
+EVENTTYPE.LOGIN = 'LOGIN';
+EVENTTYPE.REGISTER = 'REGISTER';
+
+var eventSchema = mongoose.Schema({
+    email: String,
+    type: String,
+    date: Date
+});
+
+eventSchema.pre('save', function (next) {
+  this.date = this.date || new Date();
   next();
 });
 
+var Event = mongoose.model('Event', eventSchema);
 
-var getRandomValue = function(min, max){
-	return Math.floor(((Math.random() * (max || 500)) + (min || 1)));
-};
+//Initial save some events
+Event.find(function (err, events) {
+    if (events.length === 0) {
+        var getRandomValue = function(min, max){
+          return Math.floor(((Math.random() * (max || 500)) + (min || 1)));
+        };
+        var error = function(err){if (err) {
+            console.log("failed to save event: " + err);
+        }};
+        var d = new Date();
+        d.setDate(1);
+        d.setMonth(d.getMonth() - 6);
+        var currDate = new Date();
+        while(d < currDate){
+            for(var index = 0; index <= getRandomValue(2,30); index++){
+              d.setDate(getRandomValue(0,29));
+              var event = new Event({
+                  email: "dummy"+index+"@example.com",
+                  type: EVENTTYPE.REGISTER,
+                  date: (new Date(d.getTime()))
+              });
+              event.save(error);
+            }
+            for(var index = 0; index <= getRandomValue(2,90); index++){
+              d.setDate(getRandomValue(0,29));
+              event = new Event({
+                  email: "dummy"+index+"@example.com",
+                  type: EVENTTYPE.LOGIN,
+                  date: (new Date(d.getTime()))
+              });
+              event.save(error);
+            }
+            d.setMonth(d.getMonth() +1);
+        }
+        Event.count({},function (err, result) {
+          console.log(result + " events saved");
+        });
+    }
+});
 
-var loginCounter = 0;
+app.get('/events?:from', function(req, res){
+  if(!req.query.from){
+    Event.find(function (err, events) {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.send(events);
+        }
+    });
+  } else {
+    try {
+        var fromDate = new Date(parseInt(req.query.from));
+        if(fromDate){
+          Event.find({'date': { $gt: fromDate}}, function (err, events) {
+              if (err) {
+                  res.status(500).send(err);
+              } else {
+                  res.send(events);
+              }
+          });
+        } else {
+          throw new Error('No valid date supplied');
+        }
+    } catch (e) {
+      res.status(500).send(e);
+    }
+  }
+});
 
-var getAccessStatistics =  function(){
-	var result = {};
-	result.labels = ["January", "February", "March", "April", "May", "June", "July"];
-	result.series = ['Zugriff 2014', 'Zugriff 2015'];
-	result.data = [[],[]];
-	for (var i = 0; i < 2; i++) {
-	  for (var j = 0; j < 7; j++) {
-		result.data[i].push(getRandomValue(500, 7000));
-	  }
-	}
-	result.data[1][6] = loginCounter;
-	return result;
-};
-var getRegistrationData = function(){
-	var result = {};
-	result.labels = ["January", "February", "March", "April", "May", "June", "July"];
-	result.series = ['Anmeldungen', 'Teilnahmen'];
-	result.data = [[],[]];
-	for (var j = 0; j < 7; j++) {
-	  result.data[0].push(getRandomValue(300, 3000));
-	}
-	for (var i = 0; i < 7; i++) {
-	  result.data[1].push(result.data[0][i] - getRandomValue(0, result.data[0][i] * 0.4));
-	}
-	return result;
+function saveNewEvent(req, res, type){
+  if(req.body !== undefined && req.body !== null){
+    var event = new Event({
+        email: req.body.email || 'unbekannt',
+        type: type
+    });
+    event.save(
+      function(err){
+          if (err) {
+              res.status(500).send(err);
+              console.log("failed to save event: " + err);
+          }
+          else {
+              res.status(200).send(event);
+              console.log("saved event");
+          }
+      });
+  }
 }
 
-
-app.get('/api/statistics/accessStatistics', function(req, res) {
-	res.send(getAccessStatistics());
+app.post('/events/login', function(req, res){
+    saveNewEvent(req, res, EVENTTYPE.LOGIN);
 });
 
-app.get('/api/statistics/registrationStatistics', function(req, res) {
-	res.send(getRegistrationData());
+app.post('/events/register', function(req, res){
+  saveNewEvent(req, res, EVENTTYPE.REGISTER);
 });
 
-app.post('/api/statistics/login', function(req, res) {
-	console.log('Ein neuer Login. Hurra!');
-	console.log(req.body);
-	loginCounter++;
-	res.sendStatus(200);
-})
+app.delete('/events', function(req, res){
+  Event.remove({}, function (err, events) {
+      if (err) {
+          res.status(500).send(err);
+      } else {
+          res.sendStatus(204);
+      }
+  });
+});
 
-app.listen(8552, function() {
-  console.log('Lame statistics service running at http://127.0.0.1:8552/');
+
+app.listen(settings.statisticService.rest.port, function() {
+  console.log('Lame statistics service running at '+ settings.statisticService.rest.protocol+'://'+settings.statisticService.rest.ip+':'+settings.statisticService.rest.port+'/');
 });

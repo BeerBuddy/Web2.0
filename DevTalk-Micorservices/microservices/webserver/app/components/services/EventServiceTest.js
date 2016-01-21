@@ -8,7 +8,7 @@
     describe("tests the EventService", function () {
         var eventService;
         beforeEach(function () {
-            module('DevTalk.common1');
+            module('DevTalk.common');
             inject(function (_EventService_) {
                 eventService = _EventService_;
             });

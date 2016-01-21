@@ -2,21 +2,23 @@
   "name": "api-gateway",
   "version": "1.0.0",
   "description": "",
-   "main": "server.js",
+  "main": "server.js",
   "scripts": {
-	 "prestart": "npm install",
+    "prestart": "npm install",
     "start": "startScript.bat",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "basic-auth": "^1.0.3",
     "cors": "^2.7.1",
     "express": "^4.13.3",
-    "request": "^2.67.0"
-  },
-  "devDependencies": {
     "follow-redirects": "0.0.7",
-    "http-proxy": "^1.12.0"
+    "fs": "0.0.2",
+    "http-proxy": "^1.12.0",
+    "jsonwebtoken": "^5.5.4",
+    "request": "^2.67.0",
+    "supervisor": "^0.9.1"
   }
 }

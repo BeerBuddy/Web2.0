@@ -1,4 +1,4 @@
-var app = angular.module('DevTalk.recommendation', ['DevTalk.common1']);
+var app = angular.module('DevTalk.recommendation', []);
 
 app.factory('RecommendationService', ['EventService', function(eventService) {
     var srv = {};
