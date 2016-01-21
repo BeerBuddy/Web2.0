@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var cors = require("cors");
 var settings = require("../settings.json");
+var initializer = require("./initDB.js");
 var mongoose = require("mongoose");
 
 mongoose.connect(settings.statisticService.db.protocol+'://'+settings.statisticService.db.ip+':'+settings.statisticService.db.port+'/'+settings.statisticService.db.schema);
@@ -28,79 +29,46 @@ eventSchema.pre('save', function (next) {
 
 var Event = mongoose.model('Event', eventSchema);
 
-//Initial save some events
-Event.find(function (err, events) {
-    if (events.length === 0) {
-        var getRandomValue = function(min, max){
-          return Math.floor(((Math.random() * (max || 500)) + (min || 1)));
-        };
-        var error = function(err){if (err) {
-            console.log("failed to save event: " + err);
-        }};
-        var d = new Date();
-        d.setDate(1);
-        d.setMonth(d.getMonth() - 6);
-        var currDate = new Date();
-        while(d < currDate){
-            for(var index = 0; index <= getRandomValue(2,30); index++){
-              d.setDate(getRandomValue(0,29));
-              var event = new Event({
-                  email: "dummy"+index+"@example.com",
-                  type: EVENTTYPE.REGISTER,
-                  date: (new Date(d.getTime()))
-              });
-              event.save(error);
-            }
-            for(var index = 0; index <= getRandomValue(2,90); index++){
-              d.setDate(getRandomValue(0,29));
-              event = new Event({
-                  email: "dummy"+index+"@example.com",
-                  type: EVENTTYPE.LOGIN,
-                  date: (new Date(d.getTime()))
-              });
-              event.save(error);
-            }
-            d.setMonth(d.getMonth() +1);
-        }
-        Event.count({},function (err, result) {
-          console.log(result + " events saved");
-        });
-    }
-});
+initializer.initDB(Event);
 
 app.get('/events?:from', function(req, res){
-  if(!req.query.from){
-    Event.find(function (err, events) {
-        if (err) {
-            res.status(500).send(err);
-        } else {
-            res.send(events);
-        }
-    });
-  } else {
-    try {
-        var fromDate = new Date(parseInt(req.query.from));
-        if(fromDate){
-          Event.find({'date': { $gt: fromDate}}, function (err, events) {
-              if (err) {
-                  res.status(500).send(err);
-              } else {
-                  res.send(events);
-              }
-          });
-        } else {
-          throw new Error('No valid date supplied');
-        }
-    } catch (e) {
-      res.status(500).send(e);
+  // only admins are allowed to see the statistic data
+  if(req.headers.user.role === 'admin'){
+    if(!req.query.from){
+      Event.find(function (err, events) {
+          if (err) {
+              res.status(500).send(err);
+          } else {
+              res.send(events);
+          }
+      });
+    } else {
+      try {
+          var fromDate = new Date(parseInt(req.query.from));
+          if(fromDate){
+            Event.find({'date': { $gt: fromDate}}, function (err, events) {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    res.send(events);
+                }
+            });
+          } else {
+            throw new Error('No valid date supplied');
+          }
+      } catch (e) {
+        res.status(500).send(e);
+      }
     }
+  } else {
+    res.sendStatus(401);
   }
 });
 
 function saveNewEvent(req, res, type){
   if(req.body !== undefined && req.body !== null){
     var event = new Event({
-        email: req.body.email || 'unbekannt',
+        email: req.body.user.email || 'unbekannt',
         type: type
     });
     event.save(
