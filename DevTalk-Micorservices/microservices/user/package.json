@@ -13,9 +13,7 @@
   "dependencies": {
     "basic-auth": "^1.0.3",
     "body-parser": "^1.14.2",
-    "cors": "^2.7.1",
     "express": "^4.13.3",
-    "fs": "0.0.2",
     "jsonwebtoken": "^5.5.4",
     "mongoose": "^4.3.5"
   }

@@ -14,15 +14,15 @@
           $scope.flipped = !$scope.flipped;
         };
         $scope.submit = function(){
-          // Methode im Controller aufrufen  
+          // Methode im Controller aufrufen
           $scope.controllerSubmit($scope.user);
-        }
+        };
       },
       scope: {
         controllerSubmit: '&', // callback methode
         user: '=' // two way databindung
         // test : '@' // einfache datenübergabe
       }
-    }
+    };
   }
 })();

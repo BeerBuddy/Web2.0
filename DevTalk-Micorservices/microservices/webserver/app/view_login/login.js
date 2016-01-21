@@ -19,13 +19,13 @@ angular.module('DevTalk.login', ['ngRoute'])
                     UserService.register(user.username, user.email, user.password);
                 }
                 // sir, we have a login!
-                if (UserService.login(user.email, user.password)) {
-                  $location.path('/allTalks');
-              } else {
-                    // we have not found a user, so we redirect to login
-                    $location.path('/login');
-                    alert("Überprüfen Sie ihre Login-Daten");
-                }
+                UserService.login(user.email, user.password)
+                .then(function(){
+                  $location.path('/allTalks')
+                }, function(){
+                  $location.path('/login');
+                  alert("Überprüfen Sie ihre Login-Daten");
+                });
             }
-        }
+        };
     }]);

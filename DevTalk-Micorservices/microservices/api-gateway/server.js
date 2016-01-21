@@ -107,6 +107,7 @@ var httpsServer = https.createServer(options, function(req, res) {
     // necessary because otherwise everyone has to check if user !== undefined
     // before the role of the user can be accessed
     req.headers.user = {};
+    //console.log('no token provided');
     redirect(req,res);
   }
 
@@ -155,7 +156,7 @@ var httpsServer = https.createServer(options, function(req, res) {
       }
     // requests that do not match the url /api/*
     } else {
-      console.log(req.url + " to webServer");
+      //stop spamming.... console.log(req.url + " to webServer");
       sendRequest(urlObj, res, req, webServer);
     }
   }

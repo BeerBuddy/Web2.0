@@ -32,7 +32,7 @@ initializer.initDB(Event);
 
 app.get('/events?:from', function(req, res){
   // only admins are allowed to see the statistic data
-  if(roles.isAdmin(req.headers.user)){
+  if(req.headers.user && roles.isAdmin(JSON.parse(req.headers.user))){
     if(!req.query.from){
       Event.find(function (err, events) {
           if (err) {

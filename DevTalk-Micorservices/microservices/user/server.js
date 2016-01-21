@@ -48,10 +48,9 @@ User.find(function (err, users) {
 });
 
 app.post('/login', function(req, res) {
-
   // find the user
   User.findOne({
-    name: req.body.name
+    email: req.body.email
   }, function(err, user) {
 
     if (err)  res.status(500).send(err);
@@ -79,7 +78,7 @@ app.post('/login', function(req, res) {
           token: token,
 		  user: user
         });
-      }   
+      }
 
     }
 
