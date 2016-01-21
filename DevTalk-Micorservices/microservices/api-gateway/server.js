@@ -96,8 +96,8 @@ var httpServer = http.createServer(function(req, res) {
       sendRequest(urlObj, res, req, statisticService);
     }
     // requests for the recomendation service
-    else if (req.url.toString().indexOf('/recomendationService') != -1) {
-      req.url = req.url.replace('/api/recomendationService','');
+    else if (req.url.toString().indexOf('/recommendationService') != -1) {
+      req.url = req.url.replace('/api/recommendationService','');
       sendRequest(urlObj, res, req, recomendationService);
     }
     // requests for the event service

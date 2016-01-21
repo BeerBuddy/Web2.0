@@ -27,7 +27,7 @@
 			"protocol": "http"
 		}
 	},
-	"recomendationService":
+	"recommendationService":
 	{
 		"db":{
 			"port": 28553,
