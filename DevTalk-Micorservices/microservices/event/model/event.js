@@ -5,8 +5,8 @@ var Event = mongoose.model('Event', {
     ort: String,
     datum: Date,
     event: String,
-    teilnehmer: [],
-	warteliste: [],
+    teilnehmer: [String],
+	warteliste: [String],
 	kapazitaet: Number
 });
 module.exports = Event;

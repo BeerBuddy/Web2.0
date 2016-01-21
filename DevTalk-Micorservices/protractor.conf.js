@@ -3,7 +3,7 @@ exports.config = {
 
   //TODO add all e2e from microservices here 
   specs: [
-    '*.js'
+    'microservices/*/e2e-tests/*.js'
   ],
 
   capabilities: {

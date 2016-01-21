@@ -13,7 +13,7 @@ var http = require('follow-redirects').http,
 const userService = settings.userService.rest.protocol+'://'+settings.userService.rest.ip+':'+settings.userService.rest.port+'/';
 const talkService = settings.talkService.rest.protocol+'://'+settings.talkService.rest.ip+':'+settings.talkService.rest.port+'/';
 const statisticService = settings.statisticService.rest.protocol+'://'+settings.statisticService.rest.ip+':'+settings.statisticService.rest.port+'/';
-const recomendationService = settings.recomendationService.rest.protocol+'://'+settings.recomendationService.rest.ip+':'+settings.recomendationService.rest.port+'/';
+const recomendationService = settings.recommendationService.rest.protocol+'://'+settings.recommendationService.rest.ip+':'+settings.recommendationService.rest.port+'/';
 const eventService = settings.eventService.rest.protocol+'://'+settings.eventService.rest.ip+':'+settings.eventService.rest.port+'/';
 const emailService = settings.emailService.rest.protocol+'://'+settings.emailService.rest.ip+':'+settings.emailService.rest.port+'/';
 const webServer = settings.webServer.protocol+'://'+settings.webServer.ip+':'+settings.webServer.port+'/';
@@ -95,12 +95,20 @@ var httpServer = http.createServer(function(req, res) {
         return res.status(401).json({ success: false, message: 'Failed to authenticate token.' });    
       } else {
         // if everything is good, save to request for use in other routes
-        req.user = decoded;    
+		console.log("set User: ");
+		console.log(JSON.stringify(decoded.user));
+        req.headers.user = JSON.stringify(decoded.user);    
+		redirect(req,res);
       }
     });
 
   } 
+  else
+  {
+  redirect(req,res);
+  }
 
+ function redirect(req,res){
   
  //handle and redirct requests
   if (req.url && req.url.toString().indexOf('/api') != -1) {
@@ -108,12 +116,12 @@ var httpServer = http.createServer(function(req, res) {
     if (req.url.toString().indexOf('/userService') != -1) {
 		    req.url = req.url.replace('/api/userService','');
         if(req.url.toString().indexOf('/login') != -1){
-          interceptResponse(res, (statisticService + 'login'));
+          interceptResponse(res, (statisticService + 'events/login'));
         }
 	      sendRequest(urlObj, res, req, userService);
     } 
 	// requests for the talk service
-	else if (req.url.toString().indexOf('/talkService') != -1) {
+    else if (req.url.toString().indexOf('/talkService') != -1) {
 		    req.url = req.url.replace('/api/talkService','');
             sendRequest(urlObj, res, req, talkService);
     }
@@ -123,8 +131,8 @@ var httpServer = http.createServer(function(req, res) {
       sendRequest(urlObj, res, req, statisticService);
     }
     // requests for the recomendation service
-    else if (req.url.toString().indexOf('/recomendationService') != -1) {
-      req.url = req.url.replace('/api/recomendationService','');
+    else if (req.url.toString().indexOf('/recommendationService') != -1) {
+      req.url = req.url.replace('/api/recommendationService','');
       sendRequest(urlObj, res, req, recomendationService);
     }
     // requests for the event service
@@ -149,6 +157,7 @@ var httpServer = http.createServer(function(req, res) {
     console.log(req.url + " to webServer");
     sendRequest(urlObj, res, req, webServer);
   }
-});
-
+}
+}
+);
 httpServer.listen(settings.apiGateway.port);

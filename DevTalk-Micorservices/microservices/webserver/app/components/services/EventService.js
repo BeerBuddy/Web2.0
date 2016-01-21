@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('DevTalk.common');
+var app = angular.module('DevTalk.common', ['ngResource']);
 app.factory('EventService', ['$resource',function ($resource) {
    
   return $resource('/api/eventService/events/:id',{id:'@_id'},{

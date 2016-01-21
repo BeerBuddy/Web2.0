@@ -66,7 +66,8 @@ app.post('/login', function(req, res) {
 
         // if user is found and password is right
         // create a token
-        var token = jwt.sign(user, cert, {
+		  user.password = undefined;
+        var token = jwt.sign({"user":user}, cert, {
           expiresIn: 30 *60 *60 // expires in 0.5 hours
         });
 

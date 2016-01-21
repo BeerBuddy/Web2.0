@@ -24,6 +24,11 @@ Event.find(function (err, events) {
 router.route('/')
 //get all events
 .get( function(req, res) {
+		if(req.headers.user){
+		//example to get a user
+		var user = JSON.parse(req.headers.user);
+		console.log(user);
+	}
 		//get where teilnehmer = ?
 		 console.log("Get All where Teilnehmer: "+req.query.teilnehmer +" has taken part");
 		if(req.query && req.query.teilnehmer)
@@ -110,8 +115,8 @@ router.route('/:event_id/')
 				}else
 				{
 				 res.writeHead(500, {
-    'Content-Type': 'text/plain'
-  });
+					'Content-Type': 'text/plain'
+				});
   res.end('Could not update: Version mismatch.');
 
 				}
