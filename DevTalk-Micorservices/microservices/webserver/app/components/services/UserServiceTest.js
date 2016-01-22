@@ -5,9 +5,9 @@
     describe("tests the UserService", function () {
         var userService;
 
-        var username = "username";
-        var email = "email@email.de";
-        var password = "password";
+        var username = "user";
+        var email = "user@user.de";
+        var password = "user";
 
         // admin users are predefined and can't be created!
         var admin_email = "admin@admin.de";
@@ -15,7 +15,7 @@
 
         beforeEach(function () {
             // always load nova module
-            module('DevTalk.common');
+            module('DevTalk.user');
 
             inject(function (_UserService_) {
                 userService = _UserService_;

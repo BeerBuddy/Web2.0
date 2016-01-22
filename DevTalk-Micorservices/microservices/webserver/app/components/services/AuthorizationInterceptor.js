@@ -1,4 +1,4 @@
-angular.module('DevTalk')
+angular.module('DevTalk.auth',[])
 
     .factory('authInterceptor', [
       '$q',
@@ -22,7 +22,5 @@ angular.module('DevTalk')
           }
         };
       }
-    ])
-    .config(['$httpProvider', function($httpProvider) {
-    $httpProvider.interceptors.push('authInterceptor');
-}]);
+    ]);
+    

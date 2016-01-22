@@ -8,7 +8,7 @@
 
         // Inject Recommendation Service
         beforeEach(function () {
-            angular.module('DevTalk.common', []).factory('EventService', function() {
+            angular.module('DevTalk.events').factory('EventService', function() {
                 var allEvents = [{
                         'id': 'ev1',
                         'name': 'Chef Conf Dortmund',
@@ -42,26 +42,32 @@
                 ];
 
                 var srv = {};
-                srv.getAll = function() {
-                    return allEvents;
-                }
+                srv.query = function(obj) {
+					if(obj.teilnehmer)
+					{
+						var eventList = [];
+						 for(var event of allEvents) {
+								if(event.teilnehmer) {
+									for(var teilnehmer of event.teilnehmer) {
+										if(teilnehmer === obj.teilnehmer) {
+											eventList.push(event);
+										}
+									}
+								}
+							}
+						return eventList;
+					}
+					else
+					{
+						return allEvents;
+					}
+                };
 
-                srv.getEventsByUserId = function(userId) {
-                    var eventList = [];
-                    for(var event of allEvents) {
-                        if(event.teilnehmer) {
-                            for(var teilnehmer of event.teilnehmer) {
-                                if(teilnehmer === userId) {
-                                    eventList.push(event);
-                                }
-                            }
-                        }
-                    }
-                    return eventList;
-                }
-                return srv;
+             return srv;
+                
+                
             });
-
+			module('DevTalk.events');
             module('DevTalk.recommendation');
             inject(function (_RecommendationService_) {
                 recommendationService = _RecommendationService_;
@@ -78,53 +84,48 @@
         describe('getTalksForUser', function() {
 
             describe('Andizzle (ID=1337)', function() {
-                var talksOfUser;
-                beforeEach(function() {
-                    talksOfUser = recommendationService.getTalksForUser(1337);
-                });
-
+                
+               
                 it('should return two talks', function() {
-                    expect(talksOfUser.length).toEqual(2);
+                     recommendationService.getTalksForUser(1337).then(function(talksOfUser){
+						expect(talksOfUser.length).toEqual(2);
+						expect(talksOfUser[0].id).toMatch("ev5");
+						expect(talksOfUser[1].id).toMatch("ev4");
+					});
                 });
-
-                it('should contain the IE Talk and the Puppet talk', function() {
-                    expect(talksOfUser[0].id).toMatch("ev5");
-                    expect(talksOfUser[1].id).toMatch("ev4");
-                });
+ 
             });
 
             describe('Adminizzle (ID=2448)', function() {
-                var talksOfUser;
-                beforeEach(function() {
-                    talksOfUser = recommendationService.getTalksForUser(2448);
-                });
-
-                it('should return one talks', function() {
-                    expect(talksOfUser.length).toEqual(1);
-                });
-
-                it('should contain the Puppet talk', function() {
-                    expect(talksOfUser[0].id).toMatch("ev5");
+                 it('should return one talks', function() {
+                     recommendationService.getTalksForUser(2448).then(function(talksOfUser){
+						expect(talksOfUser.length).toEqual(1);
+						expect(talksOfUser[0].id).toMatch("ev5");
+					});
                 });
             });
 
             describe('Jon Doe (ID=42)', function() {
-                var talksOfUser;
-                beforeEach(function() {
+               it('should return zero talks', function() {
                     console.info('Los gehts');
-                    talksOfUser = recommendationService.getTalksForUser(42);
-                });
-
-                it('should return zero talks', function() {
-                    expect(talksOfUser.length).toEqual(0);
+                    recommendationService.getTalksForUser(42).then(function(talksOfUser){
+					  expect(talksOfUser.length).toEqual(0);
+					});
                 });
             });
             
 
             describe('no valid user provided', function() {
                 it('should have no recommendations for a user without visited talks or an invalid userid', function() {
-                    expect(recommendationService.getTalksForUser()).toEqual([]);
-                    expect(recommendationService.getTalksForUser(123456789)).toEqual([]);
+					
+					   recommendationService.getTalksForUser().then(function(talksOfUser){}, function(err){
+						expect(err).toBeDefined();
+					   });
+					
+                    
+                    recommendationService.getTalksForUser(123456789).then(function(talksOfUser){
+					  expect(talksOfUser.length).toEqual(0);
+					});
                 });
             });
         });

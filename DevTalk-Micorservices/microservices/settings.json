@@ -55,20 +55,6 @@
 			"protocol": "http"
 		}
 	},
-	"talkService":
-	{
-		"db":{
-			"port": 28556,
-			"ip": "localhost",
-			"protocol": "mongodb",
-			"schemal": "talk"
-		},
-		"rest":{
-			"port": 8556,
-			"ip": "localhost",
-			"protocol": "http"
-		}
-	},
 	"emailService":
 	{
 		"db":{

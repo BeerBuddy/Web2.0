@@ -13,7 +13,7 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
 
 //----- Part for setting Data for and handling Actions from Event-Table-Component ------
 		//get random Events
-		$scope.data = EventService.getAll(function(data)
+		$scope.data = EventService.query(function(data)
 		{
 			data.forEach(function(event){
 				if(event.datumVon)
@@ -25,7 +25,7 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
 			});
 			
 		});
-		$scope.kategorien = KategorieService.getAll();
+		$scope.kategorien = KategorieService.query();
         //set them into table
 		$scope.columns =
             [
@@ -38,7 +38,8 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
 		//handling clicks on Buttons for editing Events
 		$scope.onItemClick = function (e) {
             //$location.path('/talkDetails/' + e.id);
-			$scope.anEvent = EventService.getById(e._id);
+			$scope.anEvent = EventService.get({'_id':e._id});
+			//FIXME Eigentlich willst du das Event so übergeben und nicht erst so parsen
 			var talk = {
 				"id": $scope.anEvent._id,
 				"name": $scope.anEvent.name,
@@ -54,10 +55,11 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
 //----- Part for handling Actions from Create-Talk-Component ------
 		//create new Event
 		$scope.onCreate = function (talk) {
-			EventService.insert(talk);
+			EventService.save(talk);
         }
 		//edit existing Event
 		$scope.onEdit = function (talk) {
+		//FIXME wenn das Event spo übergeben wird brauch man das id umodeln nicht
 			talk.id = talk._id;
 			EventService.update(talk);
         }

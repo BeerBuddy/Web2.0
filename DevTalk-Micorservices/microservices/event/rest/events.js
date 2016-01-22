@@ -28,6 +28,7 @@ router.route('/')
 .all( function (req, res, next) {
 	if(req.headers.user){
 		//to get the current user
+		console.log(req.headers.user);
 		var user = JSON.parse(req.headers.user);
 		req.user=user;
 	}
@@ -66,8 +67,9 @@ router.route('/')
 		 var event = new Event();      // create a new instance of the event model
          event.name = req.body.name;  // update the event info
 				event.ort = req.body.ort;  
-				event.datum = req.body.datum;  
-				event.description = req.body.description;  
+				event.datumVon = req.body.datumVon;  
+				event.datumBis = req.body.datumBis;  
+				event.beschreibung = req.body.beschreibung;  
 				event.teilnehmer = req.body.teilnehmer;  
 				event.warteliste = req.body.warteliste;  
 				event.kapazitaet = req.body.kapazitaet; 
@@ -109,21 +111,21 @@ router.route('/:event_id/')
 					//optimistic locking
 					if(event.__v === req.body.__v)
 					{
-					 event.name = req.body.name;  // update the event info
-					event.ort = req.body.ort;  
-					event.datum = req.body.datum;  
-					event.description = req.body.description;  
-					event.talks = req.body.talks; 
-					event.teilnehmer = req.body.teilnehmer;  
-					event.warteliste = req.body.warteliste;  
-					event.kapazitaet = req.body.kapazitaet; 
-					   // save the event
-				event.save(function(err) {
-					if (err)
-						res.status(500).send(err);
-						else
-						res.json(event);
-				});
+					   // update the event info
+						event.ort = req.body.ort;  
+						event.datumVon = req.body.datumVon;  
+						event.datumBis = req.body.datumBis;  
+						event.beschreibung = req.body.beschreibung;  
+						event.teilnehmer = req.body.teilnehmer;  
+						event.warteliste = req.body.warteliste;  
+						event.kapazitaet = req.body.kapazitaet; 
+							   // save the event
+						event.save(function(err) {
+							if (err)
+								res.status(500).send(err);
+								else
+								res.json(event);
+							});
 					}else
 					{
 						//Versionskonflikt

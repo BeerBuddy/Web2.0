@@ -10,7 +10,6 @@ var https = require('follow-redirects').https,
 	  jwt = require('jsonwebtoken');
 
 const userService = settings.userService.rest.protocol+'://'+settings.userService.rest.ip+':'+settings.userService.rest.port+'/';
-const talkService = settings.talkService.rest.protocol+'://'+settings.talkService.rest.ip+':'+settings.talkService.rest.port+'/';
 const statisticService = settings.statisticService.rest.protocol+'://'+settings.statisticService.rest.ip+':'+settings.statisticService.rest.port+'/';
 const recomendationService = settings.recommendationService.rest.protocol+'://'+settings.recommendationService.rest.ip+':'+settings.recommendationService.rest.port+'/';
 const eventService = settings.eventService.rest.protocol+'://'+settings.eventService.rest.ip+':'+settings.eventService.rest.port+'/';
@@ -106,7 +105,7 @@ var httpsServer = https.createServer(options, function(req, res) {
   else{
     // necessary because otherwise everyone has to check if user !== undefined
     // before the role of the user can be accessed
-    req.headers.user = {};
+    req.headers.user = JSON.stringify({});
     //console.log('no token provided');
     redirect(req,res);
   }
@@ -122,12 +121,7 @@ var httpsServer = https.createServer(options, function(req, res) {
           }
   	      sendRequest(urlObj, res, req, userService);
       }
-  	// requests for the talk service
-      else if (req.url.toString().indexOf('/talkService') != -1) {
-  		    req.url = req.url.replace('/api/talkService','');
-              sendRequest(urlObj, res, req, talkService);
-      }
-      //requests for the statistic service
+  	  //requests for the statistic service
       else if (req.url.toString().indexOf('/statisticService') != -1) {
   		  req.url = req.url.replace('/api/statisticService','');
         sendRequest(urlObj, res, req, statisticService);

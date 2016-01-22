@@ -2,27 +2,11 @@
 
     'use strict';
 
- var app = angular.module('DevTalk.common');
+ var app = angular.module('DevTalk.teilnehmer',['ngResource']);
 
 app.factory('TeilnehmerService', ['$resource',function ($resource) {
    
   return $resource('/api/eventService/events/:id/teilnehmer/:tid',{id: '@id',tid: '@tid'},{
-		/*
-			Get all Teilnehmer for a event
-			{
-				
-					'id': ObjectId //the id of the event
-				
-			}
-			*/
-			getAll:{
-					method: 'GET' , 
-					isArray: true,
-					headers : {
-						'Content-Type' : 'application/json'
-					}
-			},
-		
 			/*
 			Join event expects following json:
 			{

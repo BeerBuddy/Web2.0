@@ -1,45 +1,36 @@
 var app = angular.module('DevTalk.recommendation', []);
 
-app.factory('RecommendationService', ['EventService', function(eventService) {
+app.factory('RecommendationService', ['EventService','$q', function(eventService,$q) {
     var srv = {};
 
     srv.getTalksForUser = function(userId) {
-       if(!userId) 
-            return [];
+		return $q(function(resolve, reject) {
+			 if(!userId) 
+				reject('Missing param userId');
 
-        var allEvents = eventService.getAll();
-        var visitedEvents = eventService.getAll({'teilnehmer': userId});
+        var allEvents = eventService.query(function(allEvents){
+			eventService.query({'teilnehmer': userId}, function(visitedEvents){
+				
+				var recommendedEvents = [];
+				var visitedEventIds = [];
+				for(var visitedEvent of visitedEvents) {
+					visitedEventIds.push(visitedEvent._id);
+				}
 
-        //console.debug(allEvents);
-        //console.debug(visitedEvents);
+				for(var visitedEvent of visitedEvents) {
+				   for(var talkEvent of allEvents) {
+						if(visitedEvent._id != talkEvent._id && visitedEvent.kategorie == talkEvent.kategorie && visitedEventIds.indexOf(talkEvent._id) === -1) {
+							recommendedEvents.push(talkEvent);
+							visitedEventIds.push(talkEvent._id);
+						}
+					}
+				}
 
-        var recommendedEvents = [];
-        var visitedEventIds = [];
-        for(var visitedEvent of visitedEvents) {
-            visitedEventIds.push(visitedEvent.id);
-        }
-
-        for(var visitedEvent of visitedEvents) {
-           for(var talkEvent of allEvents) {
-                if(visitedEvent.id != talkEvent.id && visitedEvent.kategorie == talkEvent.kategorie && visitedEventIds.indexOf(talkEvent.id) === -1) {
-                    recommendedEvents.push(talkEvent);
-                    visitedEventIds.push(talkEvent.id);
-                }
-            }
-        }
-
-
-        /*for(var talkEvent of allEvents) {
-            for(var userEvent of visitedEvents) {
-                console.info(talkEvent);
-                console.info(userEvent);
-                if(userEvent.id != talkEvent.id && userEvent.kategorie == talkEvent.kategorie) {
-                    recommendedEvents.push(talkEvent);
-                    console.info('#Success');
-                }
-            }
-        }*/
-        return recommendedEvents;
+				resolve(recommendedEvents);
+				
+			});
+		});
+		});
     };
 
     return srv;

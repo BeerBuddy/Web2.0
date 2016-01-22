@@ -3,7 +3,10 @@
 // Declare app level module which depends on views, and components
 angular.module('DevTalk', [
     'ngRoute',
-	 'DevTalk.common',
+	'DevTalk.user',
+	'DevTalk.kategorien',
+	'DevTalk.teilnehmer',
+	'DevTalk.events',
     'DevTalk.version',
     'DevTalk.talkDetails',
     'DevTalk.allTalks',
@@ -15,8 +18,11 @@ angular.module('DevTalk', [
     'DevTalk.newTalk',
     'DevTalk.recommendation',
     'eventTableComponent',
-    'profilComponent'
-]).
-    config(['$routeProvider', function($routeProvider) {
-        $routeProvider.otherwise({redirectTo: '/login'});
-    }]);
+    'profilComponent',
+	'DevTalk.auth'
+]).config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptor');
+}]).
+config(['$routeProvider', function($routeProvider) {
+	$routeProvider.otherwise({redirectTo: '/login'});
+}]);

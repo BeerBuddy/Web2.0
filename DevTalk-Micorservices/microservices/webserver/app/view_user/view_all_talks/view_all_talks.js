@@ -14,7 +14,7 @@ angular.module('DevTalk.allTalks', ['ngRoute'])
 			$location.path('/talkDetails/' + e._id);
         };
 
-		$scope.data = EventService.getAll(function(data)
+		$scope.data = EventService.query(function(data)
 		{
 			data.forEach(function(event){
 				if(event.datumVon)
