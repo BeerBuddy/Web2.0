@@ -23,10 +23,10 @@
               });
               return result;
             },
-            register: function (username, email, password) {
+            register: function (name, email, password) {
               var result = $http.post('https://localhost:8000/api/userService/register',
               {
-                  "username" : username,
+                  "name" : name,
                   "email" : email,
                   "password" : password
               })
