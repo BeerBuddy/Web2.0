@@ -66,8 +66,15 @@ app.get('/events?:from', function(req, res){
 
 function saveNewEvent(req, res, type){
   if(req.body !== undefined && req.body !== null){
+    var mail = "unbekannt";
+	if(req.body.user){
+		mail = req.body.user.email;
+	} else if(req.body.mail){
+		mail = req.body.email;
+	}
+			
     var event = new Event({
-        email: req.body.user.email || 'unbekannt',
+        email: mail,
         type: type
     });
     event.save(
@@ -78,7 +85,7 @@ function saveNewEvent(req, res, type){
           }
           else {
               res.status(200).send(event);
-              console.log("saved event");
+              console.log("saved event", event.type);
           }
       });
   }

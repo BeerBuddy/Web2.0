@@ -52,29 +52,42 @@
         describe('UserService.register and UserService.login ', function () {
             it('should be able to register a normal user and the normal user in', function () {
                 userService.register(username, email, password);
-                userService.login(email, password);
-                expect(userService.isUser()).toBeTruthy();
+				 setTimeout(function() {
+					userService.login(email, password);
+					setTimeout(function() {
+						expect(userService.isUser()).toBeTruthy();
+					}, 2000);
+				}, 2000);
+                
             });
 
             it('should log the admin user in', function () {
                 userService.login(admin_email, admin_pw);
-                expect(userService.isAdmin()).toBeTruthy();
+				setTimeout(function() {
+					expect(userService.isAdmin()).toBeTruthy();
+				}, 2000);
             });
         });
 
         describe('UserService.register and UserService.logout', function () {
             it('should log the normal user out', function () {
                 userService.register(username, email, password);
-                userService.login(email, password);
-                expect(userService.isUser()).toBeTruthy();
-                userService.logout();
-                expect(userService.isUser()).toBeFalsy();
+				setTimeout(function() {
+					userService.login(email, password);
+					setTimeout(function() {
+						expect(userService.isUser()).toBeTruthy();
+						userService.logout();
+						expect(userService.isUser()).toBeFalsy();
+					}, 2000);
+				}, 2000);
             });
             it('should log the admin user out', function () {
                 userService.login(admin_email, admin_pw);
-                expect(userService.isAdmin()).toBeTruthy();
-                userService.logout();
-                expect(userService.isUser()).toBeFalsy();
+				setTimeout(function() {
+					expect(userService.isAdmin()).toBeTruthy();
+					userService.logout();
+					expect(userService.isUser()).toBeFalsy();
+				}, 2000);
             });
         });
     });

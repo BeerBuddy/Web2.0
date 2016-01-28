@@ -28,7 +28,7 @@ describe('Test for DevTalk Header:', function() {
 		expect(element(by.css('#main-header a#header-link-talk')).isDisplayed()).toBeFalsy();
 		expect(element(by.css('#main-header a#header-link-statistics')).isDisplayed()).toBeFalsy();
 		expect(element(by.css('#main-header a#header-link-logout')).isDisplayed()).toBeTruthy();
-		expect(element(by.css('#main-header a#header-link-logout')).getAttribute('title')).toEqual('Andizzle abmelden');
+		expect(element(by.css('#main-header a#header-link-logout')).getAttribute('title')).toEqual('user abmelden');
 		expect(element(by.css('#main-header a#header-link-login')).isDisplayed()).toBeFalsy();
     });
 	
@@ -45,7 +45,7 @@ describe('Test for DevTalk Header:', function() {
 		expect(element(by.css('#main-header a#header-link-talk')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('#main-header a#header-link-statistics')).isDisplayed()).toBeTruthy();
 		expect(element(by.css('#main-header a#header-link-logout')).isDisplayed()).toBeTruthy();
-		expect(element(by.css('#main-header a#header-link-logout')).getAttribute('title')).toEqual('Adminizzle abmelden');
+		expect(element(by.css('#main-header a#header-link-logout')).getAttribute('title')).toEqual('admin abmelden');
 		expect(element(by.css('#main-header a#header-link-login')).isDisplayed()).toBeFalsy();
     });
 	

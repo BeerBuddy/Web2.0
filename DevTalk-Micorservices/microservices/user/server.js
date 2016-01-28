@@ -101,7 +101,7 @@ app.post('/register', function(req, res) {
             role: roles.user
         });
         saveUser(user);
-        res.status(200).send();
+        res.status(200).send(user);
       }
     })
 });
