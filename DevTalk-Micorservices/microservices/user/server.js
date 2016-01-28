@@ -101,8 +101,20 @@ app.post('/register', function(req, res) {
             role: roles.user
         });
         saveUser(user);
-        res.status(200);
+        res.status(200).send();
       }
+    })
+});
+
+app.get("/:id/", function (req, res) {
+    User.findOne({
+        _id: req.params.id
+    }, function (err, user) {
+        if (err) {
+            res.send(500, err);
+        } else {
+            res.send(user);
+        }
     })
 });
 

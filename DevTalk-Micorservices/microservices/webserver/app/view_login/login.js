@@ -16,16 +16,23 @@ angular.module('DevTalk.login', ['ngRoute'])
                 // only do something if we have a user
                 if (user.agb) {
                     // someone wants to register!
-                    UserService.register(user.username, user.email, user.password);
-                }
-                // sir, we have a login!
-                UserService.login(user.email, user.password)
-                .then(function(){
-                  $location.path('/allTalks')
-                }, function(){
-                  $location.path('/login');
-                  alert("Überprüfen Sie ihre Login-Daten");
-                });
+                    UserService.register(user.username, user.email, user.password).then(function(response){
+                        login(user);
+                    });
+                } else {
+                // sir, we have a login! 
+                login(user);
             }
-        };
-    }]);
+        }
+    };
+
+    function login(user){
+        UserService.login(user.email, user.password)
+        .then(function(){
+          $location.path('/allTalks')
+      }, function(){
+          $location.path('/login');
+          alert("Überprüfen Sie ihre Login-Daten");
+      });
+    }
+}]);
