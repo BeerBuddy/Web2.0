@@ -17,19 +17,24 @@
               })
               .then(function(response){
                 currentUser = response.data.user;
+                users.push(currentUser);
                 $window.sessionStorage.token = response.data.token;
                 return response.data.user;
               });
               return result;
             },
             register: function (username, email, password) {
-                var user = {};
-                user.username = username;
-                user.email = email;
-                user.password = password;
-                // admin accounts will be created in the db
-                user.role = "user";
+              var result = $http.post('https://localhost:8000/api/userService/register',
+              {
+                  "username" : username,
+                  "email" : email,
+                  "password" : password
+              })
+              .then(function(response){
                 users.push(user);
+                return response.data.user;
+              });
+              return result;
             },
             getUserById: function (id) {
                 for (var user in users) {
@@ -46,6 +51,7 @@
             },
             logout: function () {
                 currentUser = {};
+                $window.sessionStorage.token = "";
             },
             isAdmin: function () {
                 return currentUser.role === 'admin';

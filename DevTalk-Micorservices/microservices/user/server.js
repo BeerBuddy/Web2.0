@@ -11,7 +11,6 @@ var roles = require('../roles');
 /*
 TODO authentication token
 https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
-
 */
 
 mongoose.connect(settings.userService.db.protocol+'://'+settings.userService.db.ip+':'+settings.userService.db.port+'/'+settings.userService.db.schema);
@@ -52,7 +51,6 @@ app.post('/login', function(req, res) {
   User.findOne({
     email: req.body.email
   }, function(err, user) {
-
     if (err)  res.status(500).send(err);
 
     if (!user) {
@@ -85,6 +83,29 @@ app.post('/login', function(req, res) {
   });
 });
 
+app.post('/register', function(req, res) {
+  // look for an existring user
+  User.findOne({
+    email: req.body.email
+  }, function(err, user) {
+    if (err)  res.status(500).send(err);
+    if (user) {
+      // we found a user so we have to exit
+        res.status(400).json({ success: false, message: 'Bad Request. A user with this email is already registered!' });
+    } else {
+        // we have no user so we can register this one
+        var user = new User({
+            name: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+            role: roles.user
+        });
+        saveUser(user);
+        res.status(200);
+      }
+    })
+});
+
 app.get("/", function (req, res) {
     User.find(function (err, user) {
         if (err) {
@@ -95,15 +116,13 @@ app.get("/", function (req, res) {
     });
 });
 
-
-
 function saveUser(user){
     user.save(function(err){
         if (err) {
             console.log("failed to save users: " + err);
         }
         else {
-            console.log("saved users");
+            console.log("saved user" + user.username + " " + user.email);
         }
     });
 }
