@@ -5,7 +5,6 @@
     var app = angular.module('DevTalk.user',[]);
 
     app.factory('UserService', ['$http', '$window',  function ($http, $window) {
-		var users = [];
         var currentUser = {};
 
         return {
@@ -17,7 +16,6 @@
               })
               .then(function(response){
                 currentUser = response.data.user;
-                users.push(currentUser);
                 $window.sessionStorage.token = response.data.token;
                 return response.data.user;
               });
@@ -31,17 +29,13 @@
                   "password" : password
               })
               .then(function(response){
-                users.push(user);
                 return response.data.user;
               });
               return result;
             },
             getUserById: function (id) {
-                for (var user in users) {
-                    if (users[user].id === id) {
-                        return users[user];
-                    }
-                }
+                var result = $http.get('https://localhost:8000/api/userService/'+ id);
+                return result;
             },
             getCurrentUser: function () {
                 return currentUser;
