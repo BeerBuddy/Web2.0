@@ -5,6 +5,7 @@ angular.module('DevTalk', [
 	"datetime",
     'ngRoute',
 	'DevTalk.user',
+	'DevTalk.mail',
 	'DevTalk.kategorien',
 	'DevTalk.teilnehmer',
 	'DevTalk.events',
