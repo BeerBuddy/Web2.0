@@ -137,11 +137,11 @@ var httpsServer = https.createServer(options, function(req, res) {
         console.log("redirct to: "+ req.url);
         sendRequest(urlObj, res, req, eventService);
       }
-      // requests for the email service
-      else if (req.url.toString().indexOf('/emailService') != -1) {
-        req.url = req.url.replace('/api/emailService','');
-        sendRequest(urlObj, res, req, emailService);
-      }
+    // requests for the email service
+    else if (req.url.toString().indexOf('/emailService') != -1) {
+      req.url = req.url.replace('/api/emailService','');
+      sendRequest(urlObj, res, req, emailService);
+    }
       // reuqests for none of the above services
       else {
         console.log(req.url + " has no endpoint");
