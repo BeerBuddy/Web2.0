@@ -41,9 +41,6 @@ app.post('/email', function(req, res){
 	}
 });
 
-app.listen(settings.emailService.rest.port);
-\ No newline at end of file
 app.listen(settings.emailService.rest.port, function() {
   console.log('email service running at '+ settings.emailService.rest.protocol+'://'+settings.emailService.rest.ip+':'+settings.emailService.rest.port+'/');
 });
-\ No newline at end of file

@@ -2,12 +2,19 @@ var random = require('../random');
 var express = require('express');
 var router = express.Router();
 var mongoose = require("mongoose");
-var Event = require('../../model/event');
+var Event = require('../../models/event');
 var roles = require('../../roles');
+var connect = require('./connector');
+var MongoQS = require('mongo-querystring');
+var qs = new MongoQS({});
 
 
 //Initial save random events
 Event.find(function (err, events) {
+	if(err)
+	{
+		  console.log(err);
+	}else
     if (events.length === 0) {
         for (var i = 0; i < (Math.random() * 20) + 1; i++) {
             var event = new Event(random.getRandomEvent());
@@ -30,10 +37,14 @@ router.route('/')
 		
 		//get where teilnehmer = ?
 		
-		if(req.query && req.query.teilnehmer)
+		if(req.query)
 		{
-			 console.log("Get All where Teilnehmer: "+req.query.teilnehmer +" has taken part");
-			Event.find({ teilnehmer : req.query.teilnehmer },function(err, event) {
+			// look at https://github.com/Turistforeningen/node-mongo-querystring
+			//parse all url params through MongoQS
+			var query = qs.parse(req.query);
+			 console.log("Get All where :");
+			  console.log(query);
+			Event.find(query,function(err, event) {
 				if (err)
 					res.status(500).send(err);
 				else
@@ -187,13 +198,37 @@ router.route('/:event_id/teilnehmer')
 					if(event.teilnehmer.length < event.kapazitaet)
 					{
 						if(event.teilnehmer.indexOf(req.body.tid) === -1){
-							//TODO send Email here
+							
 							event.teilnehmer.push(req.body.tid);
 							event.save(function(err) {
-								if (err)
-								res.send(err);
-								else
-								res.json(event);
+								if (err){
+									res.status(500).send(err);
+								}
+								else{
+									//send Email here
+									connect.getUserById(req.body.tid, function(err,httpResponse,body){
+										if(!err && body)
+										{
+											connect.sendMailTeilnehmer(body.email, function(err,httpResponse,body){
+												if(err)
+												{
+													res.status(500).send(err);
+												}else
+												{
+													res.json(event);
+												}
+													
+											});
+										}
+										else
+										{
+											res.status(500).send(err);
+										}
+										
+									});
+									
+								}
+								
 							});
 						}
 						else
@@ -290,19 +325,87 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 						if(event.wartelist && event.wartelist.length > 0){
 							event.teilnehmer[index] = event.wartelist[0];
 							event.wartelist.splice( 0, 1 );
-							//TODO send Email here
-						}else //just remove from teilnehmers
-						{
-							event.teilnehmer.splice( index, 1 );
-							//TODO send Email here
-						}
-						
-						 event.save(function(err) {
+							//save the event
+							 event.save(function(err) {
 							if (err)
 								res.status(500).send(err);
 							else
-								res.json(event);
-						 });
+								// send Email here jemand ist nachgerückt er muss informiert werden
+								connect.getUserById(event.teilnehmer[index], function(err,httpResponse,body){
+										if(!err && body)
+										{
+											connect.sendMailNachruecker(body.email, function(err,httpResponse,body){
+												if(err)
+												{
+													res.status(500).send(err);
+												}else
+												{
+													//der der sich abgemeldet hat muss auch informiert werden
+														connect.getUserById(req.params.teilnehmer_id, function(err,httpResponse,body){
+										if(!err && body)
+										{
+											connect.sendMailAbgemeldet(body.email, function(err,httpResponse,body){
+												if(err)
+												{
+													res.status(500).send(err);
+												}else
+												{
+													res.json(event);
+												}
+													
+											});
+										}
+										else
+										{
+											res.status(500).send(err);
+										}
+										
+									});
+												}
+													
+											});
+										}
+										else
+										{
+											res.status(500).send(err);
+										}
+										
+									});
+							});
+						}else //just remove from teilnehmers
+						{
+							event.teilnehmer.splice( index, 1 );
+							//save the event
+							 event.save(function(err) {
+							if (err)
+								res.status(500).send(err);
+							else
+								// send Email here
+								connect.getUserById(req.params.teilnehmer_id, function(err,httpResponse,body){
+										if(!err && body)
+										{
+											connect.sendMailAbgemeldet(body.email, function(err,httpResponse,body){
+												if(err)
+												{
+													res.status(500).send(err);
+												}else
+												{
+													res.json(event);
+												}
+													
+											});
+										}
+										else
+										{
+											res.status(500).send(err);
+										}
+										
+									});
+							});
+							
+						}
+						
+						
 			
 					}
 					else{
@@ -347,13 +450,32 @@ router.route('/:event_id/warteliste')
                 res.status(500).send(err);
 				else if(event){
 					if(event.warteliste.indexOf(req.body.tid) === -1){
-						//TODO send Email here
+						//send Email here
 						event.warteliste.push(req.body.tid);
 						event.save(function(err) {
 							if (err)
 							res.status(500).send(err);
 							else
-							res.json(event);
+								connect.getUserById(req.body.tid, function(err,httpResponse,body){
+										if(!err && body)
+										{
+											connect.sendMailWarteliste(body.email, function(err,httpResponse,body){
+												if(err)
+												{
+													res.status(500).send(err);
+												}else
+												{
+													res.json(event);
+												}
+													
+											});
+										}
+										else
+										{
+											res.status(500).send(err);
+										}
+										
+									});
 						});
 					}else
 					{
@@ -443,7 +565,26 @@ router.route('/:event_id/warteliste/:teilnehmer_id')
 								if (err)
 									res.send(err);
 								else
-									res.json(event);
+										connect.getUserById(req.params.teilnehmer_id, function(err,httpResponse,body){
+										if(!err && body)
+										{
+											connect.sendMailWartelisteAbgemeldet(body.email, function(err,httpResponse,body){
+												if(err)
+												{
+													res.status(500).send(err);
+												}else
+												{
+													res.json(event);
+												}
+													
+											});
+										}
+										else
+										{
+											res.status(500).send(err);
+										}
+										
+									});
 							 });
 						}
 						else{

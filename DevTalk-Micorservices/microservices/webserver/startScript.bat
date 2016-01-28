@@ -1,2 +1,1 @@
-start node server.js
-exit
+node server.js
