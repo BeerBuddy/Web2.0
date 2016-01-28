@@ -13,9 +13,14 @@ module.exports = function(config){
       'microservices/webserver/app/bower_components/Chart.js/Chart.js',
 	  'microservices/webserver/app/bower_components/angular-chart.js/angular-chart.js',
       'microservices/webserver/app/components/services/**/*.js',
+<<<<<<< HEAD
 	   'microservices/webserver/app/components/version/**/*.js',
       //'microservices/webserver/app/app.js',
       'microservices/webserver/app/view_*/**/*.js'
+=======
+      'microservices/webserver/app/app.js',
+      'microservices/webserver/app/view_*/*/*.js'
+>>>>>>> 25ca1585007107e3efc405dd4221f0eec1c5a01f
     ],
 
     autoWatch : true,

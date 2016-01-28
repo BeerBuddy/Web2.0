@@ -24,16 +24,7 @@ Event.find(function (err, events) {
 
 
 router.route('/')
-//parse the user
-.all( function (req, res, next) {
-	if(req.headers.user){
-		//to get the current user
-		console.log(req.headers.user);
-		var user = JSON.parse(req.headers.user);
-		req.user=user;
-	}
-	next(); // pass control to the next handler
-})
+
 //get all events
 .get( function(req, res) {
 		
@@ -62,7 +53,7 @@ router.route('/')
 })
 //insert a new event
 .post( function(req, res) {
-	if(roles.isAdmin(req.user))
+	if(roles.isAdmin(JSON.parse(req.headers.user)))
 	{
 		 var event = new Event();      // create a new instance of the event model
          event.name = req.body.name;  // update the event info
@@ -100,7 +91,10 @@ router.route('/:event_id/')
     })
 // update the event with this id 
 .put(function(req, res) {
-		if(roles.isAdmin(req.user))
+console.log(JSON.parse(req.headers.user));
+console.log("tries to save");
+console.log(req.body);
+		if(roles.isAdmin(JSON.parse(req.headers.user)))
 		{
 			// use our Event model to find the event we want
 			Event.findById(req.params.event_id, function(err, event) {
@@ -120,7 +114,7 @@ router.route('/:event_id/')
 						event.warteliste = req.body.warteliste;  
 						event.kapazitaet = req.body.kapazitaet; 
 							   // save the event
-						event.save(function(err) {
+						event.save(function(err, event) {
 							if (err)
 								res.status(500).send(err);
 								else
@@ -147,7 +141,7 @@ router.route('/:event_id/')
     })
 // delete the Event with this id
 .delete(function(req, res) {
-	if(roles.isAdmin(req.user))
+	if(roles.isAdmin(JSON.parse(req.headers.user)))
 	{
 		Event.remove({
 			_id: req.params.event_id
@@ -179,7 +173,8 @@ router.route('/:event_id/teilnehmer')
 //add a new teilnhemer to a event
 .post(function(req,res){
 	//wenn ein User sich selber hinzufügen möchte darf er das, sonst muss er Admin sein
-	if((roles.isUser(req.user) && req.user._id === req.body.tid ) || roles.isAdmin(req.user))
+	var user = JSON.parse(req.headers.user);
+	if((roles.isUser(user) && user._id === req.body.tid ) || roles.isAdmin(user))
 	{
 					
 			 Event.findById(req.params.event_id, function(err, event) {
@@ -239,7 +234,8 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 })
 //update teilnehmer id in teilnehmer list
 .put(function(req,res){
-	if(roles.isAdmin(req.user))
+
+	if(roles.isAdmin(JSON.parse(req.headers.user)))
 	{
 		Event.findById(req.params.event_id, function(err, event) {
 			if (err)
@@ -276,7 +272,8 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 //delete teilnehmer from teilnehmer list
 .delete(function(req,res){
 	//wenn ein User sich selber löschen möchte darf er das, sonst muss er Admin sein
-	if((roles.isUser(req.user) && req.user._id === req.params.teilnehmer_id ) || roles.isAdmin(req.user))
+	var user = JSON.parse(req.headers.user);
+	if((roles.isUser(user) && user._id === req.params.teilnehmer_id ) || roles.isAdmin(user))
 	{
 			console.log(req.body);
 			 Event.findById(req.params.event_id, function(err, event) {
@@ -342,7 +339,8 @@ router.route('/:event_id/warteliste')
 //add a new teilnhemer to warteliste
 .post(function(req,res){	
 	//wenn ein User sich selber hinzufügen möchte darf er das, sonst muss er Admin sein
-	if((roles.isUser(req.user) && req.user._id === req.body.tid ) || roles.isAdmin(req.user))
+	var user = JSON.parse(req.headers.user);
+	if((roles.isUser(user) && user._id === req.body.tid ) || roles.isAdmin(user))
 	{		
 		Event.findById(req.params.event_id, function(err, event) {
             if (err)
@@ -390,7 +388,7 @@ router.route('/:event_id/warteliste/:teilnehmer_id')
 })
 //update teilnehmer id in warteliste list
 .put(function(req,res){
-	if(roles.isAdmin(req.user))
+	if(roles.isAdmin(JSON.parse(req.headers.user)))
 	{
 		Event.findById(req.params.event_id, function(err, event) {
 			if (err)
@@ -426,7 +424,8 @@ router.route('/:event_id/warteliste/:teilnehmer_id')
 //delete teilnehmer from warteliste list
 .delete(function(req,res){
 	//wenn ein User sich selber löschen möchte darf er das, sonst muss er Admin sein
-	if((roles.isUser(req.user) && req.user._id === req.params.teilnehmer_id ) || roles.isAdmin(req.user))
+	var user = JSON.parse(req.headers.user);
+	if((roles.isUser(user) && user._id === req.params.teilnehmer_id ) || roles.isAdmin(user))
 	{
 				 Event.findById(req.params.event_id, function(err, event) {
 				

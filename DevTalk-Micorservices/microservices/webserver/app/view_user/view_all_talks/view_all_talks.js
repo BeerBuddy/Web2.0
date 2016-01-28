@@ -9,7 +9,10 @@ angular.module('DevTalk.allTalks', ['ngRoute'])
         });
     }])
 
-    .controller('AllTalksCtrl', ['$scope', '$routeParams', '$location', 'EventService', 'UserService', 'RecommendationService', function ($scope, $routeParams, $location, EventService, UserService, RecommendationService) {
+    .controller('AllTalksCtrl', ['$scope', '$routeParams', '$location', '$filter', 'EventService', 'UserService', 'RecommendationService', function ($scope, $routeParams, $location, $filter, EventService, UserService, RecommendationService) {
+       
+        $scope.user = UserService.getCurrentUser();
+       
         $scope.onItemClick = function (e) {
 			$location.path('/talkDetails/' + e._id);
         };
@@ -19,14 +22,17 @@ angular.module('DevTalk.allTalks', ['ngRoute'])
 			data.forEach(function(event){
 				if(event.datumVon)
 				{
-					var von = $filter('date')(date[ event.datumVon , "dd.MM.yyyy HH:mm"]);
-					event.datum = von + (event.datumBis ? '-'+ $filter('date')(date[ event.datumBis , "dd.MM.yyyy HH:mm"]) : '');
+					var von = $filter('date')( event.datumVon , "dd.MM.yyyy HH:mm");
+					event.datum = von + (event.datumBis ? '-'+ $filter('date')(event.datumBis , "dd.MM.yyyy HH:mm") : '');
 				}
 				
 			});
 			
 		});
-        $scope.highlighted = RecommendationService.getTalksForUser(UserService.getCurrentUser().id);
+
+        $scope.highlighted = RecommendationService.query({userId: $scope.user._id});
+        //$scope.highlighted = RecommendationService.query({userId: 1337}); // TODO richtige IDs verwenden
+
         
 		$scope.columns =
             [

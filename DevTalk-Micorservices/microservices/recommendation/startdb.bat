@@ -1,4 +1,5 @@
 @echo off
+title DB Recommendation
 mkdir "%~dp0%db"
 IF NOT defined %MONGO_HOME GOTO ERROR
 "%MONGO_HOME%\bin\mongod.exe" --port 28553 --dbpath "%~dp0%db"

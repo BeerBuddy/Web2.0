@@ -23,14 +23,7 @@ Kategorie.find(function (err, kategorie) {
 });
 
 router.route('/')
-.all( function (req, res, next) {
-	if(req.headers.user){
-		//to get the current user
-		var user = JSON.parse(req.headers.user);
-		req.user=user;
-	}
-	next(); // pass control to the next handler
-})
+
 .get( function(req, res) {
 		Kategorie.find(function(err, kategorie) {
             if (err)
@@ -40,7 +33,7 @@ router.route('/')
         });
 })
 .post( function(req, res) {
-	if(roles.isAdmin(req.user))
+	if(roles.isAdmin(JSON.parse(req.headers.user)))
 	{
 		var kategorie = new Kategorie();      // create a new instance of the kategorie model
         
@@ -80,7 +73,7 @@ router.route('/:kategorie_id')
     })
 	// update the kategorie with this id 
  .put(function(req, res) {
-if(roles.isAdmin(req.user))
+if(roles.isAdmin(JSON.parse(req.headers.user)))
 	{
         // use our Kategorie model to find the kategorie we want
         Kategorie.findById(req.params.kategorie_id, function(err, kategorie) {
@@ -124,7 +117,7 @@ if(roles.isAdmin(req.user))
     })
 // delete the Kategorie with this id
 .delete(function(req, res) {
-	if(roles.isAdmin(req.user))
+	if(roles.isAdmin(JSON.parse(req.headers.user)))
 	{
 	Kategorie.remove({
 		_id: req.params.kategorie_id

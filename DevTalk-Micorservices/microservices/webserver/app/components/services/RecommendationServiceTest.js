@@ -8,6 +8,7 @@
 
         // Inject Recommendation Service
         beforeEach(function () {
+<<<<<<< HEAD
             angular.module('DevTalk.events').factory('EventService', function() {
                 var allEvents = [{
                         'id': 'ev1',
@@ -68,6 +69,8 @@
                 
             });
 			module('DevTalk.events');
+=======
+>>>>>>> 25ca1585007107e3efc405dd4221f0eec1c5a01f
             module('DevTalk.recommendation');
             inject(function (_RecommendationService_,_$rootScope_) {
 				$rootScope = _$rootScope_;
@@ -77,17 +80,17 @@
 
         // Check if all functions exist
         describe('Check functions', function () {
-            it('should have the getTalksForUser() function', function () {
-                expect(recommendationService.getTalksForUser).toBeDefined();
+            it('should have the query function', function () {
+                expect(recommendationService.query).toBeDefined();
             });
         }); 
 
-        describe('getTalksForUser', function() {
+        /*describe('get Talks For User', function() {
 
             describe('Andizzle (ID=1337)', function() {
                 
-               
                 it('should return two talks', function() {
+<<<<<<< HEAD
 				  ;
                     talksOfUser = recommendationService.getTalksForUser(1337).then(function(res){talksOfUser =res},function(err){console.log(err)});
 				
@@ -119,6 +122,19 @@
 				
 					$rootScope.$apply();
 					expect(talksOfUser.length).toEqual(0);
+=======
+                    var talksOfUser = recommendationService.query({userId: 1337});
+					expect(talksOfUser.length).toEqual(0);
+                });
+ 
+            });
+
+            describe('Jon Doe (ID=42)', function() {
+               it('should return zero talks', function() {
+                    recommendationService.query({userId: 42}).then(function(talksOfUser){
+					  expect(talksOfUser.length).toEqual(0);
+					});
+>>>>>>> 25ca1585007107e3efc405dd4221f0eec1c5a01f
                 });
             });
             
@@ -137,6 +153,6 @@
 					expect(talksOfUser.length).toEqual(0);
                 });
             });
-        });
+        });*/
     });
 })();
