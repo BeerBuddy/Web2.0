@@ -37,19 +37,9 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
 			
 		//handling clicks on Buttons for editing Events
 		$scope.onItemClick = function (e) {
-            //$location.path('/talkDetails/' + e.id);
+			//set the selected talk
 			$scope.anEvent = EventService.get({'_id':e._id});
-			//FIXME Eigentlich willst du das Event so übergeben und nicht erst so parsen
-			var talk = {
-				"id": $scope.anEvent._id,
-				"name": $scope.anEvent.name,
-				"ort": $scope.anEvent.ort,
-				"kategorie": $scope.anEvent.kategorie,
-				"datumVon": new Date($scope.anEvent.datum.substring(3,6) + $scope.anEvent.datum.substring(0,3) + $scope.anEvent.datum.substring(6,10)),
-				"datumBis": new Date($scope.anEvent.datum.substring(16,19) + $scope.anEvent.datum.substring(13,16) + $scope.anEvent.datum.substring(19,23)),
-				"beschreibung": "Es muss noch eine Beschreibung in die new Event Komponente eingefügt werden !!!!!"
-			}
-			$scope.setToEdit(talk);
+			$scope.setToEdit($scope.anEvent);
         };
 			
 //----- Part for handling Actions from Create-Talk-Component ------

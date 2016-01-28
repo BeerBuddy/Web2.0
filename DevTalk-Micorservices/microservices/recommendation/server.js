@@ -31,6 +31,23 @@ app.get('/recommendations/:userId', function(req, res){
 			}
 	});
 
+	/*Event.find({teilnehmer : req.params.userId}).distinct('kategorie').count(function(err, event) {
+		if (err)
+			res.status(500).send(err);
+		else
+			console.log(event);
+	});*/
+
+	// Fetch Kategorie and number of visits for current user
+	Event.aggregate({$match: {teilnehmer : {$eq: req.params.userId}}}, {$group: {_id: '$kategorie', totalVisits: {$sum: 1}}}, {$sort: {totalVisits: -1}}, function(err, res) {
+		if(err) {
+			console.log('Schade, fail');
+			console.log(err);
+		} else {
+			console.log(res);
+		}
+	});
+
 	console.log("Get ");
 	console.log(req.query);
 	//res.json('Foo');
