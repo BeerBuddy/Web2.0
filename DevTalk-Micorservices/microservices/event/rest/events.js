@@ -2,7 +2,7 @@ var random = require('../random');
 var express = require('express');
 var router = express.Router();
 var mongoose = require("mongoose");
-var Event = require('../model/event');
+var Event = require('../../model/event');
 var roles = require('../../roles');
 
 

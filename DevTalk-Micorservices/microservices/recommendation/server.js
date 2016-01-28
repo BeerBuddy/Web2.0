@@ -4,8 +4,8 @@ var bodyParser = require('body-parser');
 var request = require('request');
 
 var settings = require("../settings.json");
-var Event = require('./model/event');
-var Kategorie = require('./model/Kategorie');
+var Event = require('../model/event');
+var Kategorie = require('../model/Kategorie');
 
 // Connect to Event DB
 mongoose.connect(settings.eventService.db.protocol + '://' + settings.eventService.db.ip + ':' + settings.eventService.db.port + '/' + settings.eventService.db.schema);
