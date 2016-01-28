@@ -8,7 +8,7 @@
 
         // Inject Recommendation Service
         beforeEach(function () {
-            angular.module('DevTalk.common1', []).factory('EventService', function() {
+            angular.module('DevTalk.event').factory('EventService', function() {
                 var allEvents = [{
                         'id': 'ev1',
                         'name': 'Chef Conf Dortmund',
@@ -61,7 +61,7 @@
                 }
                 return srv;
             });
-
+			module('DevTalk.event');
             module('DevTalk.recommendation');
             inject(function (_RecommendationService_) {
                 recommendationService = _RecommendationService_;

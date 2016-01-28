@@ -2,7 +2,7 @@
 'use strict';
 var app = angular.module('DevTalk.admin', []);
 
-app.factory('EventService', [function () {
+app.factory('EmailService', [function () {
 	function checkEmail(adr) {
 	  var rx = /^([^\s@,:"<>]+)@([^\s@,:"<>]+\.[^\s@,:"<>.\d]{2,}|(\d{1,3}\.){3}\d{1,3})$/;
 	  var part = adr.value.match(rx);

@@ -15,7 +15,7 @@
 
         beforeEach(function () {
             // always load nova module
-            module('DevTalk.common');
+            module('DevTalk.user');
 
             inject(function (_UserService_) {
                 userService = _UserService_;

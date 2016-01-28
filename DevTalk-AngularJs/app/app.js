@@ -13,7 +13,8 @@ angular.module('DevTalk', [
     'DevTalk.statistic',
     'DevTalk.newTalk',
     'DevTalk.editTalk',
-    'DevTalk.common',
+	'DevTalk.event',
+    'DevTalk.user',
     'DevTalk.recommendation',
     'eventTableComponent',
     'profilComponent'

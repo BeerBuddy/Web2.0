@@ -2,7 +2,7 @@
 
     'use strict';
 
-    var app = angular.module('DevTalk.common', []);
+    var app = angular.module('DevTalk.user',[]);
 
     app.factory('UserService', [function () {
         // all available users
