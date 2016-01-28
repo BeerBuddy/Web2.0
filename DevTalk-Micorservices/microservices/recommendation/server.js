@@ -5,7 +5,7 @@ var request = require('request');
 
 var settings = require("../settings.json");
 var Event = require('./model/event');
-var Kategorie = require('./model/Kategorie');
+var Kategorie = require('./model/kategorie');
 
 // Connect to Event DB
 mongoose.connect(settings.eventService.db.protocol + '://' + settings.eventService.db.ip + ':' + settings.eventService.db.port + '/' + settings.eventService.db.schema);

@@ -7,13 +7,16 @@
 
     describe("tests the KategorieService", function () {
         var kategorieService;
+		var $rootScope;
         beforeEach(function () {
             module('DevTalk.kategorien');
-            inject(function (_KategorieService_) {
+            inject(function (_KategorieService_,_$rootScope_) {
+				$rootScope = _$rootScope_;
                 kategorieService = _KategorieService_;
             });
         });
-
+		
+		
         //check if all functions exists
         describe('test KategorieService functions for existence', function () {
             it('should have the query', function () {
@@ -37,31 +40,31 @@
             });
         });
 
-
+	/*
         describe('KategorieService.get  and KategorieService.insert', function () {
             //insert new kategorie
            var kategorieToinsert =  {
                 "name": "Test",
             };
             it('should inster an kategorie', function () {
+			var kategorie2;
                 //console.info("KategorieService -----------: "+kategorieService);
-                kategorieService.save(kategorieToinsert, function(kategorie){
+               var kategorie = kategorieService.save(kategorieToinsert, function(kategorie){
 					 //get from service
-					var kategorie2 = kategorieService.get(kategorie._id, function(){
-						//check if equals
-						expect(kategorie2).toEqual(kategorie);
-					});
+					kategorie2 = kategorieService.get({"id_": kategorie._id});
+					
 				});
+				$rootScope.$apply();
+				expect(kategorie2).toEqual(kategorie);
             });
         });
 
         describe('KategorieService.query', function () {
             it('should return an non Empty List', function () {
-              kategorieService.query(function(kategories){
-				expect(kategories).toBeDefined();
+              var kategories = kategorieService.query();
+				$rootScope.$apply();
+                expect(kategories).toBeDefined();
                 expect(kategories.length).toBeGreaterThan(0);
-				});
-                
             });
         });
 
@@ -72,10 +75,11 @@
                 "name": "Test",
             };
             it('should insert a kategorie and change it', function () {
+			var kategorie3_, kategorie4_;
                 //insert new kategorie
                 kategorieService.save(kategorieToinsert, function(kategorie){
 					 //get from service
-					kategorieService.get({'_id':kategorie._id},function (kategorie2) {
+					kategorieService.get({'id':kategorie._id},function (kategorie2) {
 						//check if equals
 						expect(kategorie2).toEqual(kategorie);
 
@@ -84,43 +88,50 @@
 
 						//update
 						kategorieService.update(kategorie2,function (kategorie3){
-						
+							kategorie3_ = kategorie3;
 							expect(kategorie3).toEqual(kategorie2);
 							
-							kategorieService.get({'_id':kategorie3._id},function (kategorie4){
-								expect(kategorie3).toEqual(kategorie4);
+							kategorieService.get({'id':kategorie3._id},function (kategorie4){
+								kategorie4_ = kategorie4;
 							});			
 						});
 					});
 				});
+				$rootScope.$apply();
+				expect(kategorie3_).toEqual(kategorie4_);
             });
         });
 
         describe('KategorieService.get unknown id', function () {
 			var kategorie = {
-                "_id": "unknown id"
+                'id': "unknown id"
             };
             it('should throw a exception', function () {
-               
+               var err;
                     kategorieService.get(kategorie, function(suc){}, function(err){
-						expect(err).toBeDefined();
+						err_ =err;
             		});
+					
+				$rootScope.$apply();
+				expect(err_).toBeDefined();
                 
             });
         });
 
         describe('KategorieService.update unknown kategorie', function () {
             var kategorie = {
-                "_id": "unknown id"
+                'id': "unknown id"
             };
             it('should throw a exception', function () {
-               
+               var err;
                     kategorieService.update(kategorie, function(suc){}, function(err){
-						expect(err).toBeDefined();
+						err_ =err;
             		});
-               
+				$rootScope.$apply();
+				expect(err_).toBeDefined();
             });
         });
+		*/
     });
 
 })();

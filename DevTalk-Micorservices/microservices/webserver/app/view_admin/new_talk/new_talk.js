@@ -21,7 +21,6 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
 					 var von = $filter('date')(date[ event.datumVon , "dd.MM.yyyy HH:mm"]);
 					event.datum = von + (event.datumBis ? '-'+ $filter('date')(date[ event.datumBis , "dd.MM.yyyy HH:mm"]) : '');
 				}
-				
 			});
 			
 		});
@@ -38,23 +37,23 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
 		//handling clicks on Buttons for editing Events
 		$scope.onItemClick = function (e) {
 			//set the selected talk
-			$scope.anEvent = EventService.get({'_id':e._id});
+			$scope.anEvent = EventService.get({'id':e._id});
 			$scope.setToEdit($scope.anEvent);
         };
 			
 //----- Part for handling Actions from Create-Talk-Component ------
 		//create new Event
 		$scope.onCreate = function (talk) {
-			EventService.save(talk);
+		
+			EventService.save($scope.anEvent);
         }
 		//edit existing Event
 		$scope.onEdit = function (talk) {
-		//FIXME wenn das Event spo übergeben wird brauch man das id umodeln nicht
-			talk.id = talk._id;
-			EventService.update(talk);
+			$scope.anEvent.id = $scope.anEvent._id;
+			EventService.update($scope.anEvent);
         }
 		//deleting existing Event
 		$scope.onDecline = function (id) {
-			EventService.delete({'id':id});
+			EventService.delete({'id':$scope.anEvent._id});
         }
         }]);

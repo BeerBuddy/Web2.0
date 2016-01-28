@@ -4,6 +4,7 @@ var express = require("express");
 var app = express();
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
+
 //global settings
 var settings = require("../settings.json");
 //connect to the mongoDB
@@ -39,4 +40,7 @@ app._router.stack.forEach(function(middleware){
 });
 
 
-app.listen(settings.eventService.rest.port);
+app.listen(settings.eventService.rest.port,function() {
+  console.log('Event service running at '+ settings.eventService.rest.protocol+'://'+settings.eventService.rest.ip+':'+settings.eventService.rest.port+'/');
+});
+ 

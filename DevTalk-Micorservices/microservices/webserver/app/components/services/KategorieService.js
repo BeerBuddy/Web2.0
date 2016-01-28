@@ -6,11 +6,11 @@
 
 app.factory('KategorieService', ['$resource',function ($resource) {
    
-  return $resource('/api/eventService/kategorien/:_id',{_id:'@_id'},{
+  return $resource('/api/eventService/kategorien/:id',{id:'@id'},{
 			/* 
 			update an existing Kategorie expect 
 			{
-				'_id' : ObjectId //the id of the Kategorie
+				'id' : ObjectId //the id of the Kategorie
 				... All other Kategorie attributes
 			}
 			*/

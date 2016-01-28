@@ -1,2 +1,1 @@
-start supervisor server.js
-exit
+supervisor server.js

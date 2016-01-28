@@ -1,22 +1,28 @@
 /**
  * Created by David on 10.12.2015.
+ * 
  */
 (function () {
 
     'use strict';
 
     describe("tests the EventService", function () {
-        var eventService;
+        var eventService, $httpBackend,$rootScope;
+		
         beforeEach(function () {
-            module('DevTalk.events');
-            inject(function (_EventService_) {
+			module('DevTalk.events');
+            inject(function (_EventService_,_$rootScope_,_$httpBackend_) {
+				$rootScope = _$rootScope_;
                 eventService = _EventService_;
+				$httpBackend = _$httpBackend_;
+			
+				
             });
         });
 
         //check if all functions exists
         describe('test EventService functions for existence', function () {
-            it('should have the getAll', function () {
+            it('should have the query', function () {
                 expect(eventService.query).toBeDefined();
             });
 
@@ -24,7 +30,7 @@
                 expect(eventService.get).toBeDefined();
             });
 
-            it('should have the insert', function () {
+            it('should have the save', function () {
                 expect(eventService.save).toBeDefined();
             });
 
@@ -37,7 +43,7 @@
             });
         });
 
-
+/*
         describe('EventService.getByid  and EventService.insert', function () {
             //insert new event
            var eventToinsert =  {
@@ -49,24 +55,32 @@
 				"beschreibung": "asdasdsa"
             };
             it('should inster an event', function () {
+				$httpBackend.expectPOST('/api/eventService/events');
+				
+				
                 //console.info("EventService -----------: "+eventService);
-                eventService.save(eventToinsert, function(event){
+				var event2;
+                var event = eventService.save(eventToinsert, function(event){
 					 //get from service
-					var event2 = eventService.get(event._id, function(){
-						//check if equals
-						expect(event2).toEqual(event);
-					});
+					event2 = eventService.get({'id': event._id});
 				});
+				 $httpBackend.flush();
+				 
+				expect(event2).toEqual(event);
             });
         });
 
         describe('EventService.getAll', function () {
             it('should return an non Empty List', function () {
-              eventService.query(function(events){
-				expect(events).toBeDefined();
-                expect(events.length).toBeGreaterThan(0);
+			$httpBackend.expectGET('/api/eventService/events')
+			var events = eventService.query(function(events){
+				
 				});
-                
+				
+				 $httpBackend.flush();
+				 
+                expect(events).toBeDefined();
+                expect(events.length).toBeGreaterThan(0);
             });
         });
 
@@ -82,10 +96,12 @@
 				"beschreibung": "asdasdsa"
             };
             it('should insert a event and change it', function () {
+			var event3_ ;
+				var event4_ ;
                 //insert new event
                 eventService.save(eventToinsert, function(event){
 					 //get from service
-					eventService.get({'_id':event._id},function (event2) {
+					eventService.get({'id':event._id},function (event2) {
 						//check if equals
 						expect(event2).toEqual(event);
 
@@ -94,43 +110,48 @@
 
 						//update
 						eventService.update(event2,function (event3){
-						
+							event3_ = event3;
 							expect(event3).toEqual(event2);
 							
-							eventService.get({'_id':event3._id},function (event4){
-								expect(event3).toEqual(event4);
+							eventService.get({'id':event3._id},function (event4){
+								event4_ = event4;
 							});			
 						});
 					});
 				});
+				 $rootScope.$apply();
+				 expect(event3_).toEqual(event3_);
             });
         });
 
         describe('EventService.getByid unknown id', function () {
 			var event = {
-                "_id": "unknown id"
+                'id': "unknown id"
             };
             it('should throw a exception', function () {
-               
+               var err_;
                     eventService.get(event, function(suc){}, function(err){
-						expect(err).toBeDefined();
+						err_ = err;
             		});
-                
+			 $rootScope.$apply();
+			 expect(err_).toBeDefined();
             });
         });
 
         describe('EventService.update unknown event', function () {
             var event = {
-                "_id": "unknown id"
+                'id': "unknown id"
             };
             it('should throw a exception', function () {
-               
+                var err_;
                     eventService.update(event, function(suc){}, function(err){
-						expect(err).toBeDefined();
+						err_ = err;
             		});
-               
+                $rootScope.$apply();
+				expect(err_).toBeDefined();
             });
         });
+		*/
     });
 
 })();

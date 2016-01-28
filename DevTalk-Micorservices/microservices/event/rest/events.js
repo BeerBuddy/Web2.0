@@ -2,12 +2,19 @@ var random = require('../random');
 var express = require('express');
 var router = express.Router();
 var mongoose = require("mongoose");
-var Event = require('../model/event');
+var Event = require('./../model/event');
 var roles = require('../../roles');
+var connect = require('./connector');
+var MongoQS = require('mongo-querystring');
+var qs = new MongoQS({});
 
 
 //Initial save random events
 Event.find(function (err, events) {
+	if(err)
+	{
+		  console.log(err);
+	}else
     if (events.length === 0) {
         for (var i = 0; i < (Math.random() * 20) + 1; i++) {
             var event = new Event(random.getRandomEvent());
@@ -24,25 +31,20 @@ Event.find(function (err, events) {
 
 
 router.route('/')
-//parse the user
-.all( function (req, res, next) {
-	if(req.headers.user){
-		//to get the current user
-		console.log(req.headers.user);
-		var user = JSON.parse(req.headers.user);
-		req.user=user;
-	}
-	next(); // pass control to the next handler
-})
+
 //get all events
 .get( function(req, res) {
 		
 		//get where teilnehmer = ?
 		
-		if(req.query && req.query.teilnehmer)
+		if(req.query)
 		{
-			 console.log("Get All where Teilnehmer: "+req.query.teilnehmer +" has taken part");
-			Event.find({ teilnehmer : req.query.teilnehmer },function(err, event) {
+			// look at https://github.com/Turistforeningen/node-mongo-querystring
+			//parse all url params through MongoQS
+			var query = qs.parse(req.query);
+			 console.log("Get All where :");
+			  console.log(query);
+			Event.find(query,function(err, event) {
 				if (err)
 					res.status(500).send(err);
 				else
@@ -62,7 +64,7 @@ router.route('/')
 })
 //insert a new event
 .post( function(req, res) {
-	if(roles.isAdmin(req.user))
+	if(roles.isAdmin(JSON.parse(req.headers.user)))
 	{
 		 var event = new Event();      // create a new instance of the event model
          event.name = req.body.name;  // update the event info
@@ -100,7 +102,10 @@ router.route('/:event_id/')
     })
 // update the event with this id 
 .put(function(req, res) {
-		if(roles.isAdmin(req.user))
+console.log(JSON.parse(req.headers.user));
+console.log("tries to save");
+console.log(req.body);
+		if(roles.isAdmin(JSON.parse(req.headers.user)))
 		{
 			// use our Event model to find the event we want
 			Event.findById(req.params.event_id, function(err, event) {
@@ -120,7 +125,7 @@ router.route('/:event_id/')
 						event.warteliste = req.body.warteliste;  
 						event.kapazitaet = req.body.kapazitaet; 
 							   // save the event
-						event.save(function(err) {
+						event.save(function(err, event) {
 							if (err)
 								res.status(500).send(err);
 								else
@@ -147,7 +152,7 @@ router.route('/:event_id/')
     })
 // delete the Event with this id
 .delete(function(req, res) {
-	if(roles.isAdmin(req.user))
+	if(roles.isAdmin(JSON.parse(req.headers.user)))
 	{
 		Event.remove({
 			_id: req.params.event_id
@@ -179,7 +184,8 @@ router.route('/:event_id/teilnehmer')
 //add a new teilnhemer to a event
 .post(function(req,res){
 	//wenn ein User sich selber hinzufügen möchte darf er das, sonst muss er Admin sein
-	if((roles.isUser(req.user) && req.user._id === req.body.tid ) || roles.isAdmin(req.user))
+	var user = JSON.parse(req.headers.user);
+	if((roles.isUser(user) && user._id === req.body.tid ) || roles.isAdmin(user))
 	{
 					
 			 Event.findById(req.params.event_id, function(err, event) {
@@ -192,13 +198,37 @@ router.route('/:event_id/teilnehmer')
 					if(event.teilnehmer.length < event.kapazitaet)
 					{
 						if(event.teilnehmer.indexOf(req.body.tid) === -1){
-							//TODO send Email here
+							
 							event.teilnehmer.push(req.body.tid);
 							event.save(function(err) {
-								if (err)
-								res.send(err);
-								else
-								res.json(event);
+								if (err){
+									res.status(500).send(err);
+								}
+								else{
+									//send Email here
+									connect.getUserById(req.body.tid, function(err,httpResponse,body){
+										if(!err && body)
+										{
+											connect.sendMailTeilnehmer(body.email, function(err,httpResponse,body){
+												if(err)
+												{
+													res.status(500).send(err);
+												}else
+												{
+													res.json(event);
+												}
+													
+											});
+										}
+										else
+										{
+											res.status(500).send(err);
+										}
+										
+									});
+									
+								}
+								
 							});
 						}
 						else
@@ -239,7 +269,8 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 })
 //update teilnehmer id in teilnehmer list
 .put(function(req,res){
-	if(roles.isAdmin(req.user))
+
+	if(roles.isAdmin(JSON.parse(req.headers.user)))
 	{
 		Event.findById(req.params.event_id, function(err, event) {
 			if (err)
@@ -276,7 +307,8 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 //delete teilnehmer from teilnehmer list
 .delete(function(req,res){
 	//wenn ein User sich selber löschen möchte darf er das, sonst muss er Admin sein
-	if((roles.isUser(req.user) && req.user._id === req.params.teilnehmer_id ) || roles.isAdmin(req.user))
+	var user = JSON.parse(req.headers.user);
+	if((roles.isUser(user) && user._id === req.params.teilnehmer_id ) || roles.isAdmin(user))
 	{
 			console.log(req.body);
 			 Event.findById(req.params.event_id, function(err, event) {
@@ -293,19 +325,87 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 						if(event.wartelist && event.wartelist.length > 0){
 							event.teilnehmer[index] = event.wartelist[0];
 							event.wartelist.splice( 0, 1 );
-							//TODO send Email here
-						}else //just remove from teilnehmers
-						{
-							event.teilnehmer.splice( index, 1 );
-							//TODO send Email here
-						}
-						
-						 event.save(function(err) {
+							//save the event
+							 event.save(function(err) {
 							if (err)
 								res.status(500).send(err);
 							else
-								res.json(event);
-						 });
+								// send Email here jemand ist nachgerückt er muss informiert werden
+								connect.getUserById(event.teilnehmer[index], function(err,httpResponse,body){
+										if(!err && body)
+										{
+											connect.sendMailNachruecker(body.email, function(err,httpResponse,body){
+												if(err)
+												{
+													res.status(500).send(err);
+												}else
+												{
+													//der der sich abgemeldet hat muss auch informiert werden
+														connect.getUserById(req.params.teilnehmer_id, function(err,httpResponse,body){
+										if(!err && body)
+										{
+											connect.sendMailAbgemeldet(body.email, function(err,httpResponse,body){
+												if(err)
+												{
+													res.status(500).send(err);
+												}else
+												{
+													res.json(event);
+												}
+													
+											});
+										}
+										else
+										{
+											res.status(500).send(err);
+										}
+										
+									});
+												}
+													
+											});
+										}
+										else
+										{
+											res.status(500).send(err);
+										}
+										
+									});
+							});
+						}else //just remove from teilnehmers
+						{
+							event.teilnehmer.splice( index, 1 );
+							//save the event
+							 event.save(function(err) {
+							if (err)
+								res.status(500).send(err);
+							else
+								// send Email here
+								connect.getUserById(req.params.teilnehmer_id, function(err,httpResponse,body){
+										if(!err && body)
+										{
+											connect.sendMailAbgemeldet(body.email, function(err,httpResponse,body){
+												if(err)
+												{
+													res.status(500).send(err);
+												}else
+												{
+													res.json(event);
+												}
+													
+											});
+										}
+										else
+										{
+											res.status(500).send(err);
+										}
+										
+									});
+							});
+							
+						}
+						
+						
 			
 					}
 					else{
@@ -342,20 +442,40 @@ router.route('/:event_id/warteliste')
 //add a new teilnhemer to warteliste
 .post(function(req,res){	
 	//wenn ein User sich selber hinzufügen möchte darf er das, sonst muss er Admin sein
-	if((roles.isUser(req.user) && req.user._id === req.body.tid ) || roles.isAdmin(req.user))
+	var user = JSON.parse(req.headers.user);
+	if((roles.isUser(user) && user._id === req.body.tid ) || roles.isAdmin(user))
 	{		
 		Event.findById(req.params.event_id, function(err, event) {
             if (err)
                 res.status(500).send(err);
 				else if(event){
 					if(event.warteliste.indexOf(req.body.tid) === -1){
-						//TODO send Email here
+						//send Email here
 						event.warteliste.push(req.body.tid);
 						event.save(function(err) {
 							if (err)
 							res.status(500).send(err);
 							else
-							res.json(event);
+								connect.getUserById(req.body.tid, function(err,httpResponse,body){
+										if(!err && body)
+										{
+											connect.sendMailWarteliste(body.email, function(err,httpResponse,body){
+												if(err)
+												{
+													res.status(500).send(err);
+												}else
+												{
+													res.json(event);
+												}
+													
+											});
+										}
+										else
+										{
+											res.status(500).send(err);
+										}
+										
+									});
 						});
 					}else
 					{
@@ -390,7 +510,7 @@ router.route('/:event_id/warteliste/:teilnehmer_id')
 })
 //update teilnehmer id in warteliste list
 .put(function(req,res){
-	if(roles.isAdmin(req.user))
+	if(roles.isAdmin(JSON.parse(req.headers.user)))
 	{
 		Event.findById(req.params.event_id, function(err, event) {
 			if (err)
@@ -426,7 +546,8 @@ router.route('/:event_id/warteliste/:teilnehmer_id')
 //delete teilnehmer from warteliste list
 .delete(function(req,res){
 	//wenn ein User sich selber löschen möchte darf er das, sonst muss er Admin sein
-	if((roles.isUser(req.user) && req.user._id === req.params.teilnehmer_id ) || roles.isAdmin(req.user))
+	var user = JSON.parse(req.headers.user);
+	if((roles.isUser(user) && user._id === req.params.teilnehmer_id ) || roles.isAdmin(user))
 	{
 				 Event.findById(req.params.event_id, function(err, event) {
 				
@@ -444,7 +565,26 @@ router.route('/:event_id/warteliste/:teilnehmer_id')
 								if (err)
 									res.send(err);
 								else
-									res.json(event);
+										connect.getUserById(req.params.teilnehmer_id, function(err,httpResponse,body){
+										if(!err && body)
+										{
+											connect.sendMailWartelisteAbgemeldet(body.email, function(err,httpResponse,body){
+												if(err)
+												{
+													res.status(500).send(err);
+												}else
+												{
+													res.json(event);
+												}
+													
+											});
+										}
+										else
+										{
+											res.status(500).send(err);
+										}
+										
+									});
 							 });
 						}
 						else{

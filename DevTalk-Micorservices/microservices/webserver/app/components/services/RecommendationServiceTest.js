@@ -22,7 +22,6 @@
         }); 
 
         /*describe('get Talks For User', function() {
-
             describe('Andizzle (ID=1337)', function() {
                 
                 it('should return two talks', function() {
@@ -31,7 +30,6 @@
                 });
  
             });
-
             describe('Jon Doe (ID=42)', function() {
                it('should return zero talks', function() {
                     recommendationService.query({userId: 42}).then(function(talksOfUser){
@@ -40,7 +38,6 @@
                 });
             });
             
-
             describe('no valid user provided', function() {
                 it('should have no recommendations for a user without visited talks or an invalid userid', function() {
 					

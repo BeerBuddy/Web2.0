@@ -119,6 +119,9 @@ var httpsServer = https.createServer(options, function(req, res) {
           if(req.url.toString().indexOf('/login') != -1){
             interceptResponse(res, (statisticService + 'events/login'));
           }
+          else if(req.url.toString().indexOf('/register') != -1){
+            interceptResponse(res, (statisticService + 'events/register'));
+          }
   	      sendRequest(urlObj, res, req, userService);
       }
   	  //requests for the statistic service
