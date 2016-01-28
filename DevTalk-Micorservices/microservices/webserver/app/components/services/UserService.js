@@ -2,9 +2,9 @@
 
     'use strict';
 
-    var app = angular.module('DevTalk.user',[]);
+    var app = angular.module('DevTalk.user',['DevTalk.mail']);
 
-    app.factory('UserService', ['$http', '$window',  function ($http, $window) {
+    app.factory('UserService', ['$http', '$window', "EmailService" , function ($http, $window, EmailService) {
 		var users = [];
         var currentUser = {};
 
@@ -19,6 +19,7 @@
                 currentUser = response.data.user;
                 users.push(currentUser);
                 $window.sessionStorage.token = response.data.token;
+				EmailService.sendEmail();
                 return response.data.user;
               });
               return result;

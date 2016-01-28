@@ -1,17 +1,15 @@
 (function() {
 'use strict';
-var app = angular.module('DevTalk.admin', []);
+var app = angular.module('DevTalk.mail', []);
 
-app.factory('EventService', [function () {
-	function checkEmail(adr) {
-	  var rx = /^([^\s@,:"<>]+)@([^\s@,:"<>]+\.[^\s@,:"<>.\d]{2,}|(\d{1,3}\.){3}\d{1,3})$/;
-	  var part = adr.value.match(rx);
-	  if(part && part[2].indexOf('..')==-1){
-		alert("GUT");
-	  }
-	  else {
-		alert("Schlecht");
-	  }
+app.factory('EmailService', ["$http", function ($http) {
+	return{
+		sendEmail: function () {
+			var result = $http.post('https://localhost:8000/api/emailService/email')
+			  .then(function(response){
+				console.log("EmailServices WORKING!" , response);
+			  });
+		}
 	}
 }]);
 })();
