@@ -31,8 +31,7 @@ angular.module('DevTalk.login', ['ngRoute'])
         .then(function(){
           $location.path('/allTalks')
       }, function(){
-          $location.path('/login');
-          alert("Überprüfen Sie ihre Login-Daten");
+         alert("Überprüfen Sie ihre Login-Daten");
       });
     }
 }]);

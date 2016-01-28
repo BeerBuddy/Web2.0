@@ -1,9 +1,20 @@
 describe('Test for the profile component', function () {
 
 
+	 it("login for all tests", function() {
+		 browser.get('index.html#/login').then(function(){
+					element(by.id('user_email')).sendKeys('admin@admin.de');
+					element(by.id('user_password')).sendKeys('admin');
+					element(by.id('user_password')).sendKeys(protractor.Key.ENTER);
+			 });
+	  });
+
     describe('should be displayed correctly', function () {
-        beforeEach(function () {
-            browser.get('index.html#/profile');
+		beforeEach(function () {
+			 
+					browser.get('index.html#/profile');
+			 
+			
         });
 
         it('own profile should have serveral inputs', function () {
@@ -16,37 +27,22 @@ describe('Test for the profile component', function () {
             expect(element(by.id('password2')).isDisplayed()).toBeTruthy();
         });
         it('view others profile should not have an edit button', function () {
-            expect(element(by.id('edit')).isDisplayed()).toBe(false);
-            expect(element(by.id('back')).isDisplayed()).toBeTruthy();
-            expect(element(by.id('save')).isDisplayed()).toBeTruthy();
-            expect(element(by.id('username')).isDisplayed()).toBeTruthy();
-            expect(element(by.id('email')).isDisplayed()).toBeTruthy();
-            expect(element(by.id('password')).isDisplayed()).toBeTruthy();
-            expect(element(by.id('password2')).isDisplayed()).toBeTruthy();
+			browser.get('index.html#/profile/asddasads').then(function(){
+				browser.driver.isElementPresent(by.id('edit')).then(function(present){
+					expect(present).toBe(false);
+				});
+				
+				expect(element(by.id('back')).isDisplayed()).toBeTruthy();
+				expect(element(by.id('save')).isDisplayed()).toBeTruthy();
+				expect(element(by.id('username')).isDisplayed()).toBeTruthy();
+				expect(element(by.id('email')).isDisplayed()).toBeTruthy();
+				expect(element(by.id('password')).isDisplayed()).toBeTruthy();
+				expect(element(by.id('password2')).isDisplayed()).toBeTruthy();
+			});
+           
         });
-/*
-Dieser Test solte laufen, sobald der Nutzer persistiert wird. Solange bleibt er auskommentiert
-        it('change the own profile', function () {
-            element(by.id('edit')).click().then(function () {
-                element(by.id('email')).sendKeys('user@user.de');
-                element(by.id('username')).sendKeys('user');
-                element(by.id('password')).sendKeys('user');
-                element(by.id('password2')).sendKeys('user');
-                //save the user
-                element(by.id('save')).click().then(function () {
-                        //get the saved user
-                        var user = element(by.binding('user'));
-                        //reload the page
-                        browser.get('index.html#/profile').then(function () {
-                            //the user should be equal
-                            expect(element(by.binding('user'))).toEqual(user);
-                        });
 
-                    }
-                );
-            });
-        });
-*/
+       
         it('change the profile should fail due to invalid email  ', function () {
             element(by.id('edit')).click().then(function () {
                 element(by.id('email')).sendKeys('email');
@@ -127,6 +123,8 @@ Dieser Test solte laufen, sobald der Nutzer persistiert wird. Solange bleibt er 
                 );
             });
         });
+		
+		
     });
 	
 });
