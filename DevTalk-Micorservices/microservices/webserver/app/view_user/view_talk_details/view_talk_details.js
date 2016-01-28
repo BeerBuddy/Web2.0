@@ -10,7 +10,7 @@ angular.module('DevTalk.talkDetails', ['ngRoute'])
     }])
 
     .controller('TalkDetailsCtrl', ['$scope', '$routeParams', '$location', 'UserService', 'EventService','TeilnehmerService', function ($scope, $routeParams, $location, UserService, EventService,TeilnehmerService) {
-        $scope.event = EventService.get({'_id':$routeParams.eventid}, function(event){
+        $scope.event = EventService.get({'id':$routeParams.eventid}, function(event){
 		if(event.teilnehmer)
 			$scope.hasApplyed = event.teilnehmer.indexOf(UserService.getCurrentUser().id) > -1; 
 		});

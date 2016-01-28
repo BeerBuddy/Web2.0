@@ -38,7 +38,7 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
 		//handling clicks on Buttons for editing Events
 		$scope.onItemClick = function (e) {
             //$location.path('/talkDetails/' + e.id);
-			$scope.anEvent = EventService.get({'_id':e._id});
+			$scope.anEvent = EventService.get({'id':e._id});
 			//FIXME Eigentlich willst du das Event so übergeben und nicht erst so parsen
 			var talk = {
 				"id": $scope.anEvent._id,
@@ -59,7 +59,6 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
         }
 		//edit existing Event
 		$scope.onEdit = function (talk) {
-		//FIXME wenn das Event spo übergeben wird brauch man das id umodeln nicht
 			talk.id = talk._id;
 			EventService.update(talk);
         }

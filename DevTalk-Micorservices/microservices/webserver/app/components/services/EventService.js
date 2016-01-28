@@ -2,11 +2,11 @@
 var app = angular.module('DevTalk.events', ['ngResource']);
 app.factory('EventService', ['$resource',function ($resource) {
    
-  return $resource('/api/eventService/events/:_id',{_id:'@_id'},{
+  return $resource('/api/eventService/events/:id',{id:'@id'},{
 			/* 
 			update an existing event expect 
 			{
-				'_id' : ObjectId //the id of the event
+				'id' : ObjectId //the id of the event
 				... All other Event attributes
 			}
 			*/

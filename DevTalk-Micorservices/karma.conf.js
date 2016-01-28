@@ -12,9 +12,10 @@ module.exports = function(config){
       'microservices/webserver/app/bower_components/angular-mocks/angular-mocks.js',
       'microservices/webserver/app/bower_components/Chart.js/Chart.js',
 	  'microservices/webserver/app/bower_components/angular-chart.js/angular-chart.js',
-      'microservices/webserver/app/components/services/*/*.js',
-      'microservices/webserver/app/app.js',
-      'microservices/webserver/app/view_*/*/*.js'
+      'microservices/webserver/app/components/services/**/*.js',
+	   'microservices/webserver/app/components/version/**/*.js',
+      //'microservices/webserver/app/app.js',
+      'microservices/webserver/app/view_*/**/*.js'
     ],
 
     autoWatch : true,

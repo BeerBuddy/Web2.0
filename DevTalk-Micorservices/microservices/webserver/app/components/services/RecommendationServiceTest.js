@@ -4,7 +4,7 @@
 
     describe('Test DevTalks Recommendation service', function () {
         
-        var recommendationService;
+        var recommendationService,$rootScope;
 
         // Inject Recommendation Service
         beforeEach(function () {
@@ -43,7 +43,7 @@
 
                 var srv = {};
                 srv.query = function(obj) {
-					if(obj.teilnehmer)
+					if(obj && obj.teilnehmer)
 					{
 						var eventList = [];
 						 for(var event of allEvents) {
@@ -69,7 +69,8 @@
             });
 			module('DevTalk.events');
             module('DevTalk.recommendation');
-            inject(function (_RecommendationService_) {
+            inject(function (_RecommendationService_,_$rootScope_) {
+				$rootScope = _$rootScope_;
                 recommendationService = _RecommendationService_;
             });
         });
@@ -87,45 +88,53 @@
                 
                
                 it('should return two talks', function() {
-                     recommendationService.getTalksForUser(1337).then(function(talksOfUser){
-						expect(talksOfUser.length).toEqual(2);
-						expect(talksOfUser[0].id).toMatch("ev5");
-						expect(talksOfUser[1].id).toMatch("ev4");
-					});
-                });
- 
+				  ;
+                    talksOfUser = recommendationService.getTalksForUser(1337).then(function(res){talksOfUser =res},function(err){console.log(err)});
+				
+              
+					$rootScope.$apply();
+					expect(talksOfUser.length).toEqual(2);
+					expect(talksOfUser[0].id).toMatch("ev5");
+					expect(talksOfUser[1].id).toMatch("ev4");
+				});
+				
             });
 
             describe('Adminizzle (ID=2448)', function() {
                  it('should return one talks', function() {
-                     recommendationService.getTalksForUser(2448).then(function(talksOfUser){
-						expect(talksOfUser.length).toEqual(1);
-						expect(talksOfUser[0].id).toMatch("ev5");
-					});
+				  var talksOfUser ;
+                    recommendationService.getTalksForUser(2448).then(function(res){talksOfUser =res},function(err){console.log(err)});
+				
+					$rootScope.$apply();
+					expect(talksOfUser.length).toEqual(1);
+					expect(talksOfUser[0].id).toMatch("ev5");
                 });
             });
 
             describe('Jon Doe (ID=42)', function() {
                it('should return zero talks', function() {
                     console.info('Los gehts');
-                    recommendationService.getTalksForUser(42).then(function(talksOfUser){
-					  expect(talksOfUser.length).toEqual(0);
-					});
+                   	var talksOfUser ;
+                    recommendationService.getTalksForUser(42).then(function(res){talksOfUser =res},function(err){console.log(err)});
+				
+					$rootScope.$apply();
+					expect(talksOfUser.length).toEqual(0);
                 });
             });
             
 
             describe('no valid user provided', function() {
                 it('should have no recommendations for a user without visited talks or an invalid userid', function() {
-					
+					var err_;
 					   recommendationService.getTalksForUser().then(function(talksOfUser){}, function(err){
-						expect(err).toBeDefined();
+						err_ = err;
 					   });
-					
-                    
-                    recommendationService.getTalksForUser(123456789).then(function(talksOfUser){
-					  expect(talksOfUser.length).toEqual(0);
-					});
+					$rootScope.$apply();
+					expect(err_).toBeDefined();
+                    var talksOfUser ;
+                    recommendationService.getTalksForUser(123456789).then(function(res){talksOfUser =res});
+					$rootScope.$apply();
+					expect(talksOfUser.length).toEqual(0);
                 });
             });
         });

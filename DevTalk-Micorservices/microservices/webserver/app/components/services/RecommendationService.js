@@ -8,8 +8,8 @@ app.factory('RecommendationService', ['EventService','$q', function(eventService
 			 if(!userId) 
 				reject('Missing param userId');
 
-        var allEvents = eventService.query(function(allEvents){
-			eventService.query({'teilnehmer': userId}, function(visitedEvents){
+        return eventService.query(function(allEvents){
+			return eventService.query({'teilnehmer': userId}, function(visitedEvents){
 				
 				var recommendedEvents = [];
 				var visitedEventIds = [];
@@ -28,8 +28,8 @@ app.factory('RecommendationService', ['EventService','$q', function(eventService
 
 				resolve(recommendedEvents);
 				
-			});
-		});
+			},function(err){reject(err)});
+		},function(err){reject(err)});
 		});
     };
 
