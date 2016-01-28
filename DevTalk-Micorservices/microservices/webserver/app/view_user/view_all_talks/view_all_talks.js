@@ -31,7 +31,19 @@ angular.module('DevTalk.allTalks', ['ngRoute'])
 			
 		});
 
-        $scope.highlighted = RecommendationService.query({userId: $scope.user._id});
+        $scope.highlighted = RecommendationService.query({userId: $scope.user._id},function(data)
+		{
+			data.forEach(function(event){
+				if(event.datumVon)
+				{
+					var von = $filter('date')( event.datumVon , "dd.MM.yyyy");
+					event.datum = von + (event.datumBis ? '-'+ $filter('date')(event.datumBis , "dd.MM.yyyy") : '');
+				}
+				if(event.kategorie)
+				event.kategorie = event.kategorie.name;
+			});
+			
+		});
         //$scope.highlighted = RecommendationService.query({userId: 1337}); // TODO richtige IDs verwenden
 
         
