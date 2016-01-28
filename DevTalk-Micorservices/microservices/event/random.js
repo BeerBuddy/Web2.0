@@ -8,7 +8,7 @@ module.exports = {
         var date1 = getRandomDate(new Date());
         var date2 = getRandomDate(date1);
         var id = generateRandomId();
-        var talks = getRandomTalks(pre, id);
+        var talks = {};//getRandomTalks(pre, id); FIXME Diese Methode gibt es nicht (mehr)?!
         var event = {
             "id": id,
             "name": pre + " " + getRandomFromArray(eventpostfixs) + " " + location,

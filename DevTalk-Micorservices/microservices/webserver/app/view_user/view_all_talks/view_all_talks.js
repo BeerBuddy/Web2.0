@@ -10,6 +10,8 @@ angular.module('DevTalk.allTalks', ['ngRoute'])
     }])
 
     .controller('AllTalksCtrl', ['$scope', '$routeParams', '$location', 'EventService', 'UserService', 'RecommendationService', function ($scope, $routeParams, $location, EventService, UserService, RecommendationService) {
+        $scope.user = UserService.getUserById($routeParams.userid);
+
         $scope.onItemClick = function (e) {
 			$location.path('/talkDetails/' + e._id);
         };
@@ -26,7 +28,10 @@ angular.module('DevTalk.allTalks', ['ngRoute'])
 			});
 			
 		});
-        $scope.highlighted = RecommendationService.getTalksForUser(UserService.getCurrentUser().id);
+
+        //$scope.highlighted = RecommendationService.query({userId: $scope.user._id});
+        $scope.highlighted = RecommendationService.query({userId: 1337}); // TODO richtige IDs verwenden
+
         
 		$scope.columns =
             [

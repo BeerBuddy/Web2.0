@@ -13,7 +13,7 @@ angular.module('DevTalk.profile', ['ngRoute'])
         });
     }])
 
-    .controller('ProfileCtrl', ['$scope', '$routeParams', '$location', 'UserService', 'EventService', function ($scope, $routeParams, $location, UserService, EventService) {
+    .controller('ProfileCtrl', ['$scope', '$routeParams', '$location', 'UserService', 'EventService', 'RecommendationService', function ($scope, $routeParams, $location, UserService, EventService, RecommendationService) {
         if($routeParams.userid)
         {
             $scope.user = UserService.getUserById($routeParams.userid);
@@ -33,7 +33,7 @@ angular.module('DevTalk.profile', ['ngRoute'])
                 {"name": "datum", "title": "Datum"},
                 {"name": "kategorie", "title": "Kategorie"}
             ];
-        $scope.highlighted = [];
+
         $scope.onsave = function (user) {
 			console.info("Update User: "+user);
             UserService.update(user);

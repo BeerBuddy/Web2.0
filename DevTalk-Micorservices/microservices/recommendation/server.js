@@ -1,24 +1,42 @@
 var express = require('express');
+var mongoose = require("mongoose");
 var bodyParser = require('body-parser');
-var app = express();
+var request = require('request');
 
-//Note that in version 4 of express, express.bodyParser() was
-//deprecated in favor of a separate 'body-parser' module.
+var settings = require("../settings.json");
+var Event = require('./model/event');
+var Kategorie = require('./model/Kategorie');
+
+// Connect to Event DB
+mongoose.connect(settings.eventService.db.protocol + '://' + settings.eventService.db.ip + ':' + settings.eventService.db.port + '/' + settings.eventService.db.schema);
+
+var app = express();
+var router = express.Router();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  next();
+app.get('/recommendations/:userId', function(req, res){
+	//get where teilnehmer = ?
+	console.log("Teilnehmer " + req.headers.user);
+
+	request(settings.eventService.rest.protocol + '://' + settings.eventService.rest.ip + ':' + settings.eventService.rest.port + '/events?teilnehmer=' + req.params.userId, 
+		function (error, response, body) {
+			if (!error && response.statusCode == 200 && body) {
+				var events = JSON.parse(body);
+				if(events.length > 1) {
+					res.send([events[0], events[events.length - 1]]); 
+				} else {
+					res.sendStatus(204);
+				}
+			}
+	});
+
+	console.log("Get ");
+	console.log(req.query);
+	//res.json('Foo');
 });
 
-app.get('/api/recommendation/user/:user', function(req, res) {
-	//res.send('Hallo Welt');
-	res.send(JSON.stringify({'user': req.params.user}));
-});
 
-app.listen(8553, function() {
-  console.log('Amazing recommendation service running at http://127.0.0.1:8553/');
+app.listen(settings.recommendationService.rest.port, function() {
+  console.log('Amazing recommendation service running at http://127.0.0.1:' + settings.recommendationService.rest.port + '/');
 });
