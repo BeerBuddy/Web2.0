@@ -11,12 +11,17 @@ angular.module('DevTalk.talkDetails', ['ngRoute'])
 
     .controller('TalkDetailsCtrl', ['$scope', '$routeParams', '$location', 'UserService', 'EventService','TeilnehmerService', function ($scope, $routeParams, $location, UserService, EventService,TeilnehmerService) {
         $scope.event = EventService.get({'id':$routeParams.eventid}, function(event){
-		if(event.teilnehmer)
-			$scope.hasApplyed = event.teilnehmer.indexOf(UserService.getCurrentUser().id) > -1; 
+			if(event.teilnehmer){
+				$scope.hasApplyed = event.teilnehmer.indexOf(UserService.getCurrentUser()._id) > -1; 
+			} 
+			if(!$scope.hasApplyed && event.warteliste){
+				$scope.hasApplyed = event.warteliste.indexOf(UserService.getCurrentUser()._id) > -1; 
+			}
+			
 		});
        
     $scope.apply = function() {
-			 TeilnehmerService.join({'id': $scope.event._id, 'tid':UserService.getCurrentUser()._id}, function(){
+			 TeilnehmerService.join({'id': $scope.event._id, 'teilnehmer':UserService.getCurrentUser()._id}, function(){
 				alert('Erfolgreich für das Event ' + $scope.event.name + " angemeldet!");
 				$location.path('#/allTalks');
 			});

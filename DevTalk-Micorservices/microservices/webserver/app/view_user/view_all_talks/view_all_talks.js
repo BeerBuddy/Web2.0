@@ -22,10 +22,11 @@ angular.module('DevTalk.allTalks', ['ngRoute'])
 			data.forEach(function(event){
 				if(event.datumVon)
 				{
-					var von = $filter('date')( event.datumVon , "dd.MM.yyyy HH:mm");
-					event.datum = von + (event.datumBis ? '-'+ $filter('date')(event.datumBis , "dd.MM.yyyy HH:mm") : '');
+					var von = $filter('date')( event.datumVon , "dd.MM.yyyy");
+					event.datum = von + (event.datumBis ? '-'+ $filter('date')(event.datumBis , "dd.MM.yyyy") : '');
 				}
-				
+				if(event.kategorie)
+				event.kategorie = event.kategorie.name;
 			});
 			
 		});

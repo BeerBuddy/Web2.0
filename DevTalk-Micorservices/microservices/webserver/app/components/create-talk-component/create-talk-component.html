@@ -7,26 +7,26 @@
 				<h2 ng-if="!edit">Create Talk</h2>
 				<h2 ng-if="edit">Edit/Delete Talk</h2>
 				<p>
-					<input type='text' id="talk_name" placeholder="Name" ng-model="talk.name">
+					<input type='text' id="talk_name" placeholder="Name" ng-model="talk.name" required>
 				</p>
 				<p>
-					<input type='text' id="talk_location" placeholder="Location" ng-model="talk.ort">
+					<input type='text' id="talk_location" placeholder="Location" ng-model="talk.ort" required>
 				</p>
 				<p>
-					<input type='date' id="talk_start" class="date" placeholder="Start Date" ng-model="talk.datumVon">
+					<input type='date' id="talk_start" class="date" placeholder="Start Date" ng-model="talk.datumVon" required>
 					- <input type='date' id="talk_end"  class="date" placeholder="End Date"  ng-model="talk.datumBis">
 				</p>
 				<p>
 					Categorie: 
 					<select type="text"  class="auto" id="talk_categorie" size="0" 
-						ng-model="talk.kategorie" ng-options="p as p for p in prefixes"/></select>
+						ng-model="talk.kategorie" ng-options="p as p.name for p in prefixes" required/></select>
 				</p>
 				<p>	Capacity:
 					<input type='number' class="number" id="talk_capacity" ng-model="talk.kapazitaet">
 				</p>
 				<button id="create" class="toggle" type="submit" ng-if="!edit">Create</button>
 				<button id="edit" class="toggle" type="submit" ng-if="edit">Edit</button>
-				<button id="decline" class="toggle" type="button" ng-click="decline(talk.id)" ng-if="edit">Decline</button>
+				<button id="decline" class="toggle" type="button" ng-click="decline(talk.id)" ng-if="edit">Delete</button>
 				<button id="cancel" class="toggle" type="button" ng-click="cancel()">Cancel</button>
 			</form>
 		</fieldset>

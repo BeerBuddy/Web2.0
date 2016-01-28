@@ -2,7 +2,7 @@
   "name": "devtalk-angularjs",
   "private": true,
   "version": "0.0.0",
-   "main": "server.js",
+  "main": "server.js",
   "description": "Projekt f�r Web2",
   "repository": {
     "type": "git",
@@ -10,7 +10,8 @@
   },
   "license": "MIT",
   "dependencies": {
-     "connect": "^3.4.0",
+    "angular-datetime": "^3.0.1",
+    "connect": "^3.4.0",
     "serve-static": "^1.10.0"
   },
   "devDependencies": {

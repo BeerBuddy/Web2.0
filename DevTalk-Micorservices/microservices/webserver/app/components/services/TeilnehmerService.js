@@ -10,7 +10,7 @@ app.factory('TeilnehmerService', ['$resource',function ($resource) {
 			/*
 			Join event expects following json:
 			{
-				'tid' : ObjectId //the id of the user,
+				'teilnehmer' : ObjectId //the id of the user,
 				'id': ObjectId //the id of the event
 								
 			}

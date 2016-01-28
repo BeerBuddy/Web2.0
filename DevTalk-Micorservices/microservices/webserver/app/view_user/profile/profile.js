@@ -13,7 +13,7 @@ angular.module('DevTalk.profile', ['ngRoute'])
         });
     }])
 
-    .controller('ProfileCtrl', ['$scope', '$routeParams', '$location', 'UserService', 'EventService', 'RecommendationService', function ($scope, $routeParams, $location, UserService, EventService, RecommendationService) {
+    .controller('ProfileCtrl', ['$scope', '$routeParams', '$location', '$filter','UserService', 'EventService', 'RecommendationService', function ($scope, $routeParams, $location, $filter,UserService, EventService, RecommendationService) {
         if($routeParams.userid)
         {
             $scope.user = UserService.getUserById($routeParams.userid);
@@ -24,7 +24,19 @@ angular.module('DevTalk.profile', ['ngRoute'])
             $scope.editable=true;
         }
 		
-		$scope.data = EventService.query({'teilnehmer':$scope.user.id} );
+		$scope.data = EventService.query({'teilnehmer':$scope.user.id} , function(data)
+			{
+				data.forEach(function(event){
+				if(event.datumVon)
+				{
+					var von = $filter('date')( event.datumVon , "dd.MM.yyyy");
+					event.datum = von + (event.datumBis ? '-'+ $filter('date')(event.datumBis , "dd.MM.yyyy") : '');
+				}
+				if(event.kategorie)
+				event.kategorie = event.kategorie.name;
+				
+				});
+			});
 
         $scope.columns =
             [

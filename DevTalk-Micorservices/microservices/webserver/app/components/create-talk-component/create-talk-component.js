@@ -8,16 +8,16 @@
             restrict: 'E',
 			templateUrl: 'components/create-talk-component/create-talk-component.html',
             controller: function ($scope) {
-				//set options for categories
-				$scope.prefixes = ["Oracle", "Play", "Microsoft", "DEV", "Java", "Groovy & Grails", "c#", "Scala", "Web", "Cloud", "Microservice", "Spring", "Docker", "Liferay", "FirstSpirit"];
 				
 				//handling submit (create OR edit)
 				$scope.submit=function(talk){
 					if($scope.edit){
+						//call by reference
 						$scope.onEdit(talk);
 						$scope.edit = "";
 					}
 					else{
+						//call by reference
 						$scope.onCreate(talk);
 					}
 					$scope.talk.id = $scope.talk.name = $scope.talk.ort = $scope.talk.datumVon = $scope.talk.datumBis = $scope.talk.kategorie = $scope.talk.kapazitaet = "";

@@ -75,6 +75,7 @@ router.route('/')
 				event.teilnehmer = req.body.teilnehmer;  
 				event.warteliste = req.body.warteliste;  
 				event.kapazitaet = req.body.kapazitaet; 
+				event.kategorie= req.body.kategorie; 
 			
         // save the event and check for errors
         event.save(function(err) {
@@ -124,6 +125,7 @@ console.log(req.body);
 						event.teilnehmer = req.body.teilnehmer;  
 						event.warteliste = req.body.warteliste;  
 						event.kapazitaet = req.body.kapazitaet; 
+						event.kategorie= req.body.kategorie; 
 							   // save the event
 						event.save(function(err, event) {
 							if (err)
@@ -185,7 +187,7 @@ router.route('/:event_id/teilnehmer')
 .post(function(req,res){
 	//wenn ein User sich selber hinzufügen möchte darf er das, sonst muss er Admin sein
 	var user = JSON.parse(req.headers.user);
-	if((roles.isUser(user) && user._id === req.body.tid ) || roles.isAdmin(user))
+	if((roles.isUser(user) && user._id === req.body.teilnehmer ) || roles.isAdmin(user))
 	{
 					
 			 Event.findById(req.params.event_id, function(err, event) {
@@ -197,20 +199,20 @@ router.route('/:event_id/teilnehmer')
 				
 					if(event.teilnehmer.length < event.kapazitaet)
 					{
-						if(event.teilnehmer.indexOf(req.body.tid) === -1){
+						if(event.teilnehmer.indexOf(req.body.teilnehmer) === -1){
 							
-							event.teilnehmer.push(req.body.tid);
+							event.teilnehmer.push(req.body.teilnehmer);
 							event.save(function(err) {
 								if (err){
 									res.status(500).send(err);
 								}
 								else{
 									//send Email here
-									connect.getUserById(req.body.tid, function(err,httpResponse,body){
-										if(!err && body)
+									connect.getUserById(req.body.teilnehmer, function(err,httpResponse,body){
+										if(!err && body && httpResponse.statusCode === 200)
 										{
-											connect.sendMailTeilnehmer(body.email, function(err,httpResponse,body){
-												if(err)
+											connect.sendMailTeilnehmer(event,body.email, function(err,httpResponse,body){
+												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
 												}else
@@ -238,7 +240,7 @@ router.route('/:event_id/teilnehmer')
 					}else
 					{
 						//no capacity left add to warteliste
-						res.redirect('../warteliste');
+						res.redirect(307,'./warteliste');
 					}
 
 				 
@@ -290,7 +292,7 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 					else
 					{
 					//not in teilnehmer maybe in warteliste
-					res.redirect('../../warteliste/'+req.params.teilnehmer_id);
+					res.redirect(307,'../warteliste/'+req.params.teilnehmer_id);
 					}
 					
 				}
@@ -332,20 +334,20 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 							else
 								// send Email here jemand ist nachgerückt er muss informiert werden
 								connect.getUserById(event.teilnehmer[index], function(err,httpResponse,body){
-										if(!err && body)
+										if(!err && body && httpResponse.statusCode === 200)
 										{
-											connect.sendMailNachruecker(body.email, function(err,httpResponse,body){
-												if(err)
+											connect.sendMailNachruecker(event,body.email, function(err,httpResponse,body){
+												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
 												}else
 												{
 													//der der sich abgemeldet hat muss auch informiert werden
 														connect.getUserById(req.params.teilnehmer_id, function(err,httpResponse,body){
-										if(!err && body)
+										if(!err && body && httpResponse.statusCode === 200)
 										{
-											connect.sendMailAbgemeldet(body.email, function(err,httpResponse,body){
-												if(err)
+											connect.sendMailAbgemeldet(event,body.email, function(err,httpResponse,body){
+												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
 												}else
@@ -382,10 +384,10 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 							else
 								// send Email here
 								connect.getUserById(req.params.teilnehmer_id, function(err,httpResponse,body){
-										if(!err && body)
+										if(!err && body && httpResponse.statusCode === 200)
 										{
-											connect.sendMailAbgemeldet(body.email, function(err,httpResponse,body){
-												if(err)
+											connect.sendMailAbgemeldet(event,body.email, function(err,httpResponse,body){
+												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
 												}else
@@ -410,7 +412,7 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 					}
 					else{
 					//if he is in warteliste
-					res.redirect('../../warteliste/'+req.params.teilnehmer_id);
+					res.redirect(307,'../warteliste/'+req.params.teilnehmer_id);
 					}
 				
 				 
@@ -443,24 +445,24 @@ router.route('/:event_id/warteliste')
 .post(function(req,res){	
 	//wenn ein User sich selber hinzufügen möchte darf er das, sonst muss er Admin sein
 	var user = JSON.parse(req.headers.user);
-	if((roles.isUser(user) && user._id === req.body.tid ) || roles.isAdmin(user))
+	if((roles.isUser(user) && user._id === req.body.teilnehmer ) || roles.isAdmin(user))
 	{		
 		Event.findById(req.params.event_id, function(err, event) {
             if (err)
                 res.status(500).send(err);
 				else if(event){
-					if(event.warteliste.indexOf(req.body.tid) === -1){
+					if(event.warteliste.indexOf(req.body.teilnehmer) === -1){
 						//send Email here
-						event.warteliste.push(req.body.tid);
+						event.warteliste.push(req.body.teilnehmer);
 						event.save(function(err) {
 							if (err)
 							res.status(500).send(err);
 							else
-								connect.getUserById(req.body.tid, function(err,httpResponse,body){
-										if(!err && body)
+								connect.getUserById(req.body.teilnehmer, function(err,httpResponse,body){
+										if(!err && body && httpResponse.statusCode === 200)
 										{
-											connect.sendMailWarteliste(body.email, function(err,httpResponse,body){
-												if(err)
+											connect.sendMailWarteliste(event,body.email, function(err,httpResponse,body){
+												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
 												}else
@@ -559,17 +561,17 @@ router.route('/:event_id/warteliste/:teilnehmer_id')
 						var index = event.warteliste.indexOf(req.params.teilnehmer_id);
 						if(index > -1)
 						{
-							//TODO send Email here
+							// send Email here
 							event.warteliste.splice( index, 1 );
 							event.save(function(err) {
 								if (err)
 									res.send(err);
 								else
 										connect.getUserById(req.params.teilnehmer_id, function(err,httpResponse,body){
-										if(!err && body)
+										if(!err && body && httpResponse.statusCode === 200)
 										{
-											connect.sendMailWartelisteAbgemeldet(body.email, function(err,httpResponse,body){
-												if(err)
+											connect.sendMailWartelisteAbgemeldet(event,body.email, function(err,httpResponse,body){
+												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
 												}else

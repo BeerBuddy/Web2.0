@@ -9,22 +9,29 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
   });
 }])
 
-.controller('NewTalkCtrl', ['$scope', '$location', 'EventService','KategorieService', function ($scope, $location, EventService,KategorieService) {
+.controller('NewTalkCtrl', ['$scope', '$location','$filter', 'EventService','KategorieService', function ($scope, $location,$filter, EventService,KategorieService) {
 
 //----- Part for setting Data for and handling Actions from Event-Table-Component ------
 		//get random Events
-		$scope.data = EventService.query(function(data)
+		function fillTable(){
+			$scope.data = EventService.query(function(data)
 		{
 			data.forEach(function(event){
 				if(event.datumVon)
 				{
-					 var von = $filter('date')(date[ event.datumVon , "dd.MM.yyyy HH:mm"]);
-					event.datum = von + (event.datumBis ? '-'+ $filter('date')(date[ event.datumBis , "dd.MM.yyyy HH:mm"]) : '');
+					var von = $filter('date')( event.datumVon , "dd.MM.yyyy");
+					event.datum = von + (event.datumBis ? '-'+ $filter('date')(event.datumBis , "dd.MM.yyyy") : '');
 				}
+				if(event.kategorie)
+				event.kategorie = event.kategorie.name;
+				
 			});
 			
 		});
-		$scope.kategorien = KategorieService.query();
+		}
+		fillTable();
+		
+		$scope.prefixes = KategorieService.query();
         //set them into table
 		$scope.columns =
             [
@@ -37,23 +44,44 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
 		//handling clicks on Buttons for editing Events
 		$scope.onItemClick = function (e) {
 			//set the selected talk
-			$scope.anEvent = EventService.get({'id':e._id});
+			$scope.anEvent = EventService.get({'id':e._id}, function(data){
+			data.datumVon = new Date(data.datumVon);
+			if(data.datumBis)
+			data.datumBis = new Date(data.datumBis);
+			});
 			$scope.setToEdit($scope.anEvent);
         };
 			
 //----- Part for handling Actions from Create-Talk-Component ------
 		//create new Event
 		$scope.onCreate = function (talk) {
-		
-			EventService.save($scope.anEvent);
+			console.log(talk.kategorie);
+			
+			console.log(talk);
+			var event = new EventService(talk);
+			event.$save(function(){
+				fillTable();
+			});
+			
+			
         }
 		//edit existing Event
 		$scope.onEdit = function (talk) {
-			$scope.anEvent.id = $scope.anEvent._id;
-			EventService.update($scope.anEvent);
+			console.log(talk.kategorie);
+			
+			talk.id = talk._id;
+			console.log(talk);
+			var event = new EventService(talk);
+			event.$update(function(){
+				fillTable();
+			});
+			
         }
 		//deleting existing Event
 		$scope.onDecline = function (id) {
-			EventService.delete({'id':$scope.anEvent._id});
+			EventService.delete({'id':$scope.anEvent._id},function(){
+				fillTable();
+			});
+			
         }
         }]);
