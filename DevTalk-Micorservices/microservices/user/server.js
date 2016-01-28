@@ -95,7 +95,7 @@ app.post('/register', function(req, res) {
     } else {
         // we have no user so we can register this one
         var user = new User({
-            name: req.body.username,
+            name: req.body.name,
             email: req.body.email,
             password: req.body.password,
             role: roles.user
@@ -122,7 +122,7 @@ function saveUser(user){
             console.log("failed to save users: " + err);
         }
         else {
-            console.log("saved user" + user.username + " " + user.email);
+            console.log("saved user" + user.name + " " + user.email);
         }
     });
 }
