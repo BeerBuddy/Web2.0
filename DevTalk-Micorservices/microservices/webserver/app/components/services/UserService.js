@@ -31,7 +31,7 @@
         })
         .then(function(response){
                 // Registrierung erfolgreich
-                EmailService.sendEmail("Die Registrierung war erfolgreich! Willkommen!");
+                EmailService.sendMailRegister(name, email);
                 return response.data.user;
               });
         return result;
@@ -54,7 +54,7 @@
                 })
                 .then(function(response){
                   currentUser = response.data.user;
-                  EmailService.sendEmail("Sie haben Ihre Profildaten geändert! Sie schlingel!");
+                  EmailService.sendMailProfile(name, email);
                   return response.data.user;
                 });
                 return result;
