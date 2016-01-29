@@ -54,7 +54,7 @@ app.post('/login', function(req, res) {
     if (err)  res.status(500).send(err);
 
     if (!user) {
-      res.status(404).json({ success: false, message: 'Authentication failed. User not found.' });
+      res.status(404).json({ success: false, message: 'User not found.' });
     } else if (user) {
 
       // check if password matches
@@ -104,6 +104,31 @@ app.post('/register', function(req, res) {
         res.status(200).send(user);
       }
     })
+});
+
+app.post('/update', function(req, res) {
+  // find the user
+  User.findOne({
+    _id: req.body._id
+  }, function(err, user) {
+    if (err)  res.status(500).send(err);
+    if (!user) {
+      res.status(404).json({ success: false, message: 'User not found.' });
+    } else if (user) {
+        // update the user
+        user.name = req.body.name;
+        user.email = req.body.email;
+        user.password = req.body.password;
+        saveUser(user);
+
+        res.status(200).json({
+          success: true,
+          message: 'Update successful!',
+          user: user
+        });
+    }
+
+  });
 });
 
 app.get("/:id/", function (req, res) {
