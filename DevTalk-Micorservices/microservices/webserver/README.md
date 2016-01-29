@@ -1,4 +1,4 @@
-# DevTalk...
+﻿# DevTalk...
 ##### ...mit Microservices und API Gateway und MongoDB und Mongoose und Schokolade und Keks
 
 - User Service: samizel
@@ -10,7 +10,7 @@
 ## How to start this bumms
 Update eines jeden Services über `npm update`, schneller geht es mit der update.bat.
 Dann mit `start.bat` gesamte Anwendung starten.
-URL: http://localhost:8000/app/index.html
+URL: https://localhost:8000
 
 
 ## Hinzufügen eines neuen Services
