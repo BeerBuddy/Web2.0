@@ -2,6 +2,8 @@ var request = require('request');
 var settings = require("../../settings.json");
 
 function sendMail(mail,text,subject,callback){
+		
+		console.log("sendMail" + subject +" to "+ mail );
 		request.post({url:settings.emailService.rest.protocol + '://' + settings.emailService.rest.ip + ':' + settings.emailService.rest.port + '/email' , form: {receiver:mail, text: text, subject: subject}}, 
 		callback);
 };

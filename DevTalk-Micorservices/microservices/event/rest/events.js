@@ -209,9 +209,12 @@ router.route('/:event_id/teilnehmer')
 								else{
 									//send Email here
 									connect.getUserById(req.body.teilnehmer, function(err,httpResponse,body){
+										console.log(body);
 										if(!err && body && httpResponse.statusCode === 200)
 										{
-											connect.sendMailTeilnehmer(event,body.email, function(err,httpResponse,body){
+											console.log("body");
+											console.log(body);
+											connect.sendMailTeilnehmer(event,JSON.parse(body).email, function(err,httpResponse,body){
 												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
@@ -334,9 +337,14 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 							else
 								// send Email here jemand ist nachgerückt er muss informiert werden
 								connect.getUserById(event.teilnehmer[index], function(err,httpResponse,body){
+									console.log("returned");
+									console.log(body);
 										if(!err && body && httpResponse.statusCode === 200)
 										{
-											connect.sendMailNachruecker(event,body.email, function(err,httpResponse,body){
+											console.log("body");
+											console.log(body);
+											console.log("connect.sendMail: "+JSON.parse(body).email);
+											connect.sendMailNachruecker(event,JSON.parse(body).email, function(err,httpResponse,body){
 												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
@@ -346,7 +354,10 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 														connect.getUserById(req.params.teilnehmer_id, function(err,httpResponse,body){
 										if(!err && body && httpResponse.statusCode === 200)
 										{
-											connect.sendMailAbgemeldet(event,body.email, function(err,httpResponse,body){
+											console.log("body");
+											console.log(body);
+											console.log("connect.sendMail: "+JSON.parse(body).email);
+											connect.sendMailAbgemeldet(event,JSON.parse(body).email, function(err,httpResponse,body){
 												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
@@ -384,9 +395,14 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 							else
 								// send Email here
 								connect.getUserById(req.params.teilnehmer_id, function(err,httpResponse,body){
+									console.log("returned");
+									console.log(body);
 										if(!err && body && httpResponse.statusCode === 200)
 										{
-											connect.sendMailAbgemeldet(event,body.email, function(err,httpResponse,body){
+											console.log("body");
+											console.log(body);
+											console.log("connect.sendMail: "+JSON.parse(body).email);
+											connect.sendMailAbgemeldet(event,JSON.parse(body).email, function(err,httpResponse,body){
 												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
@@ -459,9 +475,13 @@ router.route('/:event_id/warteliste')
 							res.status(500).send(err);
 							else
 								connect.getUserById(req.body.teilnehmer, function(err,httpResponse,body){
+									console.log(body);
 										if(!err && body && httpResponse.statusCode === 200)
 										{
-											connect.sendMailWarteliste(event,body.email, function(err,httpResponse,body){
+											console.log("body");
+											console.log(body);
+											console.log("connect.sendMail: "+JSON.parse(body).email);
+											connect.sendMailWarteliste(event,JSON.parse(body).email, function(err,httpResponse,body){
 												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
@@ -568,9 +588,14 @@ router.route('/:event_id/warteliste/:teilnehmer_id')
 									res.send(err);
 								else
 										connect.getUserById(req.params.teilnehmer_id, function(err,httpResponse,body){
+											console.log(body);
+											
 										if(!err && body && httpResponse.statusCode === 200)
 										{
-											connect.sendMailWartelisteAbgemeldet(event,body.email, function(err,httpResponse,body){
+											console.log("body");
+											console.log(body);
+											console.log("connect.sendMail: "+JSON.parse(body).email);
+											connect.sendMailWartelisteAbgemeldet(event,JSON.parse(body).email, function(err,httpResponse,body){
 												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);

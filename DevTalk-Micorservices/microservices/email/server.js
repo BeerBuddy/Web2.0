@@ -29,6 +29,21 @@ mailType.register = 'REGISTER';
 mailType.wait = 'WAIT';
 mailType.endwait = 'ENDWAIT';
 
+app.post('/email', function(req, res){
+	try {
+		console.log(req.body);
+		var mailOptions = {
+					from: 	 sender_mail, // sender address
+					to: 	 req.body.receiver, // receiver address (here always devtalk.user@gmail.de
+					subject: req.body.subject, // Subject line
+					text: 	 req.body.text // plaintext body
+				};
+		sendMail(req, res, mailOptions);
+	} catch(e){
+		res.status(500).send(e);	
+	}
+});
+
 app.post('/enroll', function(req, res){
 	createMail(req, res, mailType.enroll);
 });
@@ -118,9 +133,11 @@ function sendMail(req, res, mailOptions){
 		transp.sendMail(mailOptions, function(err,response){
 			if(err){
 				console.log(err);
+				res.status(500).send(err);	
 			}
 			//writeLog(req, res, mailOptions);
 			console.log(response);
+			res.status(200).send("Email gesendet");	
 		});
 	} catch(e){
 		res.status(500).send(e);	

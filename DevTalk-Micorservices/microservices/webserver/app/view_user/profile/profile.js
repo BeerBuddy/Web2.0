@@ -14,17 +14,10 @@ angular.module('DevTalk.profile', ['ngRoute'])
     }])
 
     .controller('ProfileCtrl', ['$scope', '$routeParams', '$location', '$filter','UserService', 'EventService', 'RecommendationService', function ($scope, $routeParams, $location, $filter,UserService, EventService, RecommendationService) {
-        if($routeParams.userid)
-        {
-            $scope.user = UserService.getUserById($routeParams.userid);
-			$scope.editable=false;
-        }
-        else{
-            $scope.user = UserService.getCurrentUser();
-            $scope.editable=true;
-        }
-		
-		$scope.data = EventService.query({'teilnehmer':$scope.user.id} , function(data)
+        
+		$scope.getEvents = function()
+		{
+			$scope.data = EventService.query({'teilnehmer':$scope.user._id} , function(data)
 			{
 				data.forEach(function(event){
 				if(event.datumVon)
@@ -37,7 +30,21 @@ angular.module('DevTalk.profile', ['ngRoute'])
 				
 				});
 			});
-
+		}
+		
+		if($routeParams.userid)
+        {
+            $scope.user = UserService.getUserById($routeParams.userid).then(function(){
+				$scope.getEvents();
+			});
+			$scope.editable=false;
+        }
+        else{
+            $scope.user = UserService.getCurrentUser();
+            $scope.editable=true;
+			$scope.getEvents();
+        }
+		
         $scope.columns =
             [
                 {"name": "name", "title": "Name"},
@@ -52,7 +59,7 @@ angular.module('DevTalk.profile', ['ngRoute'])
         };
 
         $scope.onItemClick = function (e) {
-            $location.path('/talkDetails/' + e.id)
+			$location.path('/talkDetails/' + e._id);
         };
     }])
 ;
