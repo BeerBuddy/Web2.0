@@ -19,7 +19,7 @@ app.factory('EmailService', ["$http", function ($http) {
 			  .then(function(response){
 				console.log("EmailServices WORKING, Registration done!" , response);
 			  });
-		}
+		},
 		sendMailProfile: function (name, email) {
 			var result = $http.post('https://localhost:8000/api/emailService/register',
 				{
