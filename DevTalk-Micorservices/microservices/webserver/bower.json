@@ -34,5 +34,8 @@
   "description": "",
   "moduleType": [
     "node"
-  ]
+  ],
+  "resolutions": {
+    "angular": "~1.4.0"
+  }
 }

@@ -4,6 +4,7 @@ var Event = mongoose.model('Event', {
     name: String,
     ort: String,
     datum: Date,
+    kategorie: String,
     event: String,
     teilnehmer: [],
 	warteliste: [],

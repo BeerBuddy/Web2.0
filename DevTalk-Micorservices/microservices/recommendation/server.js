@@ -5,7 +5,8 @@ var request = require('request');
 
 var settings = require("../settings.json");
 var Event = require('./model/event');
-var Kategorie = require('./model/kategorie');
+
+const MAX_NUMBER_OF_RECOMMENDATIONS = 5;
 
 // Connect to Event DB
 mongoose.connect(settings.eventService.db.protocol + '://' + settings.eventService.db.ip + ':' + settings.eventService.db.port + '/' + settings.eventService.db.schema);
@@ -15,45 +16,76 @@ var router = express.Router();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+/* Lese Empfehlungen für einen User */
 app.get('/recommendations/:userId', function(req, res){
-	//get where teilnehmer = ?
-	console.log("Teilnehmer " + req.headers.user);
+	if(!req.headers.user || !req.params.userId) {
+		res.send([]);
+	} else {
+		var recommendations = [];
 
-	request(settings.eventService.rest.protocol + '://' + settings.eventService.rest.ip + ':' + settings.eventService.rest.port + '/events?teilnehmer=' + req.params.userId, 
-		function (error, response, body) {
-			if (!error && response.statusCode == 200 && body) {
-				var events = JSON.parse(body);
-				if(events.length > 1) {
-					res.send([events[0], events[events.length - 1]]); 
+		// Suche Events aus der Kategorie, die der Nutzer am häufigsten besucht hat
+		Event.aggregate({$match: {teilnehmer : {$eq: req.params.userId}}}, {$group: {_id: '$kategorie', totalVisits: {$sum: 1}}}, {$sort: {totalVisits: -1}}, function(err, visitedCategories) {
+			if(err) {
+				console.log('Schade, fail');
+				console.log(err);
+				res.sendStatus(500);
+			} else {
+				console.log("Besuchte Kategorien des Nutzers " + req.params.userId);
+				console.log(visitedCategories);
+				for(var visitedCategory of visitedCategories) {
+					Event.find({'kategorie': visitedCategory._id}, {'teilnehmer' : {$ne: req.params.userId}}, function(err, similarEvents) {
+						if(!err && similarEvents) {
+							for(var similarEvent of similarEvents) {
+								if(recommendations.length < MAX_NUMBER_OF_RECOMMENDATIONS) {
+									recommendations.push(similarEvents);
+								} else {
+									break;
+								}
+							}
+						}
+					});
+				}
+
+				// Wenn keine passenden Events gefunden wurden, suche zufällige Events
+				if(recommendations.length === 0) {
+					console.log("Keine passenden Empfehlungen gefunden, suche zufällige Talks...");
+					Event.find({'teilnehmer' : {$ne: req.params.userId}}).limit(2).exec(function(err, randomRecommendations) {
+						res.send(randomRecommendations);
+					});
 				} else {
-					res.sendStatus(204);
+					res.send(recommendations);
 				}
 			}
-	});
-
-	/*Event.find({teilnehmer : req.params.userId}).distinct('kategorie').count(function(err, event) {
-		if (err)
-			res.status(500).send(err);
-		else
-			console.log(event);
-	});*/
-
-	// Fetch Kategorie and number of visits for current user
-	Event.aggregate({$match: {teilnehmer : {$eq: req.params.userId}}}, {$group: {_id: '$kategorie', totalVisits: {$sum: 1}}}, {$sort: {totalVisits: -1}}, function(err, res) {
-		if(err) {
-			console.log('Schade, fail');
-			console.log(err);
-		} else {
-			console.log(res);
-		}
-	});
-
-	console.log("Get ");
-	console.log(req.query);
-	//res.json('Foo');
+		});		
+	}
 });
 
+/* Benachrichtige User beim Eintragen eines neuen Events */
+app.post('/recommendations/mail/:eventId', function(req, res) {
+	Event.findOne({'_id': req.params.eventId}, function(err, newEvent) {
+		// Suche Events gleicher Kategorie
+		console.log("Neues Event eingetragen: " + newEvent.name);
+		console.log("Suche Teilnehmer der Kategorie " + newEvent.kategorie);
+		Event.find({'kategorie': newEvent.kategorie}).distinct('teilnehmer', function(err, oldTeilnehmer) {
+			if(!err) {
+				for(var teilnehmer of oldTeilnehmer) {
+					// Sende Mails via Mail-Service
+					console.log("Send Mail to " + teilnehmer);
+					request.post(settings.emailService.rest.protocol + '://' + settings.emailService.rest.ip + ':' + settings.emailService.rest.port + '/recommend', 
+						function (error, response) {
+							if (!error && response.statusCode == 200) {
+								console.log("E-Mail erfolgreich gesendet!");
+							}
+					});
+				}
+			}
+		});
+	});
+
+	res.sendStatus(200);
+});
 
 app.listen(settings.recommendationService.rest.port, function() {
-  console.log('Amazing recommendation service running at http://127.0.0.1:' + settings.recommendationService.rest.port + '/');
+  console.log('Amazing recommendation service running at ' + settings.recommendationService.rest.protocol + '://' + 
+  	settings.recommendationService.rest.ip + ':' + settings.recommendationService.rest.port  + '/');
 });

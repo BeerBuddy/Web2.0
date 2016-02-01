@@ -5,6 +5,8 @@ var mongoose = require("mongoose");
 var Event = require('./../model/event');
 var roles = require('../../roles');
 var connect = require('./connector');
+var request = require('request');
+var settings = require("../../settings.json");
 var MongoQS = require('mongo-querystring');
 var qs = new MongoQS({});
 
@@ -78,18 +80,28 @@ router.route('/')
 				event.kategorie= req.body.kategorie; 
 			
         // save the event and check for errors
-        event.save(function(err) {
-            if (err)
+        event.save(function(err, event) {
+            if (err) {
                 res.status(500).send(err);
-			else
-            res.json(event);
+            } else {
+            	// Notify user
+            	request.post(settings.recommendationService.rest.protocol + '://' + settings.recommendationService.rest.ip + ':' + settings.recommendationService.rest.port + '/recommendations/mail/' + event._id, 
+					function (error, response) {
+						if (!error && response.statusCode == 200) {
+							console.log("Sending Recommendations successful!");
+						}
+					});
+
+            	// Return event
+	            res.json(event);
+	        }
         });
 	}else
 	{
 		 res.status(401).send("No Permission to insert Event");
 	}		
   
-})
+});
 
 router.route('/:event_id/')
 // get the event with that id 
