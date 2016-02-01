@@ -22,8 +22,8 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
 					var von = $filter('date')( event.datumVon , "dd.MM.yyyy");
 					event.datum = von + (event.datumBis ? '-'+ $filter('date')(event.datumBis , "dd.MM.yyyy") : '');
 				}
-				if(event.kategorie)
-				event.kategorie = event.kategorie.name;
+				//if(event.kategorie)
+				//event.kategorie = event.kategorie.name;
 				
 			});
 			
@@ -38,7 +38,7 @@ angular.module('DevTalk.newTalk', ['ngRoute'])
                 {"name": "name", "title": "Name"},
                 {"name": "ort", "title": "Location"},
                 {"name": "datum", "title": "Date"},
-                {"name": "kategorie", "title": "Categorie"}
+                {"name": "kategorie", "title": "Category"}
             ];
 			
 		//handling clicks on Buttons for editing Events

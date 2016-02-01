@@ -25,8 +25,8 @@ angular.module('DevTalk.allTalks', ['ngRoute'])
 					var von = $filter('date')( event.datumVon , "dd.MM.yyyy");
 					event.datum = von + (event.datumBis ? '-'+ $filter('date')(event.datumBis , "dd.MM.yyyy") : '');
 				}
-				if(event.kategorie)
-				event.kategorie = event.kategorie.name;
+				//if(event.kategorie)
+				//event.kategorie = event.kategorie.name;
 			});
 			
 		});
@@ -40,17 +40,15 @@ angular.module('DevTalk.allTalks', ['ngRoute'])
     					var von = $filter('date')( event.datumVon , "dd.MM.yyyy");
     					event.datum = von + (event.datumBis ? '-'+ $filter('date')(event.datumBis , "dd.MM.yyyy") : '');
     				}
-    				if(event.kategorie)
-    				event.kategorie = event.kategorie.name;
+    				//if(event.kategorie)
+    				//event.kategorie = event.kategorie.name;
     			});
     			
     		});
         } else {
             $scope.highlighted = [];
         }
-        //$scope.highlighted = RecommendationService.query({userId: 1337}); // TODO richtige IDs verwenden
 
-        
 		$scope.columns =
             [
                 {"name": "name", "title": "Name"},

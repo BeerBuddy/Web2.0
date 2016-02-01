@@ -2,6 +2,7 @@ var express = require('express');
 var mongoose = require("mongoose");
 var bodyParser = require('body-parser');
 var request = require('request');
+var async = require("async");
 
 var settings = require("../settings.json");
 var Event = require('./model/event');
@@ -32,29 +33,39 @@ app.get('/recommendations/:userId', function(req, res){
 			} else {
 				console.log("Besuchte Kategorien des Nutzers " + req.params.userId);
 				console.log(visitedCategories);
-				for(var visitedCategory of visitedCategories) {
-					Event.find({'kategorie': visitedCategory._id}, {'teilnehmer' : {$ne: req.params.userId}}, function(err, similarEvents) {
+				async.each(visitedCategories, function(visitedCategory, callback) {
+					Event.find({'kategorie': visitedCategory._id, 'teilnehmer' : {$ne: req.params.userId}}, function(err, similarEvents) {
 						if(!err && similarEvents) {
 							for(var similarEvent of similarEvents) {
 								if(recommendations.length < MAX_NUMBER_OF_RECOMMENDATIONS) {
-									recommendations.push(similarEvents);
+									recommendations.push(similarEvent);
 								} else {
 									break;
 								}
 							}
+							console.log("Insgesamt " + similarEvents.length + " Empfehlungen für " + visitedCategory._id + " gefunden.");
+						} else {
+							console.log(err);
 						}
-					});
-				}
 
-				// Wenn keine passenden Events gefunden wurden, suche zufällige Events
-				if(recommendations.length === 0) {
-					console.log("Keine passenden Empfehlungen gefunden, suche zufällige Talks...");
-					Event.find({'teilnehmer' : {$ne: req.params.userId}}).limit(2).exec(function(err, randomRecommendations) {
-						res.send(randomRecommendations);
+						callback();				
 					});
-				} else {
-					res.send(recommendations);
-				}
+				}, function(err) {
+					console.log("Suche abgeschlossen!");
+					if(err) {
+						console.log(err);
+					}
+
+					// Wenn keine passenden Events gefunden wurden, suche zufällige Events
+					if(recommendations.length === 0) {
+						console.log("Keine passenden Empfehlungen gefunden, suche zufällige Talks...");
+						Event.find({'teilnehmer' : {$ne: req.params.userId}}).limit(2).exec(function(err, randomRecommendations) {
+							res.send(randomRecommendations);
+						});
+					} else {
+						res.send(recommendations);
+					}
+				});
 			}
 		});		
 	}

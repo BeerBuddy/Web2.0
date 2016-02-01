@@ -13,7 +13,7 @@
             <td ng-repeat="column in columns">{{row[column.name]}}</td>
             <td ng-show="clickable">
                 <button ng-click="onSelect({row: row})" >
-                    <iron-icon icon="search"></iron-icon>
+                    <iron-icon icon="{{icontype}}"></iron-icon>
                 </button>
             </td>
         </tr>

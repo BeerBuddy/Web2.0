@@ -25,8 +25,8 @@ angular.module('DevTalk.profile', ['ngRoute'])
 					var von = $filter('date')( event.datumVon , "dd.MM.yyyy");
 					event.datum = von + (event.datumBis ? '-'+ $filter('date')(event.datumBis , "dd.MM.yyyy") : '');
 				}
-				if(event.kategorie)
-				event.kategorie = event.kategorie.name;
+				//if(event.kategorie)
+				//event.kategorie = event.kategorie.name;
 				
 				});
 			});

@@ -61,7 +61,8 @@ function generateRandomId(array, prefix) {
 
 
 //some event names
-var eventsprefixes = ["Oracle", "Play", "Microsoft", "DEV", "Java", "Groovy & Grails", "c#", "Scala", "Web", "Cloud", "Microservice", "Spring", "Docker", "Liferay", "FirstSpirit"];
+//var eventsprefixes = ["Oracle", "Play", "Microsoft", "DEV", "Java", "Groovy & Grails", "c#", "Scala", "Web", "Cloud", "Microservice", "Spring", "Docker", "Liferay", "FirstSpirit"];
+var eventsprefixes = ["Java", "C", "C#", "Webtechnologien"];
 var eventpostfixs = ["eXchange", "UserGroup", "2016", "Days", "Congress", "Europe"];
 //some location for events
 var locations = ["London", "Berlin", "Dortmund", "Boston", "New York", "San Francsiko", "Bangkok", "Sydney"];
