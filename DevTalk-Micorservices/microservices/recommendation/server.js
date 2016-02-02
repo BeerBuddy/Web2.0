@@ -82,12 +82,9 @@ app.post('/recommendations/mail/:eventId', function(req, res) {
 				for(var teilnehmer of oldTeilnehmer) {
 					// Sende Mails via Mail-Service
 					console.log("Send Mail to " + teilnehmer);
-					request.post(settings.emailService.rest.protocol + '://' + settings.emailService.rest.ip + ':' + settings.emailService.rest.port + '/recommend', 
-						function (error, response) {
-							if (!error && response.statusCode == 200) {
-								console.log("E-Mail erfolgreich gesendet!");
-							}
-					});
+					var callback;
+					//Versenden einer Update-Mail via Email-Service
+					request.post({url:settings.emailService.rest.protocol + '://' + settings.emailService.rest.ip + ':' + settings.emailService.rest.port + '/email' , form: {mail:teilnehmer.email, name:teilnehmer.name, type:'RECOMMEND'}},callback);
 				}
 			}
 		});

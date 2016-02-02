@@ -226,7 +226,7 @@ router.route('/:event_id/teilnehmer')
 										{
 											console.log("body");
 											console.log(body);
-											connect.sendMailTeilnehmer(event,JSON.parse(body).email, function(err,httpResponse,body){
+											connect.sendMailTeilnehmer(event,JSON.parse(body).name,JSON.parse(body).email, function(err,httpResponse,body){
 												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
@@ -356,7 +356,7 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 											console.log("body");
 											console.log(body);
 											console.log("connect.sendMail: "+JSON.parse(body).email);
-											connect.sendMailNachruecker(event,JSON.parse(body).email, function(err,httpResponse,body){
+											connect.sendMailNachruecker(event,JSON.parse(body).name,JSON.parse(body).email, function(err,httpResponse,body){
 												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
@@ -369,7 +369,7 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 											console.log("body");
 											console.log(body);
 											console.log("connect.sendMail: "+JSON.parse(body).email);
-											connect.sendMailAbgemeldet(event,JSON.parse(body).email, function(err,httpResponse,body){
+											connect.sendMailAbgemeldet(event,JSON.parse(body).name,JSON.parse(body).email, function(err,httpResponse,body){
 												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
@@ -414,7 +414,7 @@ router.route('/:event_id/teilnehmer/:teilnehmer_id')
 											console.log("body");
 											console.log(body);
 											console.log("connect.sendMail: "+JSON.parse(body).email);
-											connect.sendMailAbgemeldet(event,JSON.parse(body).email, function(err,httpResponse,body){
+											connect.sendMailAbgemeldet(event,JSON.parse(body).name,JSON.parse(body).email, function(err,httpResponse,body){
 												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
@@ -493,7 +493,7 @@ router.route('/:event_id/warteliste')
 											console.log("body");
 											console.log(body);
 											console.log("connect.sendMail: "+JSON.parse(body).email);
-											connect.sendMailWarteliste(event,JSON.parse(body).email, function(err,httpResponse,body){
+											connect.sendMailWarteliste(event,JSON.parse(body).name,JSON.parse(body).email, function(err,httpResponse,body){
 												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);
@@ -607,7 +607,7 @@ router.route('/:event_id/warteliste/:teilnehmer_id')
 											console.log("body");
 											console.log(body);
 											console.log("connect.sendMail: "+JSON.parse(body).email);
-											connect.sendMailWartelisteAbgemeldet(event,JSON.parse(body).email, function(err,httpResponse,body){
+											connect.sendMailWartelisteAbgemeldet(event,JSON.parse(body).name,JSON.parse(body).email, function(err,httpResponse,body){
 												if(err || httpResponse.statusCode != 200)
 												{
 													res.status(500).send(err);

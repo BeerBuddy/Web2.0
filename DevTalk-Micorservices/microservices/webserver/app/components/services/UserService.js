@@ -4,7 +4,7 @@
 
   var app = angular.module('DevTalk.user',['DevTalk.mail']);
 
-  app.factory('UserService', ['$http', '$window', "EmailService" , function ($http, $window, EmailService) {
+  app.factory('UserService', ['$http', '$window', function ($http, $window) {
     var users = [];
     var currentUser = {};
 
@@ -31,7 +31,6 @@
         })
         .then(function(response){
                 // Registrierung erfolgreich
-                EmailService.sendMailRegister(name, email);
                 return response.data.user;
               });
         return result;
@@ -54,7 +53,6 @@
                 })
                 .then(function(response){
                   currentUser = response.data.user;
-                  EmailService.sendMailProfile(name, email);
                   return response.data.user;
                 });
                 return result;

@@ -7,6 +7,7 @@ var settings = require("../settings.json");
 var cert = fs.readFileSync('../server.cer');  // get private key
 var jwt = require('jsonwebtoken');
 var roles = require('../roles');
+var request = require('request');
 
 /*
 TODO authentication token
@@ -101,6 +102,9 @@ app.post('/register', function(req, res) {
             role: roles.user
         });
         saveUser(user);
+		var callback;
+		//Versenden einer Registrierungs-Mail via Email-Service
+		request.post({url:settings.emailService.rest.protocol + '://' + settings.emailService.rest.ip + ':' + settings.emailService.rest.port + '/email' , form: {mail:user.email, name:user.name, type:'REGISTER'}},callback);		
         res.status(200).send(user);
       }
     })
@@ -120,7 +124,9 @@ app.post('/update', function(req, res) {
         user.email = req.body.email;
         user.password = req.body.password;
         saveUser(user);
-
+		//Versenden einer Update-Mail via Email-Service
+		var callback;
+		request.post({url:settings.emailService.rest.protocol + '://' + settings.emailService.rest.ip + ':' + settings.emailService.rest.port + '/email' , form: {mail:user.email, name:user.name, type:'PROFILE'}},callback);
         res.status(200).json({
           success: true,
           message: 'Update successful!',

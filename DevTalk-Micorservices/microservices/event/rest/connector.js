@@ -1,11 +1,8 @@
 var request = require('request');
 var settings = require("../../settings.json");
 
-function sendMail(mail,text,subject,callback){
-		
-		console.log("sendMail" + subject +" to "+ mail );
-		request.post({url:settings.emailService.rest.protocol + '://' + settings.emailService.rest.ip + ':' + settings.emailService.rest.port + '/email' , form: {receiver:mail, text: text, subject: subject}}, 
-		callback);
+function sendMail(mail,name,event,type,callback){
+		request.post({url:settings.emailService.rest.protocol + '://' + settings.emailService.rest.ip + ':' + settings.emailService.rest.port + '/email' , form: {mail:mail, name:name, event:event, type:type}},callback);
 };
 
 var obj = {
@@ -18,49 +15,49 @@ var obj = {
 		
 	},
 	
-	sendMailWarteliste: function(event, mail,callback)
+	sendMailWarteliste: function(event,name,mail,callback)
 	{
 		try{
-		sendMail(mail,'Leider sind keine Kapazitäten mehr für das Event '+ event.name +' verfügbar, sie wurden aber auf die Warteliste gesetzt','Sie sind auf der Warteliste', callback);
+		sendMail(mail,name,event.name,'WAIT', callback);
 		}catch(err)
 		{
 			callback && callback(err);
 		}
 	},
 	
-	sendMailTeilnehmer: function(event, mail,callback)
+	sendMailTeilnehmer: function(event,name,mail,callback)
 	{
 		try{
-		sendMail(mail,'Herzlichen glückwunsch, Sie haben sich erfolgreich zum Event '+ event.name +' angemeldet. Sollten Sie nichtmehr teilnehmen wollen melden Sie sich bitte ab.','Sie haben sich angemeldet', callback);
+		sendMail(mail,name,event.name,'SIGNIN', callback);
 	}catch(err)
 		{
 			callback && callback(err);
 		}
 	},
 	
-	sendMailNachruecker: function(event, mail,callback)
+	sendMailNachruecker: function(event,name,mail,callback)
 	{
 		try{
-		sendMail(mail,'Herzlichen Glückwunsch, Sie sind nachgerückt und sidn jetzt für das Event '+ event.name +' angemeldet. Sollten Sie nichtmehr teilnehmen wollen melden Sie sich bitte ab.','Sie sind Nachgerückt', callback);
+		sendMail(mail,name,event.name,'SUCCESSOR', callback);
 	}catch(err)
 		{
 			callback && callback(err);
 		}
 	},
 	
-	sendMailAbgemeldet: function(event, mail,callback)
+	sendMailAbgemeldet: function(event,name,mail,callback)
 	{
 		try{
-		sendMail(mail,'Sie haben sich erfolgreich von dem Event '+ event.name +' abgemdelte.','Sie haben sich abgemeldet', callback);
+		sendMail(mail,name,event.name,'SIGNOUT', callback);
 	}catch(err)
 		{
 			callback && callback(err);
 		}
 	},
-	sendMailWartelisteAbgemeldet: function(event, mail,callback)
+	sendMailWartelisteAbgemeldet: function(event,name,mail,callback)
 	{
 		try{
-		sendMail(mail,'Sie haben sich erfolgreich von der Warteliste für das Event '+ event.name +' abgemdelte.','Sie haben sich abgemeldet', callback);
+		sendMail(mail,name,event.name,'ENDWAIT', callback);
 	}catch(err)
 		{
 			callback && callback(err);
