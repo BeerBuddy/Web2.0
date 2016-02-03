@@ -151,6 +151,7 @@ function writeLog(req, res, email){
 			res.status(500).send(err);
 		} else{
 			console.log('Email versandt und dokumentiert.');
+			res.status(200).send('Email versandt und dokumentiert.');
 		}
 	});				
 }

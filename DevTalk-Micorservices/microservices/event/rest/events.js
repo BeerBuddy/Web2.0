@@ -209,7 +209,7 @@ router.route('/:event_id/teilnehmer')
 				else if(event){
 				
 				
-					if(event.teilnehmer.length < event.kapazitaet)
+					if(!event.kapazitaet || event.teilnehmer.length < event.kapazitaet)
 					{
 						if(event.teilnehmer.indexOf(req.body.teilnehmer) === -1){
 							

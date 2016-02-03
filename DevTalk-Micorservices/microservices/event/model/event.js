@@ -6,7 +6,6 @@ var Event = mongoose.model('Event', {
     datumVon: Date,
 	datumBis: Date,
 	kategorie: String,
-    event: String,
     teilnehmer: [String],
 	warteliste: [String],
 	kapazitaet: Number,
