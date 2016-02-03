@@ -20,6 +20,14 @@ input {
     height: 35px;
 }
 
+textarea {
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+    padding: 2px 5px;
+    width: 100%;
+    border-radius: 5px;
+}
+
 select {
     border: 1px solid #ccc;
     font-size: 0.9em;

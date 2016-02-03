@@ -13,8 +13,11 @@
 					<input type='text' id="talk_location" placeholder="Location" ng-model="talk.ort" required>
 				</p>
 				<p>
+					<textarea type='text' rows="3" wrap="virtual" id="talk_description" placeholder="Description" ng-model="talk.beschreibung"></textarea>
+				</p>
+				<p>
 					<input type='date' id="talk_start" class="date" placeholder="Start Date" ng-model="talk.datumVon" required>
-					- <input type='date' id="talk_end"  class="date" placeholder="End Date"  ng-model="talk.datumBis">
+					- <input type='date' id="talk_end"  class="date" placeholder="End Date"  ng-model="talk.datumBis" required>
 				</p>
 				<p>
 					Categorie: 

@@ -20,17 +20,17 @@
 						//call by reference
 						$scope.onCreate(talk);
 					}
-					$scope.talk.id = $scope.talk.name = $scope.talk.ort = $scope.talk.datumVon = $scope.talk.datumBis = $scope.talk.kategorie = $scope.talk.kapazitaet = "";
+					delete $scope.talk;
 				};
 				//delete existing Event
 				$scope.decline = function (id) {
 					$scope.onDecline(id);
-					$scope.talk.id = $scope.talk.name = $scope.talk.ort = $scope.talk.datumVon = $scope.talk.datumBis = $scope.talk.kategorie = $scope.talk.kapazitaet = "";
+					delete $scope.talk;
 					$scope.edit = "";
 				};				
 				//reset input fields
 				$scope.cancel=function(){
-					$scope.talk.id = $scope.talk.name = $scope.talk.ort = $scope.talk.datumVon = $scope.talk.datumBis = $scope.talk.kategorie = $scope.talk.kapazitaet = "";
+					delete $scope.talk;
 					$scope.edit = "";
 				};
 				//show data on screen

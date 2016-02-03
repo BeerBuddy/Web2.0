@@ -7,7 +7,8 @@ describe('Test for the create-talk-component', function () {
     
 	it('click on cancel-button resets input fields', function () {
 	  element(by.id('talk_name')).sendKeys('Hardcore-Coden');
-      element(by.id('talk_location')).sendKeys('Dortmund');	
+      element(by.id('talk_location')).sendKeys('Dortmund');
+	  element(by.id('talk_description')).sendKeys('That will be fun!');		  
 	  element(by.id('talk_start')).sendKeys('04.01.2016');
       element(by.id('talk_end')).sendKeys('08.01.2016');
 	  element(by.id('talk_categorie')).sendKeys('Java');
@@ -21,6 +22,7 @@ describe('Test for the create-talk-component', function () {
 	it('component should have serveral inputs', function () {
 	  expect(element(by.id('talk_name')).isDisplayed()).toBeTruthy();
 	  expect(element(by.id('talk_location')).isDisplayed()).toBeTruthy();
+	  expect(element(by.id('talk_description')).isDisplayed()).toBeTruthy();
 	  expect(element(by.id('talk_start')).isDisplayed()).toBeTruthy();
       expect(element(by.id('talk_end')).isDisplayed()).toBeTruthy();
       expect(element(by.id('talk_categorie')).isDisplayed()).toBeTruthy();
