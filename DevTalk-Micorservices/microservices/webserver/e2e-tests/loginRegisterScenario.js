@@ -47,5 +47,15 @@ describe('Test for the login and register component', function () {
       expect(browser.getLocationAbsUrl()).not.toMatch("/login");
     });
 
+    it('should register a user', function(){
+      element(by.css('#account_username')).sendKeys('regTest');
+      element(by.css('#account_email')).sendKeys('regTest'+ new Date().getTime() +'@test.de');
+      element(by.css('#account_password')).sendKeys('regTest');
+      element(by.css('#account_password_confirmation')).sendKeys('regTest');
+      element(by.css('login-register-component #agb')).sendKeys(protractor.Key.SPACE);
+      element(by.css('#register_submit')).sendKeys(protractor.Key.ENTER);
+      expect(browser.getLocationAbsUrl()).not.toMatch("/login");
+    });
+
   });
 });
