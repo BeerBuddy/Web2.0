@@ -125,7 +125,6 @@ function sendMail(req, res, mailOptions){
 		//really sending the Mail via SMTP GMail
 		transp.sendMail(mailOptions, function(err,response){
 			if(err){
-				console.log(err);
 				res.status(500).send(err);	
 			}
 			//build instance for DB-save
@@ -135,9 +134,8 @@ function sendMail(req, res, mailOptions){
 			email.subject = mailOptions.subject;
 			email.text = mailOptions.text;
 			email.timestamp = new Date();
-			
+			//call DB-save
 			writeLog(req, res, email);
-			console.log(response);
 		});
 	} catch(e){
 		res.status(500).send(e);	
@@ -150,8 +148,7 @@ function writeLog(req, res, email){
 		if (err){
 			res.status(500).send(err);
 		} else{
-			console.log('Email versandt und dokumentiert.');
-			res.status(200).send('Email versandt und dokumentiert.');
+			res.json(email);
 		}
 	});				
 }
@@ -160,9 +157,9 @@ function writeLog(req, res, email){
 app.get("/email", function (req, res) {
     Email.find(function (err, email) {
         if (err) {
-            res.send(500, err);
+            res.status(500).send(err);
         } else {
-            res.send(200, email);
+            res.json(email);
         }
     });
 });
@@ -173,9 +170,9 @@ app.get("/email/:receiver", function (req, res) {
         receiver: req.params.receiver
     }, function (err, email) {
         if (err) {
-            res.send(500, err);
+            res.status(500).send(err);
         } else {
-            res.send(200, email);
+            res.json(email);
         }
     })
 });

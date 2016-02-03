@@ -1,5 +1,5 @@
-# Create-Talk-Component
-Diese Komponente kann genutzt werden um einen Talk, also eine Veranstaltung, zu editieren oder neu zu erstellen.
+﻿# Create-Talk-Component
+Diese Komponente kann genutzt werden um einen Talk zu erstellen, zu editieren oder abzusagen.
 
 ## Benutzung
 
@@ -12,8 +12,7 @@ Diese Komponente kann genutzt werden um einen Talk, also eine Veranstaltung, zu 
 </head>
 
 <body>
-	<create-talk-component 
-		talk='{"name":"ABAP für Fortgeschrittene", "place":"Walldorf", "start":"2016-04-01", "end":"2016-01-08", "categorie":"2"}'/>
+	<create-talk-component />
 </body>
 ```
 ### Parameter
@@ -26,9 +25,11 @@ Der Talk im JSON-Format muss mit den folgenden Attributen übergeben werden:
 ```json
 {
     name: Bezeichnung der Veranstaltung (String)
-    place: Veranstaltungsort (String)
-    start: Beginndatum der Veranstaltung (Datumsformat yyyy-mm-tt)
-	end: Endedatum der Veranstaltung (Datumsformat yyyy-mm-tt)
-	categorie: Veranstaltungskategorie (Zahlenwert)
+    ort: Veranstaltungsort (String)
+    beschreibung: Veranstaltungsbeschreibung (String)
+    datumVon: Beginndatum der Veranstaltung (Datumsformat yyyy-mm-tt)
+    datumBis: Endedatum der Veranstaltung (Datumsformat yyyy-mm-tt)
+    kategorie: Veranstaltungskategorie (String)
+    kapazitaet: Anzahl Plätze (Zahlenwert)
 }
 ```
